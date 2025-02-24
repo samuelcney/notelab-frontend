@@ -3,6 +3,7 @@ import { Button } from "../Button";
 import Icon from "../Icon/Icon";
 import { Input } from "../Input";
 import { useState } from "react";
+import { notify } from "../Toast/Toast";
 
 interface RegisterLayoutProps {
   ontoggle?: () => void;
@@ -60,7 +61,12 @@ export const RegisterLayout = ({ ontoggle }: RegisterLayoutProps) => {
           </Input.Root>
 
           <Button.Root isFullSize>
-            <Button.Content title="Cadastrar" />
+            <Button.Content
+              title="Cadastrar"
+              onclick={() => {
+                notify("Cadastro efetuado com sucesso!", "success");
+              }}
+            />
 
             <p
               className="text-xs underline mr-1 mt-3 text-background font-normal tracking-widest cursor-pointer"

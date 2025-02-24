@@ -3,6 +3,7 @@ import { Button } from "../Button";
 import Icon from "../Icon/Icon";
 import { Input } from "../Input";
 import { useState } from "react";
+import { notify } from "../Toast/Toast";
 
 interface LoginLayoutProps {
   ontoggle?: () => void;
@@ -54,7 +55,12 @@ export const LoginLayout = ({ ontoggle }: LoginLayoutProps) => {
           </Input.Root>
 
           <Button.Root isFullSize>
-            <Button.Content title="Entrar" />
+            <Button.Content
+              title="Entrar"
+              onclick={() => {
+                notify("Login feito com sucesso", "success");
+              }}
+            />
 
             <p
               className="text-xs underline mr-1 mt-3 text-background font-normal tracking-widest cursor-pointer"
