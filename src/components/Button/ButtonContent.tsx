@@ -6,6 +6,7 @@ interface ButtonContentProps {
   onclick?: () => void;
   type?: ButtonHTMLAttributes<HTMLButtonElement>["type"];
   isLoading?: boolean;
+  isSmallHeight?: boolean;
 }
 
 export const ButtonContent = ({
@@ -13,11 +14,14 @@ export const ButtonContent = ({
   onclick,
   type,
   isLoading,
+  isSmallHeight,
 }: ButtonContentProps) => {
   return (
     <div className="w-full">
       <button
-        className="w-full h-12 bg-foreground text-background rounded-xl flex items-center justify-center font-bold text-lg tracking-wide transition-transform duration-300 hover:scale-[1.03] focus:ring-2 focus:ring-[--highlight] disabled:opacity-60 disabled:cursor-not-allowed"
+        className={`w-full bg-light-green rounded-xl flex items-center justify-center font-bold text-lg tracking-wide transition-transform duration-300 hover:scale-[1.03] focus:ring-2 focus:ring-[--highlight] disabled:opacity-60 disabled:cursor-not-allowed ${
+          isSmallHeight ? "h-8" : "h-12"
+        }`}
         onClick={onclick}
         type={type}
         disabled={isLoading}
@@ -26,9 +30,7 @@ export const ButtonContent = ({
           <Icon name="LoaderCircle" className="animate-spin" size={20} />
         ) : (
           <span>
-            <h1 className="tracking-wider font-bold text-lg">
-              {title.toUpperCase()}
-            </h1>
+            <h1 className="tracking-widest font-semibold text-xl">{title}</h1>
           </span>
         )}
       </button>

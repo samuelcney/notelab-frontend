@@ -6,10 +6,10 @@ interface IconProps extends React.SVGProps<SVGSVGElement> {
   size?: string | number;
 }
 
-const Icon = ({ name, size, ...rest }: IconProps) => {
+const Icon = ({ name, size, color = "#000", ...rest }: IconProps) => {
   const LucideIcon = icons[name];
 
-  return <LucideIcon {...rest} size={size} />;
+  return <LucideIcon {...rest} size={size} color={color} />;
 };
 
 export default Icon;

@@ -10,6 +10,7 @@ interface InputProps {
   register?: UseFormRegisterReturn;
   invert?: boolean;
   onclick?: () => void;
+  isSmallHeight?: boolean;
 }
 
 export const InputContent = ({
@@ -21,28 +22,31 @@ export const InputContent = ({
   register,
   invert = false,
   onclick,
+  isSmallHeight,
 }: InputProps) => {
   return (
-    <div className="flex flex-col w-full">
+    <div className="flex flex-col w-full gap-1">
       {label && (
         <label
-          className={`text-foreground text-sm ml-1 tracking-widest font-normal`}
+          className={`text-background text-sm ml-1 tracking-widest font-normal`}
         >
           {label}
         </label>
       )}
 
       <div
-        className={`w-full border rounded-xl p-1 flex items-center h-12 ${
-          invert ? "invert" : ""
-        } ${error ? "border-red-600" : "border-foreground"}`}
+        className={`w-full border rounded-xl p-1 flex items-center ${
+          isSmallHeight ? "h-10" : "h-12"
+        } ${invert ? "invert" : ""} ${
+          error ? "border-red-600" : "border-background"
+        }`}
       >
         <input
           {...register}
           type={type}
           placeholder={placeholder}
           className="w-full 
-          h-full bg-transparent px-2 py-3 text-lg focus:outline-none"
+          h-full bg-transparent px-2 py-3 text-base focus:outline-none text-background font-normal"
         />
         {icon && (
           <span
