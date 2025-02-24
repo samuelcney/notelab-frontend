@@ -4,9 +4,10 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const images = [
-  "/images/image1.jpg",
-  "/images/image2.jpg",
-  "/images/image3.jpg",
+  "/images/background/image1.jpg",
+  "/images/background/image2.jpg",
+  "/images/background/image3.jpg",
+  "/images/background/image4.jpg",
 ];
 
 export default function ImageSlideshow() {
@@ -15,7 +16,7 @@ export default function ImageSlideshow() {
   useEffect(() => {
     const interval = setInterval(() => {
       setIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 10000);
+    }, 7000);
 
     return () => clearInterval(interval);
   }, []);
