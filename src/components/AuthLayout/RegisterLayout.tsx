@@ -23,13 +23,13 @@ export const RegisterLayout = ({ ontoggle }: RegisterLayoutProps) => {
         >
           <Input.Root isFullWidth>
             <div className="w-full">
-              <h1 className="text-xl tracking-wide text-background flex flex-wrap gap-2">
+              <h1 className="text-2xl tracking-wide text-background flex flex-wrap gap-2">
                 Eai, vamos começar?
               </h1>
-              <h2 className="text-lg tracking-wide text-background font-normal ml-1">
+              <h2 className="text-xl tracking-wide text-background font-normal ml-1">
                 Cadastre-se agora e faça parte da{" "}
-                <span className="text-light-green tracking-widest font-bold">
-                  IntelliMusic
+                <span className="text-light-green tracking-widest font-extrabold">
+                  IntelliMusic{" "}
                 </span>
                 !
               </h2>
@@ -43,7 +43,7 @@ export const RegisterLayout = ({ ontoggle }: RegisterLayoutProps) => {
               type={hidePassword ? "password" : "text"}
               icon={
                 <Icon
-                  name={hidePassword ? "Lock" : "LockOpen"}
+                  name={hidePassword ? "EyeClosed" : "Eye"}
                   onClick={() => setHidePassword(!hidePassword)}
                 />
               }
@@ -53,7 +53,7 @@ export const RegisterLayout = ({ ontoggle }: RegisterLayoutProps) => {
               type={hidePassword ? "password" : "text"}
               icon={
                 <Icon
-                  name={hidePassword ? "Lock" : "LockOpen"}
+                  name={hidePassword ? "EyeClosed" : "Eye"}
                   onClick={() => setHidePassword(!hidePassword)}
                 />
               }

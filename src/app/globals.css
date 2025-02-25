@@ -23,8 +23,8 @@ html {
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
+  color: var(--background);
+  background: var(--foreground);
   font-family: var(--font-geist-sans), sans-serif;
   font-weight: 400 !important;
   height: 100%;

@@ -4,6 +4,7 @@ import Icon from "../Icon/Icon";
 import { Input } from "../Input";
 import { useState } from "react";
 import { notify } from "../Toast/Toast";
+import { useRouter } from "next/navigation";
 
 interface LoginLayoutProps {
   ontoggle?: () => void;
@@ -11,6 +12,8 @@ interface LoginLayoutProps {
 
 export const LoginLayout = ({ ontoggle }: LoginLayoutProps) => {
   const [hidePassword, setHidePassword] = useState(true);
+
+  const navigation = useRouter();
   return (
     <div className="w-[90%] h-[90%] flex flex-col justify-center items-center font-semibold">
       <AnimatePresence>
@@ -23,14 +26,14 @@ export const LoginLayout = ({ ontoggle }: LoginLayoutProps) => {
         >
           <Input.Root isFullWidth>
             <div className="w-full">
-              <h1 className="text-xl tracking-wide text-background flex flex-wrap gap-2">
+              <h1 className="text-2xl tracking-wide text-background flex flex-wrap gap-2">
                 Olá, bem vindo à{" "}
-                <span className="text-light-green tracking-widest font-bold">
+                <span className="text-light-green tracking-widest font-extrabold">
                   IntelliMusic
                 </span>
                 !
               </h1>
-              <h2 className="text-lg tracking-wide text-background font-normal ml-1">
+              <h2 className="text-xl tracking-wide text-background font-normal ml-1">
                 Faça seu login para entrar
               </h2>
             </div>
@@ -41,7 +44,7 @@ export const LoginLayout = ({ ontoggle }: LoginLayoutProps) => {
               type={hidePassword ? "password" : "text"}
               icon={
                 <Icon
-                  name={hidePassword ? "Lock" : "LockOpen"}
+                  name={hidePassword ? "EyeClosed" : "Eye"}
                   onClick={() => setHidePassword(!hidePassword)}
                 />
               }
@@ -57,9 +60,7 @@ export const LoginLayout = ({ ontoggle }: LoginLayoutProps) => {
           <Button.Root isFullSize>
             <Button.Content
               title="Entrar"
-              onclick={() => {
-                notify("Login feito com sucesso", "success");
-              }}
+              onclick={() => navigation.push("/home")}
             />
 
             <p
