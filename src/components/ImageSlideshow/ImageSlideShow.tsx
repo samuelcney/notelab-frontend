@@ -40,7 +40,7 @@ export default function ImageSlideshow() {
             key={imagePaths[index]}
             src={imagePaths[index]}
             alt="Slideshow"
-            className="absolute inset-0 w-full h-full object-cover border-[8px] border-light-green bg-foreground aspect-square"
+            className="absolute inset-0 w-full h-full object-cover bg-foreground aspect-squares"
             initial={{ opacity: 0 }}
             animate={{ opacity: 11 }}
             exit={{ opacity: 0 }}

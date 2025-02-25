@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { Button } from "../Button";
-import Icon from "../Icon/Icon";
+import Icon from "../Icons/Icon";
 import { Input } from "../Input";
 import { useState } from "react";
 import { notify } from "../Toast/Toast";
@@ -28,7 +28,7 @@ export const LoginLayout = ({ ontoggle }: LoginLayoutProps) => {
             <div className="w-full">
               <h1 className="text-2xl tracking-wide text-background flex flex-wrap gap-2">
                 Olá, bem vindo à{" "}
-                <span className="text-light-green tracking-widest font-extrabold">
+                <span className="text-green tracking-widest font-extrabold">
                   IntelliMusic
                 </span>
                 !

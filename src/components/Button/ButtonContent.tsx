@@ -1,5 +1,5 @@
 import { ButtonHTMLAttributes } from "react";
-import Icon from "../Icon/Icon";
+import Icon from "../Icons/Icon";
 
 interface ButtonContentProps {
   title: string;
@@ -19,7 +19,7 @@ export const ButtonContent = ({
   return (
     <div className="w-full">
       <button
-        className={`w-full bg-light-green rounded-xl flex items-center justify-center font-bold text-lg tracking-wide transition-transform duration-300 hover:scale-[1.03] focus:ring-2 focus:ring-[--highlight] disabled:opacity-60 disabled:cursor-not-allowed text-foreground ${
+        className={`w-full bg -green rounded-xl flex items-center justify-center font-bold text-lg tracking-wide transition-transform duration-300 hover:scale-[1.03] focus:ring-2 focus:ring-[--highlight] disabled:opacity-60 disabled:cursor-not-allowed text-foreground ${
           isSmallHeight ? "h-8" : "h-12"
         }`}
         onClick={onclick}

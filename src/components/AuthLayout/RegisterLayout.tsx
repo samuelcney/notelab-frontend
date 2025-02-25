@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { Button } from "../Button";
-import Icon from "../Icon/Icon";
+import Icon from "../Icons/Icon";
 import { Input } from "../Input";
 import { useState } from "react";
 import { notify } from "../Toast/Toast";
@@ -28,10 +28,9 @@ export const RegisterLayout = ({ ontoggle }: RegisterLayoutProps) => {
               </h1>
               <h2 className="text-xl tracking-wide text-background font-normal ml-1">
                 Cadastre-se agora e faça parte da{" "}
-                <span className="text-light-green tracking-widest font-extrabold">
+                <span className="text-green tracking-widest font-extrabold">
                   IntelliMusic{" "}
                 </span>
-                !
               </h2>
             </div>
 
