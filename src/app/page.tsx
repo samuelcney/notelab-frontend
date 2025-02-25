@@ -19,7 +19,7 @@ export default function AuthPage() {
       <div className="flex flex-1 relative">
         <ImageSlideshow />
       </div>
-      <div className="flex-1 h-full bg-foreground flex items-center justify-center">
+      <div className="flex-1 h-full bg-background flex items-center justify-center">
         {isLogin ? (
           <AuthLayout.Login ontoggle={toggleAuthView} />
         ) : (

@@ -19,7 +19,7 @@ export const ButtonContent = ({
   return (
     <div className="w-full">
       <button
-        className={`w-full bg -green rounded-xl flex items-center justify-center font-bold text-lg tracking-wide transition-transform duration-300 hover:scale-[1.03] focus:ring-2 focus:ring-[--highlight] disabled:opacity-60 disabled:cursor-not-allowed text-foreground ${
+        className={`w-full bg-greenApp rounded-xl flex items-center justify-center font-bold text-lg tracking-wide transition-transform duration-300 hover:scale-[1.03] focus:ring-2 focus:ring-[--highlight] disabled:opacity-60 disabled:cursor-not-allowed ${
           isSmallHeight ? "h-8" : "h-12"
         }`}
         onClick={onclick}
@@ -30,7 +30,9 @@ export const ButtonContent = ({
           <Icon name="LoaderCircle" className="animate-spin" size={20} />
         ) : (
           <span>
-            <h1 className="tracking-widest font-extrabold text-xl">{title}</h1>
+            <h1 className="tracking-widest font-extrabold text-xl text-white">
+              {title}
+            </h1>
           </span>
         )}
       </button>

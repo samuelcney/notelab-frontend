@@ -28,7 +28,7 @@ export const InputContent = ({
     <div className="flex flex-col w-full gap-1">
       {label && (
         <label
-          className={`text-background text-sm ml-1 tracking-widest font-normal`}
+          className={`text-foreground text-sm ml-1 tracking-widest font-normal`}
         >
           {label}
         </label>
@@ -38,7 +38,7 @@ export const InputContent = ({
         className={`w-full border rounded-xl p-1 flex items-center ${
           isSmallHeight ? "h-10" : "h-12"
         } ${invert ? "invert" : ""} ${
-          error ? "border-red-600" : "border-background"
+          error ? "border-red-600" : "border-foreground"
         }`}
       >
         <input
@@ -46,7 +46,7 @@ export const InputContent = ({
           type={type}
           placeholder={placeholder}
           className="w-full 
-          h-full bg-transparent px-2 py-3 text-base focus:outline-none text-background font-normal"
+          h-full bg-transparent px-2 py-3 text-base focus:outline-none text-foreground font-normal"
         />
         {icon && (
           <span

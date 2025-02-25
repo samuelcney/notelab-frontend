@@ -33,14 +33,14 @@ export default function ImageSlideshow() {
   }, []);
 
   return (
-    <div className="relative w-full h-full overflow-hidden bg-foreground">
+    <div className="relative w-full h-full overflow-hidden bg-background">
       <AnimatePresence>
         {loadedImages.includes(imagePaths[index]) && (
           <motion.img
             key={imagePaths[index]}
             src={imagePaths[index]}
             alt="Slideshow"
-            className="absolute inset-0 w-full h-full object-cover bg-foreground aspect-squares"
+            className="absolute inset-0 w-full h-full object-cover bg-background aspect-squares"
             initial={{ opacity: 0 }}
             animate={{ opacity: 11 }}
             exit={{ opacity: 0 }}

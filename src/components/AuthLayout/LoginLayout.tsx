@@ -26,14 +26,14 @@ export const LoginLayout = ({ ontoggle }: LoginLayoutProps) => {
         >
           <Input.Root isFullWidth>
             <div className="w-full">
-              <h1 className="text-2xl tracking-wide text-background flex flex-wrap gap-2">
+              <h1 className="text-2xl tracking-wide text-foreground flex flex-wrap gap-2">
                 Olá, bem vindo à{" "}
-                <span className="text-green tracking-widest font-extrabold">
+                <span className="text-greenApp tracking-widest font-extrabold">
                   IntelliMusic
                 </span>
                 !
               </h1>
-              <h2 className="text-xl tracking-wide text-background font-normal ml-1">
+              <h2 className="text-xl tracking-wide text-foreground font-normal ml-1">
                 Faça seu login para entrar
               </h2>
             </div>
@@ -51,7 +51,7 @@ export const LoginLayout = ({ ontoggle }: LoginLayoutProps) => {
             />
 
             <div className="w-full flex justify-end">
-              <p className="text-xs underline mr-1 text-background font-normal tracking-widest cursor-pointer">
+              <p className="text-xs underline mr-1 text-foreground font-normal tracking-widest cursor-pointer">
                 Esqueci minha senha
               </p>
             </div>
@@ -64,7 +64,7 @@ export const LoginLayout = ({ ontoggle }: LoginLayoutProps) => {
             />
 
             <p
-              className="text-xs underline mr-1 mt-3 text-background font-normal tracking-widest cursor-pointer"
+              className="text-xs underline mr-1 mt-3 text-foreground font-normal tracking-widest cursor-pointer"
               onClick={ontoggle}
             >
               Ainda não possui uma conta? Clique aqui!
