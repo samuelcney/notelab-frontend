@@ -18,11 +18,13 @@ html {
   margin: 0;
   box-sizing: border-box;
   outline: none !important;
+  user-select: none;
 }
 
 *:focus {
   outline: none !important;
   border: none !important;
+  user-select: none;
 }
 
 body {
