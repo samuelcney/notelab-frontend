@@ -29,7 +29,7 @@ export const RegisterLayout = ({ ontoggle }: RegisterLayoutProps) => {
               <h2 className="text-xl tracking-wide text-foreground font-normal ml-1">
                 Cadastre-se agora e faça parte da{" "}
                 <span className="text-greenApp tracking-widest font-extrabold">
-                  IntelliMusic{" "}
+                  NoteLab{" "}
                 </span>
               </h2>
             </div>

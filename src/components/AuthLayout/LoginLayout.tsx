@@ -29,7 +29,7 @@ export const LoginLayout = ({ ontoggle }: LoginLayoutProps) => {
               <h1 className="text-2xl tracking-wide text-foreground flex flex-wrap gap-2">
                 Olá, bem vindo à{" "}
                 <span className="text-greenApp tracking-widest font-extrabold">
-                  IntelliMusic
+                  NoteLab
                 </span>
                 !
               </h1>
