@@ -1,12 +1,13 @@
 import { Carousel } from "@/components/Carousel";
 import { CourseCard } from "@/components/CourseCard/CourseCard";
+import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { Avatar } from "@/components/Profile/Avatar";
 
 export default function HomePage() {
   const courses = Array(8).fill(null);
   return (
-    <div className="flex flex-1 h-screen flex-col w-screnn">
+    <div className="flex flex-1 h-screen flex-col w-full">
       <Header.Root>
         <Header.Content />
       </Header.Root>
@@ -19,7 +20,6 @@ export default function HomePage() {
               Bem vindo(a) de volta, Samuel Costa
             </h1>
           </div>
-
           <div className="w-full flex flex-col gap-14 mt-12">
             <Carousel.Root>
               <Carousel.Title title="Para você" />
@@ -40,6 +40,7 @@ export default function HomePage() {
             </Carousel.Root>
           </div>
         </div>
+        <Footer.Root />
       </div>
     </div>
   );
