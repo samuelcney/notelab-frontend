@@ -19,6 +19,9 @@ html {
   box-sizing: border-box;
   outline: none !important;
   user-select: none;
+  scrollbar-width: thin;
+  scrollbar-color: var(--foreground) var(--background);
+  scroll-behavior: smooth;
 }
 
 *:focus {

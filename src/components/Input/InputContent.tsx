@@ -50,7 +50,9 @@ export const InputContent = ({
         />
         {icon && (
           <span
-            className="mr-2 flex items-center cursor-pointer"
+            className={`mr-2 flex items-center ${
+              type === "password" && "cursor-pointer"
+            }`}
             onClick={onclick}
           >
             {icon}

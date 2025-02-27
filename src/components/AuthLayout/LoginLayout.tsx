@@ -30,8 +30,8 @@ export const LoginLayout = ({ ontoggle }: LoginLayoutProps) => {
                 Olá, bem vindo à{" "}
                 <span className="text-greenApp tracking-widest font-extrabold">
                   NoteLab
+                  <span className="text-foreground tracking-widest">!</span>
                 </span>
-                !
               </h1>
               <h2 className="text-xl tracking-wide text-foreground font-normal ml-1">
                 Faça seu login para entrar

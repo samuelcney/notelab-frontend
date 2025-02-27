@@ -24,7 +24,7 @@ export const CarouselList = ({ children }: CarouselRootProps) => {
   const scroll = (direction: "left" | "right") => {
     if (!carouselRef.current) return;
 
-    const scrollAmount = 400;
+    const scrollAmount = 500;
     carouselRef.current.scrollBy({
       left: direction === "left" ? -scrollAmount : scrollAmount,
       behavior: "smooth",
