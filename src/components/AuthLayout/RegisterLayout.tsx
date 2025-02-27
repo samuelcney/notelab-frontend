@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { Button } from "../Button";
-import Icon from "../Icons/Icon";
+import Icon from "../Icon";
 import { Input } from "../Input";
 import { useState } from "react";
 import { notify } from "../Toast/Toast";

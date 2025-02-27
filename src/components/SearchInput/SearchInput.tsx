@@ -1,4 +1,4 @@
-import Icon from "../Icons/Icon";
+import Icon from "../Icon";
 
 export const SearchInput = () => {
   return (

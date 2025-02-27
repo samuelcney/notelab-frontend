@@ -1,5 +1,5 @@
 import { ButtonHTMLAttributes } from "react";
-import Icon from "../Icons/Icon";
+import Icon from "../Icon";
 
 interface ButtonContentProps {
   title: string;

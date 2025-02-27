@@ -1,4 +1,4 @@
-import Icon from "../Icons/Icon";
+import Icon from "../Icon";
 import { Avatar } from "../Profile/Avatar";
 import { SearchInput } from "../SearchInput/SearchInput";
 import ThemeToggle from "../Theme/ThemeToggle";
