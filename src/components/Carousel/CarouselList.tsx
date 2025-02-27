@@ -10,7 +10,7 @@ export const CarouselList = ({ children }: CarouselRootProps) => {
       className="w-full overflow-x-auto pb-2"
       style={{
         scrollbarWidth: "thin",
-        scrollbarColor: "#ffffff transparent",
+        scrollbarColor: "#a8a8a8 transparent",
       }}
     >
       <div className="inline-flex gap-6">{children}</div>
