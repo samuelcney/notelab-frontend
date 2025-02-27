@@ -15,6 +15,7 @@ export default {
         greenApp: "#21c45d",
         "light-dark": "#171717",
         "light-gray": "#a8a8a8",
+        "dark-gray": "#282828",
       },
     },
   },

@@ -16,7 +16,7 @@ export default function ThemeToggle() {
   return (
     <span
       onClick={() => setTheme(currentTheme === "dark" ? "light" : "dark")}
-      className={`flex items-center justify-center text-white transition-colors border border-light-gray w-[60px] h-[30px] rounded-full cursor-pointer bg-background`}
+      className={`flex items-center justify-center text-white transition-colors border border-light-gray w-[62px] h-[30px] rounded-full cursor-pointer bg-background`}
     >
       <span
         className={`w-full h-full flex items-center rounded-full justify-between ${

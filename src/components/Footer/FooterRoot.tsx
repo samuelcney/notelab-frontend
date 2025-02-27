@@ -1,3 +1,3 @@
 export const FooterRoot = () => {
-  return <div className="w-full bg-[#080808] h-[265px] mt-24"></div>;
+  return <div className="w-full bg-[#202020] h-[265px] mt-28"></div>;
 };

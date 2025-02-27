@@ -42,7 +42,7 @@ export const CarouselList = ({ children }: CarouselRootProps) => {
   }, []);
 
   return (
-    <div className="w-full flex items-center relative">
+    <div className="w-[95%] flex items-center relative">
       {showLeftArrow && (
         <ArrowButton direction="left" onclick={() => scroll("left")} />
       )}

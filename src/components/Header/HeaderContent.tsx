@@ -21,12 +21,14 @@ export const HeaderContent = () => {
           size={24}
           strokeWidth={1}
           className="cursor-pointer"
+          color="white"
         />
         <Icon
           name="Bell"
           size={24}
           strokeWidth={1}
           className="cursor-pointer"
+          color="white"
         />
 
         <Avatar abbreviation={"SC"} />
