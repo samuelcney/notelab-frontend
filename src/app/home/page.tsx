@@ -1,47 +1,39 @@
-import { Carousel } from "@/components/Carousel";
-import { CourseCard } from "@/components/CourseCard/CourseCard";
+import { CourseCarousel } from "@/components/Carousel/CourseCarouselRoot";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
+import Icon from "@/components/Icon";
 import { Avatar } from "@/components/Profile/Avatar";
+import { Sidebar } from "@/components/Sidebar/Sidebar";
 
 export default function HomePage() {
   const courses = Array(12).fill(null);
+
   return (
-    <div className="flex flex-1 h-auto flex-col w-full">
+    <div className="flex flex-1 h-screen flex-col">
       <Header.Root>
         <Header.Content />
       </Header.Root>
+      <div className="flex flex-1 flex-row">
+        <Sidebar />
+        <div className="flex-1 flex h-full">
+          <div className="flex flex-1 flex-col mt-14 items-center">
+            <div className="flex gap-4 mb-14">
+              <Avatar abbreviation="SC" isBigSize />
+              <h1 className="text-2xl font-semibold flex items-center tracking-wide">
+                Bem vindo(a) de volta, Samuel Costa
+              </h1>
+            </div>
 
-      <div className="w-full flex flex-1 flex-col items-center justify-center">
-        <div className="w-full flex mt-12 flex-col">
-          <div className="flex mx-32 gap-4">
-            <Avatar abbreviation="SC" isBigSize />
-            <h1 className="flex text-2xl font-semibold items-center tracking-wide">
-              Bem vindo(a) de volta, Samuel Costa
-            </h1>
-          </div>
+            <div className="flex flex-1 h-full flex-col gap-12">
+              <CourseCarousel title="Para você" itemsArray={courses} />
 
-          <div className="mx-32 w-auto flex flex-col gap-14 mt-12">
-            <Carousel.Root>
-              <Carousel.Title title="Para você" />
-              <Carousel.List>
-                {courses.map((_, index) => (
-                  <CourseCard key={index} />
-                ))}
-              </Carousel.List>
-            </Carousel.Root>
-
-            <Carousel.Root>
-              <Carousel.Title title="Confira os cursos em destaque" />
-              <Carousel.List>
-                {courses.map((_, index) => (
-                  <CourseCard key={index} />
-                ))}
-              </Carousel.List>
-            </Carousel.Root>
+              <CourseCarousel
+                title="Confira os cursos em destaque"
+                itemsArray={courses}
+              />
+            </div>
           </div>
         </div>
-        <Footer.Root />
       </div>
     </div>
   );

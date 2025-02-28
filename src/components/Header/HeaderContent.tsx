@@ -6,7 +6,7 @@ import { HeaderTextItem } from "./HeaderTextItem";
 
 export const HeaderContent = () => {
   return (
-    <div className="flex w-full h-full items-center justify-between">
+    <div className="flex w-full h-full items-center justify-between flex-row">
       <SearchInput />
 
       <div className="flex h-full items-center gap-5 pr-2">

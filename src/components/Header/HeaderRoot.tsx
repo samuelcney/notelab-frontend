@@ -8,22 +8,26 @@ interface HeaderRootProps {
 
 export const HeaderRoot = ({ children }: HeaderRootProps) => {
   return (
-    <div className="w-full min-h-[70px] border-b border-light-gray shadow-lg flex flex-row items-center px-5 gap-4 py-2 bg-dark-gray">
-      <Image
-        src="/images/logo.png"
-        width={46}
-        height={46}
-        alt="Logo"
-        className="mr-1"
-        priority
-      />
-
-      {/* <Icon
+    <div className="w-full min-h-[70px] border-b border-light-gray flex flex-row items-center px-5 py-2 bg-dark-gray">
+      <Icon
         name="Menu"
-        className="text-white cursor-pointer ml-1"
+        className="text-white cursor-pointer ml-6"
         strokeWidth={1}
-        size={34}
-      /> */}
+        size={46}
+      />
+      <div className="flex flex-row items-center ml-8 gap-1">
+        <Image
+          src="/images/logo.png"
+          width={44}
+          height={44}
+          alt="Logo"
+          className="mr-1"
+          priority
+        />
+        <h1 className="text-3xl italic text-greenApp tracking-widest font-bold">
+          NoteLab
+        </h1>
+      </div>
 
       {children}
     </div>
