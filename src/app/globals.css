@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --background: #ededed;
+  --foreground: #171717;
+}
+
 html[data-theme="dark"] {
   --background: #171717;
   --foreground: #ededed;
@@ -27,7 +32,7 @@ html {
 
 body {
   background-color: var(--background);
-  font-family: var(--font-geist-sans), sans-serif;
+  font-family: var(--font-poppins), sans-serif;
   font-weight: 400 !important;
   height: 100%;
   transition: background-color 0.3s ease, color 0.3s ease;

@@ -20,7 +20,10 @@ export const CourseCarousel = ({ title, itemsArray }: CourseCarouselProps) => {
       <CarouselTitle title={title} />
       <CarouselContent className="w-full">
         {itemsArray.map((_, index) => (
-          <CarouselItem key={index} className="basis-[25%]">
+          <CarouselItem
+            key={index}
+            className=" basis-[90%] sm:basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/5"
+          >
             <div className="p-1">
               <CourseCard />
             </div>

@@ -1,7 +1,6 @@
 import { CourseCarousel } from "@/components/Carousel/CourseCarouselRoot";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
-import Icon from "@/components/Icon";
 import { Avatar } from "@/components/Profile/Avatar";
 import { Sidebar } from "@/components/Sidebar/Sidebar";
 
@@ -35,6 +34,7 @@ export default function HomePage() {
           </div>
         </div>
       </div>
+      <Footer.Root />
     </div>
   );
 }

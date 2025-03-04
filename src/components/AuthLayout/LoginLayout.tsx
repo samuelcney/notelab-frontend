@@ -27,7 +27,7 @@ export const LoginLayout = ({ ontoggle }: LoginLayoutProps) => {
           <Input.Root isFullWidth>
             <div className="w-full">
               <h1 className="text-2xl tracking-wide text-foreground flex flex-wrap gap-2">
-                Olá, bem vindo à{" "}
+                Olá, bem vindo à plataforma{" "}
                 <span className="text-greenApp tracking-widest font-extrabold">
                   NoteLab
                   <span className="text-foreground tracking-widest">!</span>
