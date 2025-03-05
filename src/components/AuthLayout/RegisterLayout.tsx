@@ -7,13 +7,14 @@ import { z } from "zod";
 import { registerSchema } from "@/schemas/register.schema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRegister } from "@/hooks/users/create-user.hook";
+import { useCreateUser } from "@/hooks/users/useUsers";
 
 type RegisterData = z.infer<typeof registerSchema>;
 
 export const RegisterLayout = ({ onToggle }: { onToggle: () => void }) => {
   const [hidePassword, setHidePassword] = useState(true);
-  const { handleRegister, loading } = useRegister();
+  const [hideConfirmPassword, setHideConfirmPassword] = useState(true);
+  const { mutate: handleRegister, isPending: loading } = useCreateUser();
 
   const {
     register,
@@ -35,7 +36,9 @@ export const RegisterLayout = ({ onToggle }: { onToggle: () => void }) => {
         >
           <form
             className="flex w-full h-full flex-col items-center justify-center gap-5"
-            onSubmit={handleSubmit((data) => handleRegister(data, onToggle))}
+            onSubmit={handleSubmit((data) =>
+              handleRegister(data, { onSuccess: onToggle })
+            )}
           >
             <Input.Root isFullWidth>
               <div className="w-full">
@@ -55,6 +58,7 @@ export const RegisterLayout = ({ onToggle }: { onToggle: () => void }) => {
                 icon={<Icon name="User" />}
                 register={register("name")}
                 error={errors.name}
+                placeholder="Digite seu nome completo"
               />
 
               <Input.Content
@@ -62,6 +66,7 @@ export const RegisterLayout = ({ onToggle }: { onToggle: () => void }) => {
                 icon={<Icon name="AtSign" />}
                 register={register("email")}
                 error={errors.email}
+                placeholder="Digite seu email"
               />
               <Input.Content
                 label="Senha"
@@ -74,18 +79,20 @@ export const RegisterLayout = ({ onToggle }: { onToggle: () => void }) => {
                 }
                 register={register("password")}
                 error={errors.password}
+                placeholder="Crie uma senha segura"
               />
               <Input.Content
                 label="Confirmar Senha"
-                type={hidePassword ? "password" : "text"}
+                type={hideConfirmPassword ? "password" : "text"}
                 icon={
                   <Icon
-                    name={hidePassword ? "EyeClosed" : "Eye"}
-                    onClick={() => setHidePassword(!hidePassword)}
+                    name={hideConfirmPassword ? "EyeClosed" : "Eye"}
+                    onClick={() => setHideConfirmPassword(!hideConfirmPassword)}
                   />
                 }
                 register={register("passwordConfirmation")}
                 error={errors.passwordConfirmation}
+                placeholder="Repita sua senha"
               />
             </Input.Root>
 

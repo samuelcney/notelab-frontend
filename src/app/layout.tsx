@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import { Saira } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "@/components/Theme/ThemeProvider";
-import { ToastProvider } from "@/components/Toast/ToastProvider";
-import { SidebarProvider } from "@/context/SidebarContext";
+
+import { ToastProvider } from "@/components/Providers/ToastProvider";
+import { ThemeProvider } from "next-themes";
+import { QueryProvider } from "@/components/Providers/QueryProvider";
+import { SidebarProvider } from "@/components/Providers/SidebarProvider";
 
 const saira = Saira({
   variable: "--font-saira",
@@ -26,10 +28,12 @@ export default function RootLayout({
         suppressHydrationWarning
         className={`${saira.variable} antialiased`}
       >
-        <ThemeProvider>
-          <SidebarProvider>{children}</SidebarProvider>
-        </ThemeProvider>
-        <ToastProvider />
+        <QueryProvider>
+          <ThemeProvider>
+            <ToastProvider />
+            <SidebarProvider>{children}</SidebarProvider>
+          </ThemeProvider>
+        </QueryProvider>
       </body>
     </html>
   );

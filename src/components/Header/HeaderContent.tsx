@@ -1,5 +1,5 @@
 import Icon from "../Icon";
-import { Avatar } from "../Profile/Avatar";
+import { AvatarDropDown } from "../Profile/AvatarDropDown";
 import { SearchInput } from "../SearchInput/SearchInput";
 import ThemeToggle from "../Theme/ThemeToggle";
 import { HeaderTextItem } from "./HeaderTextItem";
@@ -9,7 +9,7 @@ export const HeaderContent = () => {
     <div className="flex w-full h-full items-center justify-between flex-row">
       <SearchInput />
 
-      <div className="flex h-full items-center gap-5 pr-2">
+      <div className="flex h-full items-center gap-4 pr-2">
         <HeaderTextItem text="Ensine na NoteLab" />
 
         <HeaderTextItem text="Meus cursos" />
@@ -31,7 +31,7 @@ export const HeaderContent = () => {
           color="white"
         />
 
-        <Avatar abbreviation={"SC"} />
+        <AvatarDropDown />
       </div>
     </div>
   );
