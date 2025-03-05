@@ -11,11 +11,11 @@ export const Sidebar = () => {
 
   return (
     <div
-      className={`bg-dark-gray h-full border-r border-light-gray ${
-        isOpen ? "w-64" : "w-24"
-      } transition-all duration-300`}
+      className={`bg-dark-gray h-full border-r border-light-gray transition-all duration-300 ${
+        isOpen ? "w-52" : "w-20"
+      }`}
     >
-      <nav className="flex flex-col gap-6 w-full px-6 pt-6">
+      <nav className="flex flex-col gap-4 w-full px-4 pt-6">
         <SidebarItem
           title="Início"
           isOpen={isOpen}

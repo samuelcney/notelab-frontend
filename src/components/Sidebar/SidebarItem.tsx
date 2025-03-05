@@ -10,10 +10,22 @@ export const SidebarItem = ({
   isOpen?: boolean;
 }) => {
   return (
-    <span className="cursor-pointer hover:bg-[#cdcdcd44] rounded-lg p-2 flex items-center gap-2 w-full">
+    <span
+      className={`cursor-pointer hover:bg-[#cdcdcd44] rounded-lg px-2 py-4 flex items-center gap-2 group ${
+        !isOpen && "justify-center"
+      }`}
+    >
       {icon}
-      {isOpen && title && (
-        <h1 className="text-base pt-1 text-white">{title}</h1>
+      {title && isOpen && (
+        <h1
+          className={`text-base text-white transition-all duration-300 overflow-hidden ${
+            isOpen
+              ? "opacity-100 w-auto translate-x-0"
+              : "opacity-0 w-0 translate-x-[-10px]"
+          }`}
+        >
+          {title}
+        </h1>
       )}
     </span>
   );

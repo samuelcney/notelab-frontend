@@ -6,7 +6,6 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { CarouselTitle } from "./CarouselTitle";
-import { ReactNode } from "react";
 import { CourseCard } from "../CourseCard/CourseCard";
 
 interface CourseCarouselProps {
@@ -16,22 +15,24 @@ interface CourseCarouselProps {
 
 export const CourseCarousel = ({ title, itemsArray }: CourseCarouselProps) => {
   return (
-    <Carousel className="flex max-w-[1350px] flex-col">
+    <div className="flex flex-1 flex-col gap-2 px-8">
       <CarouselTitle title={title} />
-      <CarouselContent className="w-full">
-        {itemsArray.map((_, index) => (
-          <CarouselItem
-            key={index}
-            className=" basis-[90%] sm:basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/5"
-          >
-            <div className="p-1">
-              <CourseCard />
-            </div>
-          </CarouselItem>
-        ))}
-      </CarouselContent>
-      <CarouselPrevious />
-      <CarouselNext />
-    </Carousel>
+      <Carousel>
+        <CarouselContent className="">
+          {itemsArray.map((_, index) => (
+            <CarouselItem
+              key={index}
+              className="sm:basis-1/2 md:basis-1/2 lg:basis-1/3 xl:basis-1/4"
+            >
+              <div className="">
+                <CourseCard />
+              </div>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+        <CarouselPrevious />
+        <CarouselNext />
+      </Carousel>
+    </div>
   );
 };

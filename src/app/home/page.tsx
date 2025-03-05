@@ -16,14 +16,14 @@ export default function HomePage() {
         <Sidebar />
         <div className="flex-1 flex h-full">
           <div className="flex flex-1 flex-col mt-14 items-center">
-            <div className="flex gap-4 mb-14">
+            <div className="flex gap-4 mb-14 w-full pl-8">
               <Avatar abbreviation="SC" isBigSize />
               <h1 className="text-2xl font-semibold flex items-center tracking-wide">
                 Bem vindo(a) de volta, Samuel Costa
               </h1>
             </div>
 
-            <div className="flex flex-1 h-full flex-col gap-12">
+            <div className="flex flex-1 h-full flex-col gap-12 w-full">
               <CourseCarousel title="Para você" itemsArray={courses} />
 
               <CourseCarousel
