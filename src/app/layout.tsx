@@ -23,15 +23,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt">
-      <body
-        suppressHydrationWarning
-        className={`${saira.variable} antialiased`}
-      >
+    <html lang="pt" suppressHydrationWarning>
+      <body className={`${saira.variable} antialiased`}>
         <QueryProvider>
           <ThemeProvider>
-            <ToastProvider />
             <SidebarProvider>{children}</SidebarProvider>
+            <ToastProvider />
           </ThemeProvider>
         </QueryProvider>
       </body>

@@ -1,4 +1,6 @@
+import { notify } from "@/components/Toast/Toast";
 import { userService } from "@/services/users/userService";
+import { getErrorMessage } from "@/utils/getErrorMessage";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 export const useUsers = () => {
@@ -16,6 +18,12 @@ export const useCreateUser = () => {
     mutationFn: userService.createUser,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["users"] });
+      notify("Usuário criado com sucesso", "success");
+    },
+    onError: (error: any) => {
+      console.log(error);
+      const errorMessage = getErrorMessage(error);
+      notify(errorMessage, "error");
     },
   });
 };
