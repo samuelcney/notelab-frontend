@@ -2,6 +2,7 @@
 
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
+import Icon from "../Icon";
 
 export default function ThemeToggle() {
   const { setTheme, resolvedTheme } = useTheme();
@@ -28,7 +29,11 @@ export default function ThemeToggle() {
             currentTheme === "dark" ? "bg-foreground" : "bg-black"
           }`}
         />
-        {currentTheme === "dark" ? "🌙" : "☀️"}
+        {currentTheme === "dark" ? (
+          <Icon name="Moon" />
+        ) : (
+          <Icon name="Sun" className="text-foreground" />
+        )}
       </span>
     </span>
   );

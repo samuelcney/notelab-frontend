@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Poppins } from "next/font/google";
+import { Saira } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/Theme/ThemeProvider";
 import { ToastProvider } from "@/components/Toast/ToastProvider";
 import { SidebarProvider } from "@/context/SidebarContext";
 
-const poppins = Poppins({
-  variable: "--font-poppins",
+const saira = Saira({
+  variable: "--font-saira",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800", "900"],
 });
@@ -24,7 +24,7 @@ export default function RootLayout({
     <html lang="pt">
       <body
         suppressHydrationWarning
-        className={`${poppins.variable} antialiased`}
+        className={`${saira.variable} antialiased`}
       >
         <ThemeProvider>
           <SidebarProvider>{children}</SidebarProvider>

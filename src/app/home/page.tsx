@@ -6,7 +6,6 @@ import { Sidebar } from "@/components/Sidebar/Sidebar";
 
 export default function HomePage() {
   const courses = Array(12).fill(null);
-
   return (
     <div className="flex flex-1 h-screen flex-col">
       <Header.Root>

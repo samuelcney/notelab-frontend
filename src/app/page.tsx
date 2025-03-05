@@ -23,7 +23,7 @@ export default function AuthPage() {
         {isLogin ? (
           <AuthLayout.Login ontoggle={toggleAuthView} />
         ) : (
-          <AuthLayout.Register ontoggle={toggleAuthView} />
+          <AuthLayout.Register onToggle={toggleAuthView} />
         )}
       </div>
     </div>

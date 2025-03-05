@@ -61,7 +61,7 @@ export const InputContent = ({
       </div>
 
       {Boolean(error) && (
-        <span className="text-red-600 text-sm ml-2">
+        <span className="text-red-600 text-xs ml-2">
           {typeof error === "object" ? error.message : error}
         </span>
       )}
