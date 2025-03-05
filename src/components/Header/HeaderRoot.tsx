@@ -11,7 +11,7 @@ interface HeaderRootProps {
 export const HeaderRoot = ({ children }: HeaderRootProps) => {
   const { toggleSidebar } = useSidebar();
   return (
-    <div className="w-full min-h-[70px] border-b border-light-gray flex flex-row items-center px-5 py-2 bg-dark-gray">
+    <div className="w-full min-h-[70px] border-b border-light-gray flex flex-row items-center px-3 py-2 bg-dark-gray">
       <Icon
         name="Menu"
         className="text-white cursor-pointer ml-6"
