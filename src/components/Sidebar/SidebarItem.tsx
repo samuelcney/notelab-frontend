@@ -4,16 +4,19 @@ export const SidebarItem = ({
   icon,
   title,
   isOpen,
+  onclick,
 }: {
   icon: JSX.Element;
   title?: string;
   isOpen?: boolean;
+  onclick?: () => void;
 }) => {
   return (
     <span
       className={`cursor-pointer hover:bg-[#cdcdcd44] rounded-lg px-2 py-4 flex items-center gap-2 group ${
         !isOpen && "justify-center"
       }`}
+      onClick={onclick}
     >
       {icon}
       {title && isOpen && (

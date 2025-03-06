@@ -2,12 +2,14 @@
 import { useSidebar } from "@/context/SidebarContext";
 import Icon from "../Icon";
 import { SidebarItem } from "./SidebarItem";
+import { useRouter } from "next/navigation";
 
 export const Sidebar = () => {
   const strokeW = 1.5;
   const size = 24;
 
   const { isOpen } = useSidebar();
+  const navigation = useRouter();
 
   return (
     <div
@@ -27,6 +29,7 @@ export const Sidebar = () => {
               color="white"
             />
           }
+          onclick={() => navigation.push("/home")}
         />
         <SidebarItem
           title="Cursos"

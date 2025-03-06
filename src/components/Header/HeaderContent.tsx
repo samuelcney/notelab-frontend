@@ -10,7 +10,7 @@ export const HeaderContent = () => {
       <SearchInput />
 
       <div className="flex h-full items-center gap-4 pr-2">
-        <HeaderTextItem text="Ensine na NoteLab" />
+        <HeaderTextItem text="Ensine na NoteLab.io" />
 
         <HeaderTextItem text="Meus cursos" />
 

@@ -16,7 +16,7 @@ export const HeaderRoot = ({ children }: HeaderRootProps) => {
         name="Menu"
         className="text-white cursor-pointer ml-6"
         strokeWidth={1}
-        size={46}
+        size={32}
         onClick={toggleSidebar}
       />
       <div className="flex flex-row items-center ml-8 gap-1">
@@ -29,7 +29,7 @@ export const HeaderRoot = ({ children }: HeaderRootProps) => {
           priority
         />
         <h1 className="text-2xl italic text-greenApp tracking-widest font-bold">
-          NoteLab
+          NoteLab.io
         </h1>
       </div>
 

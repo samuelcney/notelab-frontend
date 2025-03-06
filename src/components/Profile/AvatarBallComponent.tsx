@@ -14,7 +14,9 @@ export const AvatarBallComponent = ({
   return (
     <div className="relative">
       <span
-        className={`${size} rounded-full bg-greenApp flex items-center justify-center cursor-pointer`}
+        className={`${size} rounded-full bg-greenApp flex items-center justify-center ${
+          !isBigSize && "cursor-pointer"
+        }`}
       >
         <h1 className={`${fontSize} text-white font-semibold tracking-wide`}>
           {abbreviation}
