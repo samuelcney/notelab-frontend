@@ -1,4 +1,4 @@
 interface Category {
   id: string;
-  name?: string;
+  name: string;
 }

@@ -201,7 +201,7 @@ const CarouselPrevious = React.forwardRef<
   const { orientation, scrollPrev, canScrollPrev } = useCarousel();
 
   return (
-    <div className="absolute left-0 top-0 h-full w-10 flex items-center justify-center bg-gradient-to-r from-black/20 to-transparent">
+    <div className="absolute left-0 top-0 h-full w-10 flex items-center justify-center bg-gradient-to-r from-black/10 to-transparent">
       <Button
         ref={ref}
         variant={variant}
@@ -229,7 +229,7 @@ const CarouselNext = React.forwardRef<
   const { orientation, scrollNext, canScrollNext } = useCarousel();
 
   return (
-    <div className="absolute right-0 top-0 h-full w-8 flex items-center justify-center bg-gradient-to-l from-black/20 to-transparent">
+    <div className="absolute right-0 top-0 h-full w-8 flex items-center justify-center bg-gradient-to-l from-black/10 to-transparent">
       <Button
         ref={ref}
         variant={variant}

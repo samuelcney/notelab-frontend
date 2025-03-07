@@ -1,13 +1,12 @@
+"use client";
 import { CourseCarousel } from "@/components/Carousel/CourseCarouselRoot";
 import { PageRoot } from "@/components/layout/PageRoot";
 import { AvatarBallComponent } from "@/components/Profile/AvatarBallComponent";
-
-export const metadata = {
-  title: "Notelab - Início",
-};
+import { useCourses } from "@/hooks/courses/useCourses";
 
 export default function HomePage() {
-  const courses = Array(12).fill(null);
+  const { data: courses } = useCourses();
+
   return (
     <PageRoot>
       <div className="flex flex-1 flex-col mt-14 items-center">
@@ -19,11 +18,11 @@ export default function HomePage() {
         </div>
 
         <div className="flex flex-1 h-full flex-col gap-12 w-[90%]">
-          <CourseCarousel title="Para você" itemsArray={courses} />
+          <CourseCarousel title="Para você" coursesList={courses} />
 
           <CourseCarousel
             title="Confira os cursos em destaque"
-            itemsArray={courses}
+            coursesList={courses}
           />
         </div>
       </div>
