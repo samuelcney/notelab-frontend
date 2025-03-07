@@ -5,10 +5,12 @@ import { ReactNode, useState } from "react";
 export const SidebarProvider = ({ children }: { children: ReactNode }) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const toggleSidebar = () => setIsOpen(!isOpen);
+  const openSidebar = () => setIsOpen(true);
+
+  const closeSideBar = () => setIsOpen(false);
 
   return (
-    <SidebarContext.Provider value={{ isOpen, toggleSidebar }}>
+    <SidebarContext.Provider value={{ isOpen, openSidebar, closeSideBar }}>
       {children}
     </SidebarContext.Provider>
   );

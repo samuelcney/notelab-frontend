@@ -3,7 +3,6 @@ import { Button } from "../Button";
 import Icon from "../Icon";
 import { Input } from "../Input";
 import { useState } from "react";
-import { notify } from "../Toast/Toast";
 import { useRouter } from "next/navigation";
 
 interface LoginLayoutProps {
@@ -29,7 +28,7 @@ export const LoginLayout = ({ ontoggle }: LoginLayoutProps) => {
               <h1 className="text-2xl tracking-wide text-foreground flex flex-wrap gap-2">
                 Olá, bem vindo à plataforma{" "}
                 <span className="text-greenApp tracking-widest font-extrabold">
-                  NoteLab.io
+                  Notelab.io
                   <span className="text-foreground tracking-widest">!</span>
                 </span>
               </h1>

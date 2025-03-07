@@ -9,7 +9,7 @@ interface HeaderRootProps {
 }
 
 export const HeaderRoot = ({ children }: HeaderRootProps) => {
-  const { toggleSidebar } = useSidebar();
+  const { openSidebar, isOpen, closeSideBar } = useSidebar();
   return (
     <div className="w-full min-h-[70px] border-b border-light-gray flex flex-row items-center px-3 py-2 bg-dark-gray">
       <Icon
@@ -17,7 +17,7 @@ export const HeaderRoot = ({ children }: HeaderRootProps) => {
         className="text-white cursor-pointer ml-6"
         strokeWidth={1}
         size={32}
-        onClick={toggleSidebar}
+        onClick={!isOpen ? openSidebar : closeSideBar}
       />
       <div className="flex flex-row items-center ml-8 gap-1">
         <Image

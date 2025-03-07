@@ -48,7 +48,7 @@ export const RegisterLayout = ({ onToggle }: { onToggle: () => void }) => {
                 <h2 className="text-xl tracking-wide text-foreground font-normal ml-1">
                   Cadastre-se agora e faça parte da{" "}
                   <span className="text-greenApp tracking-widest font-extrabold">
-                    NoteLab.io
+                    Notelab.io
                   </span>
                 </h2>
               </div>

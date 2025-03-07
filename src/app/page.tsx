@@ -1,6 +1,5 @@
 "use client";
 import { AuthLayout } from "@/components/AuthLayout/AuthLayout";
-import { LoginLayout } from "@/components/AuthLayout/LoginLayout";
 import ImageSlideshow from "@/components/ImageSlideshow/ImageSlideShow";
 import { useState } from "react";
 
