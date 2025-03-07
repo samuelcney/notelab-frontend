@@ -18,7 +18,11 @@ export const AvatarBallComponent = ({
           !isBigSize && "cursor-pointer"
         }`}
       >
-        <h1 className={`${fontSize} text-white font-semibold tracking-wide`}>
+        <h1
+          className={`${fontSize} text-white font-semibold tracking-wide ${
+            isBigSize ? "text-2xl" : "text-sm"
+          }`}
+        >
           {abbreviation}
         </h1>
       </span>

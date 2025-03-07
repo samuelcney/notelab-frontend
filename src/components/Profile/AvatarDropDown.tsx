@@ -17,9 +17,9 @@ export const AvatarDropDown = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <AvatarBallComponent abbreviation="SA" />
+        <AvatarBallComponent abbreviation="SC" />
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="bg-background animate-fade-in text-foreground mr-5 mt-2 border">
+      <DropdownMenuContent className="bg-light-dark animate-fade-in text-white mr-5 mt-2 border">
         <DropdownMenuLabel>Minha conta</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem>

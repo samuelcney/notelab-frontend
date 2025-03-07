@@ -30,7 +30,7 @@ export const Filter = () => {
       <DropdownMenuTrigger>
         <Icon name="Filter" size={26} className="text-white" strokeWidth={1} />
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56 bg-background text-foreground">
+      <DropdownMenuContent className="w-56 bg-light-dark text-white">
         <DropdownMenuLabel>Filtro</DropdownMenuLabel>
         <DropdownMenuSeparator />
         {categories?.map((category: Category) => (

@@ -22,7 +22,7 @@ export default function HomePage() {
               </h1>
             </div>
 
-            <div className="flex flex-1 h-full flex-col gap-12 w-full">
+            <div className="flex flex-1 h-full flex-col gap-12 w-[90%]">
               <CourseCarousel title="Para você" itemsArray={courses} />
 
               <CourseCarousel
