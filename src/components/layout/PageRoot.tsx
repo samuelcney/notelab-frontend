@@ -9,13 +9,13 @@ interface PageLayoutProps {
 
 export const PageRoot = ({ children }: PageLayoutProps) => {
   return (
-    <div className="flex flex-1 h-screen flex-col">
+    <div className="flex flex-1 h-screen flex-col max-w-[100vw] overflow-x-hidden">
       <Header.Root>
         <Header.Content />
       </Header.Root>
       <div className="flex flex-1 flex-row">
         <Sidebar />
-        <div className="flex-1 flex h-full">{children}</div>
+        <div className="flex-1 flex">{children}</div>
       </div>
     </div>
   );

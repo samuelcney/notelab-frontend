@@ -38,7 +38,7 @@ export const Sidebar = () => {
         isOpen ? "w-52 border-r border-light-gray" : "w-0"
       }`}
     >
-      <nav className="flex flex-col gap-4 w-full px-4 pt-6">
+      <nav className="flex flex-col gap-4 w-full px-4 pt-6 transition-all duration-300">
         <SidebarItem
           title="Início"
           isOpen={isOpen}

@@ -17,11 +17,11 @@ html {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  outline: none !important;
   user-select: none;
   scrollbar-width: thin;
   scrollbar-color: var(--foreground) var(--background);
   scroll-behavior: smooth;
+  outline: none;
 }
 
 *:focus {
@@ -34,7 +34,8 @@ body {
   background-color: var(--background);
   font-family: var(--font-saira), sans-serif;
   font-weight: 400 !important;
-  height: 100%;
+  height: 100vh;
+  width: 100vw;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 

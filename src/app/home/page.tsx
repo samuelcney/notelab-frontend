@@ -5,7 +5,7 @@ import { AvatarBallComponent } from "@/components/Profile/AvatarBallComponent";
 import { useCourses } from "@/hooks/courses/useCourses";
 
 export default function HomePage() {
-  const { data: courses } = useCourses();
+  const { data: courses, isPending } = useCourses();
 
   return (
     <PageRoot>
@@ -17,12 +17,17 @@ export default function HomePage() {
           </h1>
         </div>
 
-        <div className="flex flex-1 h-full flex-col gap-12 w-[90%]">
-          <CourseCarousel title="Para você" coursesList={courses} />
+        <div className="flex flex-1 h-full flex-col gap-12 max-w-[100vw]">
+          <CourseCarousel
+            title="Para você"
+            coursesList={courses ? courses : []}
+            loading={isPending}
+          />
 
           <CourseCarousel
             title="Confira os cursos em destaque"
-            coursesList={courses}
+            coursesList={courses ? courses.reverse() : []}
+            loading={isPending}
           />
         </div>
       </div>
