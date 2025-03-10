@@ -3,6 +3,7 @@ import { CourseHeaderSkeleton } from "@/components/CoursePage/CourseHeaderSkelet
 import { PageRoot } from "@/components/layout/PageRoot";
 import { useCourseById } from "@/hooks/courses/useCourseById";
 import { categoryColors } from "@/utils/categoryColors";
+import { translateDifficulty } from "@/utils/translateDifficulty";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 
@@ -10,6 +11,10 @@ export default function CoursePage() {
   const { id } = useParams();
 
   const { data, isPending } = useCourseById(Number(id));
+
+  const { name: levelName, color: levelColor } = translateDifficulty(
+    data ? data.difficulty : ""
+  );
 
   return (
     <PageRoot>
@@ -42,6 +47,13 @@ export default function CoursePage() {
                     </p>
                   ))}
                 </div>
+                <span className="w-[1px] h-full bg-foreground" />
+                <p
+                  className="text-white text-xs font-semibold px-2 py-1 rounded-md shadow-md"
+                  style={{ backgroundColor: levelColor }}
+                >
+                  {levelName.toUpperCase()}
+                </p>
               </div>
             ) : (
               <CourseHeaderSkeleton />

@@ -39,7 +39,7 @@ export const CourseCard = ({
           className="absolute top-2 right-2 text-white text-sm font-semibold px-2 py-1 rounded-md shadow-md z-10"
           style={{ backgroundColor: levelColor }}
         >
-          {levelName}
+          {levelName.toUpperCase()}
         </p>
         <Image
           src={"/images/background/image1.jpg"}
