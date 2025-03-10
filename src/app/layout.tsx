@@ -14,7 +14,7 @@ const saira = Saira({
 });
 
 export const metadata: Metadata = {
-  title: "NoteLab.io",
+  title: "Notelab.io",
 };
 
 export default function RootLayout({

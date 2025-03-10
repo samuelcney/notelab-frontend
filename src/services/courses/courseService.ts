@@ -5,4 +5,9 @@ export const courseService = {
     const { data } = await api.get("/courses");
     return data;
   },
+
+  getCourseById: async (id: number) => {
+    const { data } = await api.get(`courses/${id}`);
+    return data;
+  },
 };

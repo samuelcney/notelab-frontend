@@ -24,62 +24,69 @@ export const Sidebar = () => {
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
+    if (isOpen) {
+      document.body.classList.add("overflow-hidden");
+    } else {
+      document.body.classList.remove("overflow-hidden");
+    }
 
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
+      document.body.classList.remove("overflow-hidden");
     };
-  }, [closeSideBar]);
+  }, [isOpen, closeSideBar]);
 
   return (
-    <div
-      ref={sidebarRef}
-      className={`bg-dark-gray h-full transition-all duration-300 ${
-        isOpen ? "w-52 border-r border-light-gray" : "w-0"
-      }`}
-    >
-      <nav className="flex flex-col gap-4 w-full px-4 pt-6 transition-all duration-300">
-        <SidebarItem
-          title="Início"
-          isOpen={isOpen}
-          icon={
-            <Icon
-              name="House"
-              strokeWidth={strokeW}
-              size={size}
-              color="white"
-            />
-          }
-          onclick={() => {
-            navigation.push("/home");
-            closeSideBar();
-          }}
-        />
-        <SidebarItem
-          title="Cursos"
-          isOpen={isOpen}
-          icon={
-            <Icon
-              name="BookAudio"
-              strokeWidth={strokeW}
-              size={size}
-              color="white"
-            />
-          }
-        />
-        <SidebarItem
-          title="Configurações"
-          isOpen={isOpen}
-          icon={
-            <Icon
-              name="Settings"
-              strokeWidth={strokeW}
-              size={size}
-              color="white"
-            />
-          }
-        />
-      </nav>
+    <div className="relative">
+      <div
+        ref={sidebarRef}
+        className={`absolute left-0 top-0 h-full bg-dark-gray transition-transform duration-300 ease-in-out z-20
+          ${isOpen ? "translate-x-0 w-52" : "-translate-x-full w-52"}`}
+      >
+        <nav className="flex flex-col gap-4 w-full px-4 pt-6">
+          <SidebarItem
+            title="Início"
+            isOpen={isOpen}
+            icon={
+              <Icon
+                name="House"
+                strokeWidth={strokeW}
+                size={size}
+                color="white"
+              />
+            }
+            onclick={() => {
+              navigation.push("/home");
+              closeSideBar();
+            }}
+          />
+          <SidebarItem
+            title="Cursos"
+            isOpen={isOpen}
+            icon={
+              <Icon
+                name="BookAudio"
+                strokeWidth={strokeW}
+                size={size}
+                color="white"
+              />
+            }
+          />
+          <SidebarItem
+            title="Configurações"
+            isOpen={isOpen}
+            icon={
+              <Icon
+                name="Settings"
+                strokeWidth={strokeW}
+                size={size}
+                color="white"
+              />
+            }
+          />
+        </nav>
+      </div>
     </div>
   );
 };
