@@ -17,7 +17,6 @@ html {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  user-select: none;
   scrollbar-width: thin;
   scrollbar-color: var(--foreground) var(--background);
   scroll-behavior: smooth;

@@ -24,7 +24,7 @@ export const CourseCarousel = ({
   loading,
 }: CourseCarouselProps) => {
   return (
-    <div className="flex flex-1 flex-col gap-2 px-8 w-full overflow-hidden">
+    <div className="flex flex-1 flex-col gap-2 px-8 w-full ">
       <CarouselTitle title={title} />
       <Carousel className="">
         <CarouselContent className="flex gap-2">

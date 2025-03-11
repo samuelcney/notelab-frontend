@@ -4,10 +4,18 @@ import { SearchInput } from "../SearchInput/SearchInput";
 import ThemeToggle from "../Theme/ThemeToggle";
 import { HeaderTextItem } from "./HeaderTextItem";
 
-export const HeaderContent = () => {
+export const HeaderContent = ({
+  haveSearchBar,
+}: {
+  haveSearchBar?: boolean;
+}) => {
   return (
-    <div className="flex w-full h-full items-center justify-between flex-row">
-      <SearchInput />
+    <div
+      className={`flex w-full h-full ${
+        haveSearchBar ? "items-center justify-between" : "justify-end"
+      } flex-row`}
+    >
+      {haveSearchBar && <SearchInput />}
 
       <div className="flex h-full items-center gap-4 pr-2">
         <HeaderTextItem text="Ensine na NoteLab.io" />

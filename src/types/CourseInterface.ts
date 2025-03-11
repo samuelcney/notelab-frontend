@@ -39,4 +39,5 @@ export interface Modules {
 export interface Lessons {
   id: number;
   title: string;
+  content: string;
 }

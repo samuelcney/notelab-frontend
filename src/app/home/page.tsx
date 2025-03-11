@@ -8,7 +8,7 @@ export default function HomePage() {
   const { data: courses, isPending } = useCourses();
 
   return (
-    <PageRoot>
+    <PageRoot haveSearchBar>
       <div className="flex flex-1 flex-col mt-14 items-center">
         <div className="flex gap-4 mb-14 w-full pl-8">
           <AvatarBallComponent abbreviation="SC" isBigSize />

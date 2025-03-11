@@ -1,3 +1,4 @@
+"use client";
 import {
   Accordion,
   AccordionContent,
@@ -5,12 +6,16 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Modules } from "@/types/CourseInterface";
+import { useRouter } from "next/navigation";
 
 export const ChapterAccordion = ({
+  courseId,
   chapterList,
 }: {
   chapterList: Modules[];
+  courseId: number;
 }) => {
+  const navigation = useRouter();
   return (
     <>
       {chapterList.length <= 0 ? (
@@ -24,8 +29,14 @@ export const ChapterAccordion = ({
           <Accordion type="single" collapsible key={index}>
             <AccordionItem value={item.name} key={item.name}>
               <AccordionTrigger>{item.name}</AccordionTrigger>
-              {item.lessons.map((lesson, ind) => (
-                <AccordionContent className="pl-1" key={ind}>
+              {item.lessons.map((lesson, i) => (
+                <AccordionContent
+                  className="pl-2 cursor-pointer hover:underline"
+                  key={i}
+                  onClick={() =>
+                    navigation.push(`/course/${courseId}/lesson/${lesson.id}`)
+                  }
+                >
                   - {lesson.title}
                 </AccordionContent>
               ))}

@@ -35,7 +35,7 @@ export const CourseCard = ({
       onClick={() => navigation.push(`/course/${id}`)}
       key={id}
     >
-      <div className="w-full h-1/2 relative overflow-hidden">
+      <div className="w-full  relative overflow-hidden">
         <Badge.Level level={difficulty} isFromCard />
         <Image
           src={"/images/background/image1.jpg"}
