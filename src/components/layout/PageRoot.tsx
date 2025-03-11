@@ -9,7 +9,7 @@ interface PageLayoutProps {
 
 export const PageRoot = ({ children }: PageLayoutProps) => {
   return (
-    <div className="flex flex-1 h-screen flex-col max-w-[100vw] overflow-x-hidden">
+    <div className="flex flex-1 h-screen flex-col max-w-[100vw] overflow-x-hidden pb-8">
       <Header.Root>
         <Header.Content />
       </Header.Root>
