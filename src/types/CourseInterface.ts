@@ -8,7 +8,7 @@ export interface CourseProps {
   createdAt: string;
   updatedAt: string;
   instructor: Instructor;
-  modules: any[];
+  modules: Modules[];
   categories: Category[];
 }
 
@@ -28,4 +28,15 @@ export interface Category {
 export interface Category2 {
   id: number;
   name: string;
+}
+
+export interface Modules {
+  courseId: number;
+  name: string;
+  lessons: Lessons[];
+}
+
+export interface Lessons {
+  id: number;
+  title: string;
 }

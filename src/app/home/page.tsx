@@ -20,13 +20,13 @@ export default function HomePage() {
         <div className="flex flex-1 h-full flex-col gap-12 max-w-[100vw]">
           <CourseCarousel
             title="Para você"
-            coursesList={courses ? courses : []}
+            coursesList={courses ? [...courses].reverse() : []}
             loading={isPending}
           />
 
           <CourseCarousel
             title="Confira os cursos em destaque"
-            coursesList={courses ? courses.reverse() : []}
+            coursesList={courses ? courses : []}
             loading={isPending}
           />
         </div>

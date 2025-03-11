@@ -1,0 +1,14 @@
+import { categoryColors } from "@/utils/categoryColors";
+
+export const CategoryBadge = ({ categoryName }: { categoryName: string }) => {
+  return (
+    <p
+      className="text-xs text-white px-2 py-1 rounded-md shadow-md font-semibold whitespace-nowrap"
+      style={{
+        backgroundColor: categoryColors[categoryName],
+      }}
+    >
+      {categoryName.toUpperCase()}
+    </p>
+  );
+};

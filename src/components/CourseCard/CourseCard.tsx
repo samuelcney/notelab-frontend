@@ -5,6 +5,7 @@ import { categoryColors } from "@/utils/categoryColors";
 import { translateDifficulty } from "@/utils/translateDifficulty";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { Badge } from "../Badges/Badge";
 
 interface CourseCardProps {
   id: number;
@@ -35,12 +36,7 @@ export const CourseCard = ({
       key={id}
     >
       <div className="w-full h-1/2 relative overflow-hidden">
-        <p
-          className="absolute top-2 right-2 text-white text-sm font-semibold px-2 py-1 rounded-md shadow-md z-10"
-          style={{ backgroundColor: levelColor }}
-        >
-          {levelName.toUpperCase()}
-        </p>
+        <Badge.Level level={difficulty} isFromCard />
         <Image
           src={"/images/background/image1.jpg"}
           alt={`Banner - ${courseName}`}
@@ -60,13 +56,7 @@ export const CourseCard = ({
 
         <div className="flex overflow-x-auto gap-2 mt-2">
           {categories.map((item) => (
-            <p
-              key={item.id}
-              className="text-xs text-white px-2 py-1 rounded-md shadow-md font-semibold whitespace-nowrap"
-              style={{ backgroundColor: categoryColors[item.name] }}
-            >
-              {item.name.toUpperCase()}
-            </p>
+            <Badge.Category categoryName={item.name} key={item.id} />
           ))}
         </div>
 
