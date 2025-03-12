@@ -1,7 +1,7 @@
 "use client";
 import { CourseCarousel } from "@/components/Carousel/CourseCarouselRoot";
 import { PageRoot } from "@/components/layout/PageRoot";
-import { AvatarBallComponent } from "@/components/Profile/AvatarBallComponent";
+import { AvatarBallComponent } from "@/components/Avatar/AvatarBallComponent";
 import { useCourses } from "@/hooks/courses/useCourses";
 
 export default function HomePage() {

@@ -6,7 +6,7 @@ import { ChapterAccordionSkeleton } from "@/components/Chapters/ChapterAccordion
 import { CourseContentSkeleton } from "@/components/CoursePage/CourseContentSkeleton";
 import { CourseHeaderSkeleton } from "@/components/CoursePage/CourseHeaderSkeleton";
 import { PageRoot } from "@/components/layout/PageRoot";
-import { AvatarBallComponent } from "@/components/Profile/AvatarBallComponent";
+import { AvatarBallComponent } from "@/components/Avatar/AvatarBallComponent";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useCourseById } from "@/hooks/courses/useCourseById";
 import { getInitials } from "@/utils/getInitials";
@@ -38,22 +38,27 @@ export default function CoursePage() {
           <div className="p-3 w-full">
             <div className="flex items-center gap-4 p-2 min-h-[100px]">
               {!isPending ? (
-                <>
-                  <h1 className="font-semibold text-3xl leading-tight">
-                    {data?.name}
-                  </h1>
-                  <span className="w-[1px] h-6 bg-foreground" />
-                  <div className="flex gap-2">
-                    {data?.categories.map((item) => (
-                      <Badge.Category
-                        key={item.categoryId}
-                        categoryName={item.category.name}
-                      />
-                    ))}
+                <div className="flex flex-row gap-6 w-full justify-between">
+                  <div className="flex flex-col">
+                    <h1 className="font-semibold text-3xl leading-tight">
+                      {data?.name}
+                    </h1>
+                    <h2 className="text-greenApp text-xl">R$ {data?.price}</h2>
                   </div>
-                  <span className="w-[1px] h-6 bg-foreground" />
-                  <Badge.Level level={data?.difficulty ?? ""} />
-                </>
+
+                  <div className="flex flex-row h-6 gap-2 mt-2">
+                    <div className="flex gap-2">
+                      {data?.categories.map((item) => (
+                        <Badge.Category
+                          key={item.categoryId}
+                          categoryName={item.category.name}
+                        />
+                      ))}
+                    </div>
+                    <span className="w-[1px] h-full bg-foreground" />
+                    <Badge.Level level={data?.difficulty ?? ""} />
+                  </div>
+                </div>
               ) : (
                 <CourseHeaderSkeleton />
               )}
@@ -71,13 +76,13 @@ export default function CoursePage() {
                     <p className="text-sm">{data?.instructor?.email}</p>
                   </div>
 
-                  <div className="flex flex-col gap-6 items-center">
+                  <div className="flex flex-col gap-6 items-center flex-1">
                     <p className="flex-1 text-justify text-sm">
                       {data?.description}
                     </p>
 
                     <Button.Root>
-                      <Button.Content title={`R$ ${data?.price.toString()}`} />
+                      <Button.Content title={"ADICIONAR AO CARRINHO"} />
                     </Button.Root>
                   </div>
                 </div>

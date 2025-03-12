@@ -1,7 +1,11 @@
+"use client";
 import React, { ReactNode } from "react";
 import { Header } from "../Header";
 import { Sidebar } from "../Sidebar/Sidebar";
-import { Footer } from "../Footer";
+import { Modal } from "../Modal/Modal";
+import { useModal } from "@/context/modal";
+import { Input } from "../Input";
+import { Button } from "../Button";
 
 interface PageLayoutProps {
   children: ReactNode;
@@ -14,6 +18,8 @@ export const PageRoot = ({
   haveSearchBar = false,
   isOverflowHidden = false,
 }: PageLayoutProps) => {
+  const { isModalOpen, closeModal, modalType, modalProps } = useModal();
+
   return (
     <div
       className={`flex flex-1 h-screen flex-col max-w-[100vw] ${
@@ -31,6 +37,12 @@ export const PageRoot = ({
         <Sidebar />
         <div className="flex-1 flex">{children}</div>
       </div>
+
+      {modalType === "profileModal" && (
+        <Modal.ProfileRoot isOpen={isModalOpen} onClose={closeModal}>
+          <Modal.ProfileContent />
+        </Modal.ProfileRoot>
+      )}
     </div>
   );
 };

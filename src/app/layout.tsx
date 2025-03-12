@@ -6,6 +6,7 @@ import { ToastProvider } from "@/components/Providers/ToastProvider";
 import { ThemeProvider } from "next-themes";
 import { QueryProvider } from "@/components/Providers/QueryProvider";
 import { SidebarProvider } from "@/components/Providers/SidebarProvider";
+import { ModalProvider } from "@/context/modal";
 
 const saira = Saira({
   variable: "--font-saira",
@@ -27,7 +28,9 @@ export default function RootLayout({
       <body className={`${saira.variable} antialiased`}>
         <QueryProvider>
           <ThemeProvider>
-            <SidebarProvider>{children}</SidebarProvider>
+            <SidebarProvider>
+              <ModalProvider>{children}</ModalProvider>
+            </SidebarProvider>
             <ToastProvider />
           </ThemeProvider>
         </QueryProvider>

@@ -1,5 +1,5 @@
 import Icon from "../Icon";
-import { AvatarDropDown } from "../Profile/AvatarDropDown";
+import { AvatarDropDown } from "../Avatar/AvatarDropDown";
 import { SearchInput } from "../SearchInput/SearchInput";
 import ThemeToggle from "../Theme/ThemeToggle";
 import { HeaderTextItem } from "./HeaderTextItem";

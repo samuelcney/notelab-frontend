@@ -11,6 +11,8 @@ interface InputProps {
   invert?: boolean;
   onclick?: () => void;
   isSmallHeight?: boolean;
+  isDisabled?: boolean;
+  value?: string;
 }
 
 export const InputContent = ({
@@ -23,6 +25,8 @@ export const InputContent = ({
   invert = false,
   onclick,
   isSmallHeight,
+  isDisabled = false,
+  value,
 }: InputProps) => {
   return (
     <div className="flex flex-col w-full gap-1">
@@ -36,17 +40,20 @@ export const InputContent = ({
 
       <div
         className={`w-full border rounded-xl p-1 flex items-center ${
-          isSmallHeight ? "h-10" : "h-12"
+          isSmallHeight ? "h-9" : "h-12"
         } ${invert ? "invert" : ""} ${
-          error ? "border-red-600" : "border-foreground"
+          error ? "border-red-600" : "border-gray-400"
         }`}
       >
         <input
           {...register}
           type={type}
           placeholder={placeholder}
-          className="w-full 
-          h-full bg-transparent px-2 py-3 text-base focus:outline-none text-foreground font-normal"
+          className={`w-full h-full bg-transparent px-2 py-3 text-base focus:outline-none text-foreground font-normal ${
+            isDisabled && "text-gray-400"
+          }`}
+          disabled={isDisabled}
+          value={value}
         />
         {icon && (
           <span

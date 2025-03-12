@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { ReactNode } from "react";
 import Icon from "../Icon";
-import { useSidebar } from "@/context/SidebarContext";
+import { useSidebar } from "@/context/sidebar";
 
 interface HeaderRootProps {
   children?: ReactNode;
