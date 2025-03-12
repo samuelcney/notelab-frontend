@@ -1,5 +1,6 @@
 "use client";
 import { Badge } from "@/components/Badges/Badge";
+import { Button } from "@/components/Button";
 import { ChapterAccordion } from "@/components/Chapters/ChapterAccordion";
 import { ChapterAccordionSkeleton } from "@/components/Chapters/ChapterAccordionSkeleton";
 import { CourseContentSkeleton } from "@/components/CoursePage/CourseContentSkeleton";
@@ -20,7 +21,7 @@ export default function CoursePage() {
   return (
     <PageRoot isOverflowHidden>
       <div className="flex flex-1 w-full items-center h-full overflow-hidden">
-        <div className="flex w-[70%] flex-col overflow-y-auto h-full">
+        <div className="flex w-[70%] flex-col overflow-y-auto h-full pb-5">
           <div className="w-full">
             {!isPending ? (
               <Image
@@ -70,9 +71,15 @@ export default function CoursePage() {
                     <p className="text-sm">{data?.instructor?.email}</p>
                   </div>
 
-                  <p className="flex-1 text-justify text-sm">
-                    {data?.description}
-                  </p>
+                  <div className="flex flex-col gap-6 items-center">
+                    <p className="flex-1 text-justify text-sm">
+                      {data?.description}
+                    </p>
+
+                    <Button.Root>
+                      <Button.Content title={`R$ ${data?.price.toString()}`} />
+                    </Button.Root>
+                  </div>
                 </div>
               </div>
             ) : (
