@@ -74,6 +74,22 @@ export const Sidebar = () => {
             }
           />
           <SidebarItem
+            title="Usuários"
+            isOpen={isOpen}
+            icon={
+              <Icon
+                name="Users"
+                strokeWidth={strokeW}
+                size={size}
+                color="white"
+              />
+            }
+            onclick={() => {
+              navigation.push("/admin/users");
+              closeSideBar();
+            }}
+          />
+          <SidebarItem
             title="Configurações"
             isOpen={isOpen}
             icon={

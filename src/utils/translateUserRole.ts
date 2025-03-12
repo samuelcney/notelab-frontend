@@ -1,7 +1,7 @@
 const UserRole: Record<string, { name: string; color: string }> = {
   ADMIN: { name: "Admin", color: "#4CAF50" },
-  STUDENT: { name: "Estudante", color: "#00A6ED" },
-  INSTRUCTOR: { name: "Instrutor", color: "#F44336" },
+  STUDENT: { name: "Aluno", color: "#00A6ED" },
+  INSTRUCTOR: { name: "Tutor", color: "#F44336" },
 };
 
 export function translateUserRole(role: string): {

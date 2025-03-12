@@ -10,4 +10,5 @@ interface UserProps {
   email: string;
   createdAt: string;
   updatedAt: string;
+  role: string;
 }
