@@ -8,7 +8,7 @@ export default function HomePage() {
   const { data: courses, isPending } = useCourses();
 
   return (
-    <PageRoot haveSearchBar>
+    <PageRoot>
       <div className="flex flex-1 flex-col mt-14 items-center">
         <div className="flex gap-4 mb-14 w-full pl-8">
           <AvatarBallComponent abbreviation="SC" isBigSize />
@@ -17,15 +17,21 @@ export default function HomePage() {
           </h1>
         </div>
 
-        <div className="flex flex-1 h-full flex-col gap-12 max-w-[100vw]">
+        <div className="flex flex-1 h-full flex-col gap-20 max-w-[100vw]">
           <CourseCarousel
-            title="Para você"
+            title="Mais recentes:"
             coursesList={courses ? [...courses].reverse() : []}
             loading={isPending}
           />
 
           <CourseCarousel
-            title="Confira os cursos em destaque"
+            title="Confira os cursos em alta:"
+            coursesList={courses ? courses : []}
+            loading={isPending}
+          />
+
+          <CourseCarousel
+            title="Cursos gratuitos para você aproveitar!"
             coursesList={courses ? courses : []}
             loading={isPending}
           />

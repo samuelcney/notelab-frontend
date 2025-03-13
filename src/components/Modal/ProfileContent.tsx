@@ -18,7 +18,7 @@ export const ProfileContent = () => {
         <div className="flex items-center w-full justify-center pt-4"></div>
       </div>
 
-      <Button.Root isFullSize>
+      <Button.Root>
         <Button.Content title="FECHAR" onclick={() => closeModal()} />
       </Button.Root>
     </div>

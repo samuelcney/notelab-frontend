@@ -96,7 +96,7 @@ export const RegisterLayout = ({ onToggle }: { onToggle: () => void }) => {
               />
             </Input.Root>
 
-            <Button.Root isFullSize>
+            <Button.Root>
               <Button.Content title="Cadastrar" isLoading={loading} />
 
               <p

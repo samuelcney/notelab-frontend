@@ -1,14 +1,18 @@
+"use client";
 import Icon from "../Icon";
 import { AvatarDropDown } from "../Avatar/AvatarDropDown";
 import { SearchInput } from "../SearchInput/SearchInput";
 import ThemeToggle from "../Theme/ThemeToggle";
 import { HeaderTextItem } from "./HeaderTextItem";
+import { useRouter } from "next/navigation";
 
 export const HeaderContent = ({
   haveSearchBar,
 }: {
   haveSearchBar?: boolean;
 }) => {
+  const navigation = useRouter();
+
   return (
     <div
       className={`flex w-full h-full ${
@@ -17,23 +21,27 @@ export const HeaderContent = ({
     >
       {haveSearchBar && <SearchInput />}
 
-      <div className="flex h-full items-center gap-4 pr-2">
+      <div className="flex h-full items-center gap-6 pr-2">
         <HeaderTextItem text="Ensine na NoteLab.io" />
 
-        <HeaderTextItem text="Meus cursos" />
+        <HeaderTextItem
+          text="Meus cursos"
+          onclick={() => navigation.push("/my-courses")}
+        />
 
         <ThemeToggle />
 
         <Icon
           name="ShoppingCart"
-          size={24}
+          size={26}
           strokeWidth={1}
           className="cursor-pointer"
           color="white"
+          onClick={() => navigation.push("/cart")}
         />
         <Icon
           name="Bell"
-          size={24}
+          size={26}
           strokeWidth={1}
           className="cursor-pointer"
           color="white"

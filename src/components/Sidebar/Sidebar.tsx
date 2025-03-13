@@ -62,7 +62,7 @@ export const Sidebar = () => {
             }}
           />
           <SidebarItem
-            title="Cursos"
+            title="Catálogo"
             isOpen={isOpen}
             icon={
               <Icon
@@ -72,6 +72,10 @@ export const Sidebar = () => {
                 color="white"
               />
             }
+            onclick={() => {
+              navigation.push("/catalog");
+              closeSideBar();
+            }}
           />
           <SidebarItem
             title="Usuários"

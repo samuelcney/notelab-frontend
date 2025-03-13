@@ -56,7 +56,7 @@ export const LoginLayout = ({ ontoggle }: LoginLayoutProps) => {
             </div>
           </Input.Root>
 
-          <Button.Root isFullSize>
+          <Button.Root>
             <Button.Content
               title="Entrar"
               onclick={() => navigation.push("/home")}

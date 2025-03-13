@@ -2,19 +2,22 @@ import { ReactNode } from "react";
 
 interface ButtonRootProps {
   children: ReactNode;
-  isFullSize?: boolean;
+  percentSize?: string;
   isRow?: boolean;
 }
 
 export const ButtonRoot = ({
   children,
-  isFullSize,
+  percentSize,
   isRow,
+  ...rest
 }: ButtonRootProps) => {
   const isFlexRow = isRow ? "flex-row" : "flex-col";
-  const size = isFullSize ? "w-full" : "w-[60%]";
+  const percent = percentSize ? `w-[${percentSize}%]` : "w-full";
 
   return (
-    <div className={`flex items-center ${isFlexRow} ${size}`}>{children}</div>
+    <div className={`flex items-center ${isFlexRow} ${percent}`} {...rest}>
+      {children}
+    </div>
   );
 };
