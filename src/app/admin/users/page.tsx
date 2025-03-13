@@ -4,7 +4,7 @@ import { PageRoot } from "@/components/layout/PageRoot";
 export default function UsersPage() {
   return (
     <PageRoot>
-      <div className="flex flex-1 w-full items-center h-full justify-center px-2">
+      <div className="flex flex-1 w-full  h-full justify-center pt-6 px-1">
         <UsersTable />
       </div>
     </PageRoot>

@@ -16,26 +16,27 @@ import { useUsers } from "@/hooks/users/useUsers";
 export function UsersTable() {
   const { data: users, isPending } = useUsers();
   return (
-    <Table>
-      <TableCaption>Lista de usuários no sistema</TableCaption>
+    <Table className="">
       <TableHeader>
         <TableRow>
           <TableHead className="w-[80px]">Cargo</TableHead>
           <TableHead>Nome</TableHead>
           <TableHead>Email</TableHead>
           <TableHead className="text-right">Data de Criação</TableHead>
+          <TableHead className="text-right">Data de Atualização</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
         {!isPending
           ? users?.map((user, index) => (
-              <TableRow key={index}>
+              <TableRow key={index} className="cursor-pointer h-12">
                 <TableCell className="font-medium">
                   <Badge.Role roleName={user.role} />
                 </TableCell>
                 <TableCell>{user.name}</TableCell>
                 <TableCell>{user.email}</TableCell>
                 <TableCell className="text-right">{user.createdAt}</TableCell>
+                <TableCell className="text-right">{user.updatedAt}</TableCell>
               </TableRow>
             ))
           : Array.from({ length: 8 }).map((_, index) => (
@@ -57,7 +58,7 @@ export function UsersTable() {
       </TableBody>
       <TableFooter>
         <TableRow>
-          <TableCell colSpan={4} className="text-right">
+          <TableCell colSpan={5} className="text-right">
             Total de Usuários: {users?.length}
           </TableCell>
         </TableRow>
