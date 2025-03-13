@@ -28,7 +28,7 @@ export const AvatarDropDown = () => {
           <Icon name="User" />
           Perfil
         </DropdownMenuItem>
-        <DropdownMenuItem>
+        <DropdownMenuItem onClick={() => navigation.push("/configurations")}>
           <Icon name="Settings" /> Configurações
         </DropdownMenuItem>
 

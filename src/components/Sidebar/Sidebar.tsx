@@ -104,6 +104,10 @@ export const Sidebar = () => {
                 color="white"
               />
             }
+            onclick={() => {
+              navigation.push("/configurations");
+              closeSideBar();
+            }}
           />
         </nav>
       </div>
