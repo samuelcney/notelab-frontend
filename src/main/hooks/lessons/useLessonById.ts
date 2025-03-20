@@ -1,4 +1,4 @@
-import { lessonService } from "@/services/lessons/lessonService";
+import { lessonService } from "@/main/services/lessons/lessonService";
 import { Lessons } from "@/types/CourseInterface";
 import { useQuery } from "@tanstack/react-query";
 

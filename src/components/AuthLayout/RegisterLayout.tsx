@@ -4,10 +4,10 @@ import Icon from "../Icon";
 import { Input } from "../Input";
 import { useState } from "react";
 import { z } from "zod";
-import { registerSchema } from "@/schemas/register.schema";
+import { registerSchema } from "@/main/schemas/register.schema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useCreateUser } from "@/hooks/users/useUsers";
+import { useCreateUser } from "@/main/hooks/users/useUsers";
 
 type RegisterData = z.infer<typeof registerSchema>;
 

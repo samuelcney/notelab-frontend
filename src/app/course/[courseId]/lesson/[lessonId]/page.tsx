@@ -1,5 +1,5 @@
 "use client";
-import { useLessonById } from "@/hooks/lessons/useLessonById";
+import { useLessonById } from "@/main/hooks/lessons/useLessonById";
 import { ArrowLeft } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 

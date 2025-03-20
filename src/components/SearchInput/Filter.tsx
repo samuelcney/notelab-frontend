@@ -10,7 +10,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import Icon from "../Icon";
-import { useCategories } from "@/hooks/categories/useCategories";
+import { useCategories } from "@/main/hooks/categories/useCategories";
 
 export const Filter = () => {
   const { data: categories } = useCategories();

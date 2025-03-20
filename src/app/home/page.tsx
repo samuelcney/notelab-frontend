@@ -2,7 +2,7 @@
 import { CourseCarousel } from "@/components/Carousel/CourseCarouselRoot";
 import { PageRoot } from "@/components/layout/PageRoot";
 import { AvatarBallComponent } from "@/components/Avatar/AvatarBallComponent";
-import { useCourses } from "@/hooks/courses/useCourses";
+import { useCourses } from "@/main/hooks/courses/useCourses";
 
 export default function HomePage() {
   const { data: courses, isPending } = useCourses();

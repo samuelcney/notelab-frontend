@@ -8,7 +8,7 @@ import { CourseHeaderSkeleton } from "@/components/CoursePage/CourseHeaderSkelet
 import { PageRoot } from "@/components/layout/PageRoot";
 import { AvatarBallComponent } from "@/components/Avatar/AvatarBallComponent";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useCourseById } from "@/hooks/courses/useCourseById";
+import { useCourseById } from "@/main/hooks/courses/useCourseById";
 import { getInitials } from "@/utils/getInitials";
 import Image from "next/image";
 import { useParams } from "next/navigation";

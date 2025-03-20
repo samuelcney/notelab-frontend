@@ -1,4 +1,4 @@
-import { courseService } from "@/services/courses/courseService";
+import { courseService } from "@/main/services/courses/courseService";
 import { CourseProps } from "@/types/CourseInterface";
 import { useQuery } from "@tanstack/react-query";
 
