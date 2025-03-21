@@ -16,7 +16,7 @@ export default function CartPage() {
           <div className="w-[75%] h-[60%] flex justify-center items-center flex-col gap-8 border-x">
             <p>
               Ops!!! Parece que o seu carrinho está vazio... Continue procurando
-              o curso que deseja comprar!
+              em nosso catálogo!
             </p>
 
             <Button.Root percentSize="30">
