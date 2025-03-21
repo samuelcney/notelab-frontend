@@ -1,5 +1,5 @@
 "use client";
-import { SidebarContext } from "@/context/sidebar";
+import { SidebarContext } from "@/main/context/sidebar";
 import { ReactNode, useState } from "react";
 
 export const SidebarProvider = ({ children }: { children: ReactNode }) => {

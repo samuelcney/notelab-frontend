@@ -6,7 +6,7 @@ import { ToastProvider } from "@/components/Providers/ToastProvider";
 import { ThemeProvider } from "next-themes";
 import { QueryProvider } from "@/components/Providers/QueryProvider";
 import { SidebarProvider } from "@/components/Providers/SidebarProvider";
-import { ModalProvider } from "@/context/modal";
+import { ModalProvider } from "@/main/context/modal";
 
 const saira = Saira({
   variable: "--font-saira",

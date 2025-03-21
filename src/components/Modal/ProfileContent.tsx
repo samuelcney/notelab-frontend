@@ -1,5 +1,5 @@
 "use client";
-import { useModal } from "@/context/modal";
+import { useModal } from "@/main/context/modal";
 import { Badge } from "../Badges/Badge";
 import { Button } from "../Button";
 

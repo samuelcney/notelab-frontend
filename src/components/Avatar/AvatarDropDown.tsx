@@ -10,7 +10,7 @@ import {
 import { AvatarBallComponent } from "./AvatarBallComponent";
 import { useRouter } from "next/navigation";
 import Icon from "../Icon";
-import { useModal } from "@/context/modal";
+import { useModal } from "@/main/context/modal";
 
 export const AvatarDropDown = () => {
   const navigation = useRouter();

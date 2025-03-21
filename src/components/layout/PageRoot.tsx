@@ -3,7 +3,7 @@ import React, { ReactNode } from "react";
 import { Header } from "../Header";
 import { Sidebar } from "../Sidebar/Sidebar";
 import { Modal } from "../Modal/Modal";
-import { useModal } from "@/context/modal";
+import { useModal } from "@/main/context/modal";
 import { Input } from "../Input";
 import { Button } from "../Button";
 

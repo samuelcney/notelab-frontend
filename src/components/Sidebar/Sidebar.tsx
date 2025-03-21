@@ -1,5 +1,5 @@
 "use client";
-import { useSidebar } from "@/context/sidebar";
+import { useSidebar } from "@/main/context/sidebar";
 import Icon from "../Icon";
 import { SidebarItem } from "./SidebarItem";
 import { useRouter } from "next/navigation";
