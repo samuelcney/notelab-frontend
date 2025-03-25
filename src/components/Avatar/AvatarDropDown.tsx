@@ -24,8 +24,8 @@ export const AvatarDropDown = () => {
       <DropdownMenuContent className="bg-light-dark animate-fade-in text-white mr-5 mt-2 border">
         <DropdownMenuLabel>Minha conta</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => openModal("profileModal")}>
-          <Icon name="User" />
+        <DropdownMenuItem>
+          <Icon name="User" onClick={() => navigation.push("/profile")} />
           Perfil
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => navigation.push("/configurations")}>
