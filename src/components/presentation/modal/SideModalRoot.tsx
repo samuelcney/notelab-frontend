@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Icon from "../Icon";
+import Icon from "../../Icon";
 
 interface SidebarProps {
   isOpen: boolean;

@@ -1,6 +1,6 @@
 "use client";
-import { AuthLayout } from "@/components/AuthLayout/AuthLayout";
-import ImageSlideshow from "@/components/ImageSlideshow/ImageSlideShow";
+import { AuthLayout } from "@/components/presentation/auth-layout/AuthLayout";
+import ImageSlideshow from "@/components/presentation/image-slide-show/ImageSlideShow";
 import { useState } from "react";
 
 export default function AuthPage() {

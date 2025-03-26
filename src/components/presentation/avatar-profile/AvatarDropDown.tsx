@@ -9,13 +9,11 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { AvatarBallComponent } from "./AvatarBallComponent";
 import { useRouter } from "next/navigation";
-import Icon from "../Icon";
-import { useModal } from "@/main/context/modal";
+import Icon from "../../Icon";
 
 export const AvatarDropDown = () => {
   const navigation = useRouter();
 
-  const { openModal } = useModal();
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
@@ -24,8 +22,8 @@ export const AvatarDropDown = () => {
       <DropdownMenuContent className="bg-light-dark animate-fade-in text-white mr-5 mt-2 border">
         <DropdownMenuLabel>Minha conta</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          <Icon name="User" onClick={() => navigation.push("/profile")} />
+        <DropdownMenuItem onClick={() => navigation.push("/profile")}>
+          <Icon name="User" />
           Perfil
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => navigation.push("/configurations")}>

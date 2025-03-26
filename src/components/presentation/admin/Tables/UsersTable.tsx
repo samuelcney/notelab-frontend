@@ -1,5 +1,5 @@
 "use client";
-import { Badge } from "@/components/Badges/Badge";
+import { Badge } from "@/components/presentation/badges/Badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
   Table,

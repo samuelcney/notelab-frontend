@@ -1,10 +1,11 @@
 "use client";
-import Icon from "../Icon";
-import { AvatarDropDown } from "../Avatar/AvatarDropDown";
-import { SearchInput } from "../SearchInput/SearchInput";
-import ThemeToggle from "../Theme/ThemeToggle";
-import { HeaderTextItem } from "./HeaderTextItem";
+import Icon from "../../Icon";
+import { AvatarDropDown } from "../avatar-profile/AvatarDropDown";
+import { SearchInput } from "../search-input/SearchInput";
+import ThemeToggle from "../theme/ThemeToggle";
+
 import { useRouter } from "next/navigation";
+import { HeaderTextItem } from "../header/HeaderTextItem";
 
 export const HeaderContent = ({
   haveSearchBar,

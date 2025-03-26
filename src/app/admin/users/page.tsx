@@ -1,4 +1,4 @@
-import { UsersTable } from "@/components/admin/Tables/UsersTable";
+import { UsersTable } from "@/components/presentation/admin/Tables/UsersTable";
 import { PageRoot } from "@/components/layout/PageRoot";
 
 export default function UsersPage() {

@@ -9,8 +9,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import Icon from "../Icon";
-import { useCategories } from "@/main/hooks/categories/useCategories";
+import Icon from "../../Icon";
+import { useCategories } from "@/main/hooks/categories/use-get-categories";
 
 export const Filter = () => {
   const { data: categories } = useCategories();
@@ -28,7 +28,12 @@ export const Filter = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <Icon name="Filter" size={26} className="text-white" strokeWidth={1} />
+        <Icon
+          name="SlidersHorizontal"
+          size={26}
+          className="text-white"
+          strokeWidth={1}
+        />
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56 bg-light-dark text-white">
         <DropdownMenuLabel>Filtro</DropdownMenuLabel>

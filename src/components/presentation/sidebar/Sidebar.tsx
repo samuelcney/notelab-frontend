@@ -1,9 +1,10 @@
 "use client";
 import { useSidebar } from "@/main/context/sidebar";
-import Icon from "../Icon";
-import { SidebarItem } from "./SidebarItem";
+import Icon from "../../Icon";
+
 import { useRouter } from "next/navigation";
 import { useEffect, useRef } from "react";
+import { SidebarItem } from "./SidebarItem";
 
 export const Sidebar = () => {
   const strokeW = 1.5;

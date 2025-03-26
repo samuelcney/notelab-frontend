@@ -1,5 +1,5 @@
 "use client";
-import { Button } from "@/components/Button";
+import { Button } from "@/components/presentation/button";
 import { PageRoot } from "@/components/layout/PageRoot";
 import { useRouter } from "next/navigation";
 

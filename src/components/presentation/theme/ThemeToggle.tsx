@@ -2,7 +2,7 @@
 
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
-import Icon from "../Icon";
+import Icon from "../../Icon";
 
 export default function ThemeToggle() {
   const { setTheme, resolvedTheme } = useTheme();

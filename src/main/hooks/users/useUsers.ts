@@ -1,4 +1,4 @@
-import { notify } from "@/components/Toast/Toast";
+import { notify } from "@/components/presentation/toast/Toast";
 import { userService } from "@/main/services/users/userService";
 import { getErrorMessage } from "@/utils/getErrorMessage";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";

@@ -1,8 +1,8 @@
 "use client";
-import { CourseCarousel } from "@/components/Carousel/CourseCarouselRoot";
+import { CourseCarousel } from "@/components/presentation/carousel/CourseCarouselRoot";
 import { PageRoot } from "@/components/layout/PageRoot";
-import { AvatarBallComponent } from "@/components/Avatar/AvatarBallComponent";
-import { useCourses } from "@/main/hooks/courses/useCourses";
+import { AvatarBallComponent } from "@/components/presentation/avatar-profile/AvatarBallComponent";
+import { useCourses } from "@/main/hooks/courses/use-get-courses";
 
 export default function HomePage() {
   const { data: courses, isPending } = useCourses();

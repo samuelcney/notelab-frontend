@@ -2,11 +2,12 @@ import type { Metadata } from "next";
 import { Saira } from "next/font/google";
 import "./globals.css";
 
-import { ToastProvider } from "@/components/Providers/ToastProvider";
+import { ToastProvider } from "@/components/providers/ToastProvider";
 import { ThemeProvider } from "next-themes";
-import { QueryProvider } from "@/components/Providers/QueryProvider";
-import { SidebarProvider } from "@/components/Providers/SidebarProvider";
+import { QueryProvider } from "@/components/providers/QueryProvider";
+
 import { ModalProvider } from "@/main/context/modal";
+import { SidebarProvider } from "@/components/providers/SidebarProvider";
 
 const saira = Saira({
   variable: "--font-saira",

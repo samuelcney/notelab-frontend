@@ -5,7 +5,7 @@ import { categoryColors } from "@/utils/categoryColors";
 import { translateDifficulty } from "@/utils/translateDifficulty";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { Badge } from "../Badges/Badge";
+import { Badge } from "../badges/Badge";
 
 interface CourseCardProps {
   id: number;

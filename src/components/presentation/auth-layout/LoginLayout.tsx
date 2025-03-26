@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { Button } from "../Button";
-import Icon from "../Icon";
-import { Input } from "../Input";
+import { Button } from "../button";
+import Icon from "../../Icon";
+import { Input } from "../input";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 

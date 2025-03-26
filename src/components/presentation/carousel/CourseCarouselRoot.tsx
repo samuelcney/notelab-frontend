@@ -1,6 +1,6 @@
 "use client";
 
-import { CourseCardSkeleton } from "@/components/CourseCard/CourseCardSkeleton";
+import { CourseCardSkeleton } from "@/components/presentation/course-card/CourseCardSkeleton";
 import {
   Carousel,
   CarouselContent,
@@ -9,7 +9,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { CarouselTitle } from "./CarouselTitle";
-import { CourseCard } from "../CourseCard/CourseCard";
+import { CourseCard } from "../course-card/CourseCard";
 import { CourseProps } from "@/types/CourseInterface";
 
 interface CourseCarouselProps {

@@ -1,7 +1,7 @@
 "use client";
 import { useModal } from "@/main/context/modal";
-import { Badge } from "../Badges/Badge";
-import { Button } from "../Button";
+import { Badge } from "../badges/Badge";
+import { Button } from "../button";
 
 export const ProfileContent = () => {
   const { closeModal } = useModal();
