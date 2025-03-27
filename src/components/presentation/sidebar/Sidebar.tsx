@@ -2,9 +2,14 @@
 import { useSidebar } from "@/main/context/sidebar";
 import Icon from "../../Icon";
 
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef } from "react";
 import { SidebarItem } from "./SidebarItem";
+import {
+  adminPathNameEnum as adminPath,
+  pathNameEnum as path,
+  teacherPathNameEnum as teacherPath,
+} from "@/utils/enums/Enums";
 
 export const Sidebar = () => {
   const strokeW = 1.5;
@@ -12,6 +17,7 @@ export const Sidebar = () => {
 
   const { isOpen, closeSideBar } = useSidebar();
   const navigation = useRouter();
+  const pathname = usePathname();
 
   const sidebarRef = useRef<HTMLDivElement | null>(null);
 
@@ -43,10 +49,11 @@ export const Sidebar = () => {
       <div
         ref={sidebarRef}
         className={`absolute left-0 top-0 h-full bg-dark-gray transition-transform duration-300 ease-in-out z-20
-          ${isOpen ? "translate-x-0 w-52" : "-translate-x-full w-52"}`}
+          ${isOpen ? "translate-x-0 w-60" : "-translate-x-full w-60"}`}
       >
         <nav className="flex flex-col gap-4 w-full px-4 pt-6">
           <SidebarItem
+            isActive={pathname === path.HOME}
             title="Início"
             isOpen={isOpen}
             icon={
@@ -58,27 +65,46 @@ export const Sidebar = () => {
               />
             }
             onclick={() => {
-              navigation.push("/home");
+              navigation.push(path.HOME);
               closeSideBar();
             }}
           />
           <SidebarItem
+            isActive={pathname === path.CATALOG}
             title="Catálogo"
             isOpen={isOpen}
             icon={
               <Icon
-                name="BookAudio"
+                name="Library"
                 strokeWidth={strokeW}
                 size={size}
                 color="white"
               />
             }
             onclick={() => {
-              navigation.push("/catalog");
+              navigation.push(path.CATALOG);
               closeSideBar();
             }}
           />
           <SidebarItem
+            isActive={pathname === teacherPath.TEACHER_DASHBOARD}
+            title="Ensino"
+            isOpen={isOpen}
+            icon={
+              <Icon
+                name="Presentation"
+                strokeWidth={strokeW}
+                size={size}
+                color="white"
+              />
+            }
+            onclick={() => {
+              navigation.push(teacherPath.TEACHER_DASHBOARD);
+              closeSideBar();
+            }}
+          />
+          <SidebarItem
+            isActive={pathname === adminPath.ADMIN_USERS}
             title="Usuários"
             isOpen={isOpen}
             icon={
@@ -90,11 +116,12 @@ export const Sidebar = () => {
               />
             }
             onclick={() => {
-              navigation.push("/admin/users");
+              navigation.push(adminPath.ADMIN_USERS);
               closeSideBar();
             }}
           />
           <SidebarItem
+            isActive={pathname === path.CONFIGURATION}
             title="Configurações"
             isOpen={isOpen}
             icon={
@@ -106,7 +133,7 @@ export const Sidebar = () => {
               />
             }
             onclick={() => {
-              navigation.push("/configurations");
+              navigation.push(path.CONFIGURATION);
               closeSideBar();
             }}
           />

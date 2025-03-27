@@ -1,19 +1,24 @@
 import { JSX } from "react";
+import { boolean } from "zod";
 
 export const SidebarItem = ({
   icon,
   title,
   isOpen,
   onclick,
+  isActive,
 }: {
   icon: JSX.Element;
   title?: string;
   isOpen?: boolean;
   onclick?: () => void;
+  isActive?: boolean;
 }) => {
   return (
     <span
-      className={`cursor-pointer hover:bg-[#cdcdcd44] rounded-lg px-2 py-4 flex items-center gap-2 group`}
+      className={`cursor-pointer hover:bg-[#cdcdcd22] rounded-lg px-2 py-4 flex items-center gap-2 group ${
+        isActive ? "bg-[#cdcdcd22]" : ""
+      }`}
       onClick={onclick}
     >
       {isOpen && icon}

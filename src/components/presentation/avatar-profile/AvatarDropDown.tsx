@@ -10,6 +10,7 @@ import {
 import { AvatarBallComponent } from "./AvatarBallComponent";
 import { useRouter } from "next/navigation";
 import Icon from "../../Icon";
+import { pathNameEnum } from "@/utils/enums/Enums";
 
 export const AvatarDropDown = () => {
   const navigation = useRouter();
@@ -22,11 +23,13 @@ export const AvatarDropDown = () => {
       <DropdownMenuContent className="bg-light-dark animate-fade-in text-white mr-5 mt-2 border">
         <DropdownMenuLabel>Minha conta</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => navigation.push("/profile")}>
+        <DropdownMenuItem onClick={() => navigation.push(pathNameEnum.PROFILE)}>
           <Icon name="User" />
           Perfil
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => navigation.push("/configurations")}>
+        <DropdownMenuItem
+          onClick={() => navigation.push(pathNameEnum.CONFIGURATION)}
+        >
           <Icon name="Settings" /> Configurações
         </DropdownMenuItem>
 
