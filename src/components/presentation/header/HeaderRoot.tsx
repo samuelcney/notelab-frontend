@@ -27,16 +27,16 @@ export const HeaderRoot = ({ children }: HeaderRootProps) => {
         onClick={() => push("/home")}
         style={{ cursor: "pointer" }}
       >
-        <Image
+        {/* <Image
           src="/images/logo.png"
           width={44}
           height={44}
           alt="Logo"
           className="mr-1"
           priority
-        />
-        <h1 className="text-2xl italic text-greenApp tracking-widest font-bold">
-          NoteLab.io
+        /> */}
+        <h1 className="text-2xl text-greenApp tracking-[0.15em] font-extrabold">
+          Notelab.io
         </h1>
       </div>
 
