@@ -1,5 +1,5 @@
 export const categoryColors: Record<string, string> = {
-  guitarra: "#32CD32",
+  guitarra: "#21c45d",
   contrabaixo: "#5A3D31",
   piano: "#1A73E8",
   bateria: "#FFa100",

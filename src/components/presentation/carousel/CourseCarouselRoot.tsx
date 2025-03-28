@@ -24,7 +24,7 @@ export const CourseCarousel = ({
   loading,
 }: CourseCarouselProps) => {
   return (
-    <div className="flex flex-1 flex-col gap-2 px-8 w-full ">
+    <div className="flex flex-1 flex-col gap-2 px-8 w-full">
       <CarouselTitle title={title} />
       {coursesList.length === 0 && !loading ? (
         <div className="text-center text-lg text-gray-500 w-full">
@@ -47,7 +47,7 @@ export const CourseCarousel = ({
               : coursesList?.map((course) => (
                   <CarouselItem
                     key={course.id}
-                    className="flex-shrink-0 flex-grow-0 basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/3 xl:basis-1/4"
+                    className="flex-shrink-0 flex-grow-0 basis-full sm:basis-1/2 md:basis-1/2 lg:basis-1/3 xl:basis-1/4"
                   >
                     <CourseCard
                       id={course.id}

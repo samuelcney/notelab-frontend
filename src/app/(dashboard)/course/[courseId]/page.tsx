@@ -39,7 +39,7 @@ export default function CoursePage() {
             <div className="flex items-center gap-4 p-2 min-h-[100px]">
               {!isPending ? (
                 <div className="flex flex-row gap-6 w-full justify-between">
-                  <div className="flex flex-col">
+                  <div className="flex flex-col gap-1">
                     <h1 className="font-semibold text-3xl leading-tight">
                       {data?.name}
                     </h1>
@@ -77,7 +77,7 @@ export default function CoursePage() {
                   </div>
 
                   <div className="flex flex-col gap-6 items-center flex-1">
-                    <p className="flex-1 text-justify text-sm">
+                    <p className="flex-1 text-justify text-sm tracking-wide">
                       {data?.description}
                     </p>
 

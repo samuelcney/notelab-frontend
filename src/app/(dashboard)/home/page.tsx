@@ -17,7 +17,7 @@ export default function HomePage() {
           </h1>
         </div>
 
-        <div className="flex flex-1 h-full flex-col gap-20 max-w-[100vw] px-4">
+        <div className="flex flex-1 h-full flex-col gap-20 w-[100vw] px-4 mb-10">
           <CourseCarousel
             title="Mais recentes:"
             coursesList={courses ? [...courses].reverse() : []}
