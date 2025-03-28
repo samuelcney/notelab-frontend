@@ -53,7 +53,10 @@ export default function LessonPage() {
                       )
                     }
                   >
-                    <span className="w-[6px] h-[6px] bg-white rounded-full" />
+                    <span
+                      className="w-[6px] h-[6px] bg-white rounded-full"
+                      key={lesson.id}
+                    />
                     {lesson.title}
                   </span>
                 </>

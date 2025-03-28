@@ -26,7 +26,7 @@ export const ChapterAccordion = ({
         </div>
       ) : (
         chapterList.map((item, index) => (
-          <Accordion type="single" collapsible key={index}>
+          <Accordion type="single" collapsible key={index} value={item.name}>
             <AccordionItem value={item.name} key={item.name}>
               <AccordionTrigger>{item.name}</AccordionTrigger>
               {item.lessons.map((lesson, i) => (
