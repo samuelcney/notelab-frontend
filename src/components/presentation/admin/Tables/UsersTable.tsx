@@ -11,7 +11,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useUsers } from "@/main/hooks/users/useUsers";
+import { useUsers } from "@/main/hooks/users/useGetUsers";
 
 export function UsersTable() {
   const { data: users, isPending } = useUsers();

@@ -31,6 +31,7 @@ export interface Category2 {
 }
 
 export interface Modules {
+  id: number;
   courseId: number;
   name: string;
   lessons: Lessons[];

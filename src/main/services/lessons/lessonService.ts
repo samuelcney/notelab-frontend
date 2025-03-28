@@ -5,4 +5,9 @@ export const lessonService = {
     const { data } = await api.get(`/lessons/${id}`);
     return data;
   },
+
+  getLessonsByModuleId: async (moduleId: number) => {
+    const { data } = await api.get(`/lessons/module/${moduleId}`);
+    return data;
+  },
 };

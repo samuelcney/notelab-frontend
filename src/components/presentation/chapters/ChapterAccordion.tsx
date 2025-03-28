@@ -34,7 +34,9 @@ export const ChapterAccordion = ({
                   className="pl-2 cursor-pointer hover:underline"
                   key={i}
                   onClick={() =>
-                    navigation.push(`/course/${courseId}/lesson/${lesson.id}`)
+                    navigation.push(
+                      `/course/${courseId}/lesson/${lesson.id}?moduleId=${item.id}`
+                    )
                   }
                 >
                   - {lesson.title}

@@ -2,7 +2,7 @@ import { lessonService } from "@/main/services/lessons/lessonService";
 import { Lessons } from "@/types/CourseInterface";
 import { useQuery } from "@tanstack/react-query";
 
-export const useLessonById = (id: number) => {
+export const useGetLessonById = (id: number) => {
   return useQuery<Lessons>({
     queryKey: ["lesson", id],
     queryFn: () => lessonService.getLessonById(id),

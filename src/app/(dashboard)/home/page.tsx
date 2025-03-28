@@ -1,12 +1,9 @@
 "use client";
-import { CourseCarousel } from "@/components/presentation/carousel/CourseCarouselRoot";
 import { PageRoot } from "@/components/layout/PageRoot";
 import { AvatarBallComponent } from "@/components/presentation/avatar-profile/AvatarBallComponent";
-import { useCourses } from "@/main/hooks/courses/use-get-courses";
+import { CarouselContainer } from "@/components/presentation/carousel/CarouselContainer";
 
 export default function HomePage() {
-  const { data: courses, isPending } = useCourses();
-
   return (
     <PageRoot>
       <div className="flex flex-1 flex-col mt-14 items-center">
@@ -17,25 +14,7 @@ export default function HomePage() {
           </h1>
         </div>
 
-        <div className="flex flex-1 h-full flex-col gap-20 w-[100vw] px-4 mb-10">
-          <CourseCarousel
-            title="Mais recentes:"
-            coursesList={courses ? [...courses].reverse() : []}
-            loading={isPending}
-          />
-
-          <CourseCarousel
-            title="Confira os cursos em alta:"
-            coursesList={courses ? courses : []}
-            loading={isPending}
-          />
-
-          <CourseCarousel
-            title="Cursos gratuitos para você aproveitar!"
-            coursesList={courses ? courses : []}
-            loading={isPending}
-          />
-        </div>
+        <CarouselContainer />
       </div>
     </PageRoot>
   );

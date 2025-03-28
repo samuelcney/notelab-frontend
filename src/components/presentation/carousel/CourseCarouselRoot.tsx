@@ -18,7 +18,7 @@ interface CourseCarouselProps {
   loading: boolean;
 }
 
-export const CourseCarousel = ({
+export const CarouselRoot = ({
   title,
   coursesList,
   loading,
@@ -47,7 +47,7 @@ export const CourseCarousel = ({
               : coursesList?.map((course) => (
                   <CarouselItem
                     key={course.id}
-                    className="flex-shrink-0 flex-grow-0 basis-full sm:basis-1/2 md:basis-1/2 lg:basis-1/3 xl:basis-1/4"
+                    className="flex-shrink-0 flex-grow-0 basis-full max-sm:basis-1/3 sm:basis-1/2 md:basis-1/2 lg:basis-1/3 xl:basis-1/4"
                   >
                     <CourseCard
                       id={course.id}
