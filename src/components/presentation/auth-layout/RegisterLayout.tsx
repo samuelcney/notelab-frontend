@@ -7,7 +7,7 @@ import { z } from "zod";
 import { registerSchema } from "@/main/schemas/register.schema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useCreateUser } from "@/main/hooks/users/useGetUsers";
+import { useCreateUser } from "@/main/hooks/users/useCreateUser";
 
 type RegisterData = z.infer<typeof registerSchema>;
 
