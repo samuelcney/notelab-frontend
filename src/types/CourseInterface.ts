@@ -1,4 +1,4 @@
-export interface CourseProps {
+export type CourseProps = {
   id: number;
   name: string;
   description: string;
@@ -10,35 +10,35 @@ export interface CourseProps {
   instructor: Instructor;
   modules: Modules[];
   categories: Category[];
-}
+};
 
-export interface Instructor {
+export type Instructor = {
   id: number;
   name: string;
   email: string;
   role: string;
-}
+};
 
-export interface Category {
+export type Category = {
   courseId: number;
   categoryId: number;
   category: Category2;
-}
+};
 
-export interface Category2 {
+export type Category2 = {
   id: number;
   name: string;
-}
+};
 
-export interface Modules {
+export type Modules = {
   id: number;
   courseId: number;
   name: string;
   lessons: Lessons[];
-}
+};
 
-export interface Lessons {
+export type Lessons = {
   id: number;
   title: string;
   content: string;
-}
+};

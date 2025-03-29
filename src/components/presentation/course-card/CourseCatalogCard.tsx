@@ -8,11 +8,12 @@ export const CourseCatalogCard = ({ ...course }: CourseProps) => {
 
   return (
     <div
-      className="w-full h-[280px] border flex shadow-md rounded-md overflow-hidden gap-4 cursor-pointer hover:shadow-lg transition-all duration-200"
+      className="w-full h-[300px] border flex shadow-md rounded-md overflow-hidden gap-4 cursor-pointer hover:shadow-lg transition-all duration-200"
       key={course.id}
       onClick={() => navigation.push(`/course/${course.id}`)}
     >
       <div className="w-[22em] relative overflow-hidden">
+        <Badge.Level level={course.difficulty} isFromCard isLeft />
         <Image
           src={"/images/background/image1.jpg"}
           alt={`Banner - ${course.name}`}
@@ -40,7 +41,7 @@ export const CourseCatalogCard = ({ ...course }: CourseProps) => {
           ))}
         </div>
 
-        <div className="mt-6 w-[90%] flex gap-1 ">
+        <div className="mt-6 w-[85%] flex gap-1 ">
           <p className="font-semibold text-sm">Descrição:</p>
           <p className="line-clamp-5 break-words text-sm text-justify">
             {course.description}

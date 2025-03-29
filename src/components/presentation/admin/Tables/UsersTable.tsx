@@ -22,6 +22,7 @@ export function UsersTable() {
           <TableHead className="w-[80px]">Cargo</TableHead>
           <TableHead>Nome</TableHead>
           <TableHead>Email</TableHead>
+          <TableHead className="w-[85px] text-center">Ativo</TableHead>
           <TableHead className="text-right">Data de Criação</TableHead>
           <TableHead className="text-right">Data de Atualização</TableHead>
         </TableRow>
@@ -35,6 +36,9 @@ export function UsersTable() {
                 </TableCell>
                 <TableCell>{user.name}</TableCell>
                 <TableCell>{user.email}</TableCell>
+                <TableCell>
+                  <Badge.Status status={user.isActiveUser} />
+                </TableCell>
                 <TableCell className="text-right">{user.createdAt}</TableCell>
                 <TableCell className="text-right">{user.updatedAt}</TableCell>
               </TableRow>
@@ -43,6 +47,9 @@ export function UsersTable() {
               <TableRow key={index}>
                 <TableCell>
                   <Skeleton className="h-5 w-16" />
+                </TableCell>
+                <TableCell>
+                  <Skeleton className="h-5 w-32" />
                 </TableCell>
                 <TableCell>
                   <Skeleton className="h-5 w-32" />
@@ -58,7 +65,7 @@ export function UsersTable() {
       </TableBody>
       <TableFooter>
         <TableRow>
-          <TableCell colSpan={5} className="text-right">
+          <TableCell colSpan={6} className="text-right">
             Total de Usuários: {users?.length}
           </TableCell>
         </TableRow>

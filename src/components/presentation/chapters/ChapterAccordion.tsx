@@ -28,7 +28,9 @@ export const ChapterAccordion = ({
         chapterList.map((item, index) => (
           <Accordion type="single" collapsible key={index} value={item.name}>
             <AccordionItem value={item.name} key={item.name}>
-              <AccordionTrigger>{item.name}</AccordionTrigger>
+              <AccordionTrigger className="no-underline">
+                {item.name}
+              </AccordionTrigger>
               {item.lessons.map((lesson, i) => (
                 <AccordionContent
                   className="pl-2 cursor-pointer hover:underline"

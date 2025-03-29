@@ -2,6 +2,7 @@
 import { PageRoot } from "@/components/layout/PageRoot";
 import { AvatarBallComponent } from "@/components/presentation/avatar-profile/AvatarBallComponent";
 import { CarouselContainer } from "@/components/presentation/carousel/CarouselContainer";
+import { FooterRoot } from "@/components/presentation/footer/FooterRoot";
 
 export default function HomePage() {
   return (

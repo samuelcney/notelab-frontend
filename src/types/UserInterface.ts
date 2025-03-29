@@ -1,14 +1,15 @@
-interface CreateUserDTO {
+type CreateUserDTO = {
   name: string;
   email: string;
   password: string;
-}
+};
 
-interface UserProps {
+type UserProps = {
   id?: string;
   name: string;
   email: string;
   createdAt: string;
   updatedAt: string;
   role: string;
-}
+  isActiveUser: boolean;
+};

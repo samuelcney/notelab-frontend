@@ -20,7 +20,7 @@ export const PageRoot = ({
 
   return (
     <div
-      className={`flex flex-1 h-screen flex-col max-w-[100vw] ${
+      className={`flex h-screen flex-col max-w-[100vw] ${
         isOverflowHidden ? "overflow-hidden" : "overflow-x-hidden"
       }`}
     >
@@ -33,7 +33,7 @@ export const PageRoot = ({
         }`}
       >
         <Sidebar />
-        <div className="flex-1 flex">{children}</div>
+        <div className="flex-1 flex flex-col pt-[70px]">{children}</div>
       </div>
 
       {modalType === "profileModal" && (

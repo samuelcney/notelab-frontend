@@ -1,4 +1,4 @@
-interface Category {
+type Category = {
   id: string;
   name: string;
-}
+};

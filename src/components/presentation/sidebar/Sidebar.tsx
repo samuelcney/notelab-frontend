@@ -33,11 +33,12 @@ export const Sidebar = () => {
 
     if (isOpen) {
       document.body.classList.add("overflow-hidden");
+      document.addEventListener("mousedown", handleClickOutside);
     } else {
       document.body.classList.remove("overflow-hidden");
+      document.removeEventListener("mousedown", handleClickOutside);
     }
 
-    document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
       document.body.classList.remove("overflow-hidden");
@@ -48,8 +49,8 @@ export const Sidebar = () => {
     <div className="relative">
       <div
         ref={sidebarRef}
-        className={`absolute left-0 top-0 h-full bg-dark-gray transition-transform duration-300 ease-in-out z-20
-          ${isOpen ? "translate-x-0 w-60" : "-translate-x-full w-60"}`}
+        className={`fixed left-0 top-[70px] h-[calc(100vh-70px)] bg-dark-gray transition-transform duration-300 ease-in-out z-20
+          ${isOpen ? "translate-x-0 w-64" : "-translate-x-full w-64"}`}
       >
         <nav className="flex flex-col gap-4 w-full px-4 pt-6">
           <SidebarItem
