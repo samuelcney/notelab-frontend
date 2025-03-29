@@ -5,8 +5,9 @@ export const userService = {
     const { data } = await api.get("/users");
     return data;
   },
-  createUser: async (userData: CreateUserDTO) => {
-    const { data } = await api.post("/users", userData);
+
+  signUp: async (userData: CreateUserDTO) => {
+    const { data } = await api.post("/auth/register", userData);
     return data;
   },
 };

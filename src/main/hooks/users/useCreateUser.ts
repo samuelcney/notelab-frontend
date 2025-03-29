@@ -7,13 +7,12 @@ export const useCreateUser = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: userService.createUser,
+    mutationFn: userService.signUp,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["users"] });
       notify("Usuário criado com sucesso", "success");
     },
     onError: (error: any) => {
-      console.log(error);
       const errorMessage = getErrorMessage(error);
       notify(errorMessage, "error");
     },
