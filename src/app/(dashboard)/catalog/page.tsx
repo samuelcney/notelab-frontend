@@ -15,7 +15,9 @@ export default function CatalogPage() {
         </div>
 
         <div className="w-full items-center justify-center flex flex-1 gap-5 pb-12">
-          <div className="flex h-full w-[20%] border rounded-md"></div>
+          <div className="flex h-full w-[20%] border border-foreground rounded-md flex-col gap-4 p-4">
+            <h1 className="text-xl font-semibold">Filtros</h1>
+          </div>
           <div className="w-[70%] h-full flex flex-col gap-8 justify-center items-center">
             <div className="w-full ml-9">
               <h1 className="text-3xl font-semibold">Todos os cursos</h1>

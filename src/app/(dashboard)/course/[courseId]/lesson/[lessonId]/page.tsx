@@ -32,7 +32,7 @@ export default function LessonPage() {
           <div className="flex-1 h-full">
             <iframe
               className="w-full h-full"
-              src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+              src="https://www.youtube.com/embed/-ElGAUrbqUY?si=6PcW-G184a39sowI"
               title="YouTube video player"
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
