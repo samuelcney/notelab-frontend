@@ -2,7 +2,10 @@ import { z } from "zod";
 
 const registerSchema = z
   .object({
-    name: z.string().nonempty({ message: "" }),
+    name: z
+      .string()
+      .nonempty({ message: "" })
+      .regex(/^[^0-9]*$/, { message: "Nome não pode conter números" }),
     email: z
       .string()
       .nonempty({ message: "Email é obrigatório" })

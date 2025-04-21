@@ -1,7 +1,7 @@
-import { CourseProps } from "@/types/CourseInterface";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Badge } from "../badges/Badge";
+import { CourseProps } from "@/types/types";
 
 export const CourseCatalogCard = ({ ...course }: CourseProps) => {
   const navigation = useRouter();
@@ -10,7 +10,7 @@ export const CourseCatalogCard = ({ ...course }: CourseProps) => {
     <div
       className="w-full h-[300px] border flex shadow-md rounded-md overflow-hidden gap-4 cursor-pointer hover:shadow-lg transition-all duration-200"
       key={course.id}
-      onClick={() => navigation.push(`/course/${course.id}`)}
+      onClick={() => navigation.push(`course/${course.id}`)}
     >
       <div className="w-[22em] relative overflow-hidden">
         <Badge.Level level={course.difficulty} isFromCard isLeft />

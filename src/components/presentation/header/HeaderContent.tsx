@@ -6,7 +6,7 @@ import ThemeToggle from "../theme/ThemeToggle";
 
 import { useRouter } from "next/navigation";
 import { HeaderTextItem } from "../header/HeaderTextItem";
-import { pathNameEnum } from "@/utils/enums/Enums";
+import { pathNameEnum } from "@/utils/Enums";
 
 export const HeaderContent = ({
   haveSearchBar,
@@ -26,12 +26,12 @@ export const HeaderContent = ({
       <div className="flex h-full items-center gap-7 pr-2">
         <HeaderTextItem
           text="Ensine na NoteLab.io"
-          onclick={() => navigation.push(pathNameEnum.SEND_REQUEST)}
+          onclick={() => navigation.replace(pathNameEnum.SEND_REQUEST)}
         />
 
         <HeaderTextItem
           text="Meus cursos"
-          onclick={() => navigation.push(pathNameEnum.MY_COURSES)}
+          onclick={() => navigation.replace(pathNameEnum.MY_COURSES)}
         />
 
         <ThemeToggle />
@@ -42,7 +42,7 @@ export const HeaderContent = ({
           strokeWidth={1}
           className="cursor-pointer"
           color="white"
-          onClick={() => navigation.push(pathNameEnum.CART)}
+          onClick={() => navigation.replace(pathNameEnum.CART)}
         />
         <Icon
           name="Bell"

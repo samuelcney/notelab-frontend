@@ -11,10 +11,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useUsers } from "@/main/hooks/users/useGetUsers";
+import { useGetUsers } from "@/main/hooks";
 
 export function UsersTable() {
-  const { data: users, isPending } = useUsers();
+  const { data: users, isPending } = useGetUsers();
   return (
     <Table className="">
       <TableHeader>

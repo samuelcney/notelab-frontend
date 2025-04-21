@@ -4,6 +4,7 @@ import { ReactNode, useRef } from "react";
 import Icon from "../../Icon";
 import { useSidebar } from "@/main/context/sidebar";
 import { useRouter } from "next/navigation";
+import { pathNameEnum } from "@/utils/Enums";
 
 interface HeaderRootProps {
   children?: ReactNode;
@@ -30,7 +31,7 @@ export const HeaderRoot = ({ children }: HeaderRootProps) => {
 
       <div
         className="flex flex-row items-center ml-8 gap-1"
-        onClick={() => push("/home")}
+        onClick={() => push(pathNameEnum.HOME)}
         style={{ cursor: "pointer" }}
       >
         {/* <Image

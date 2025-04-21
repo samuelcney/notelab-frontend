@@ -1,5 +1,3 @@
-import { translateUserRole } from "@/utils/translateUserRole";
-
 export const StatusBadge = ({ status }: { status: boolean }) => {
   return (
     <p

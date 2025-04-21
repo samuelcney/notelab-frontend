@@ -1,11 +1,10 @@
 "use client";
 
-import { Category2 } from "@/types/CourseInterface";
-import { categoryColors } from "@/utils/categoryColors";
-import { translateDifficulty } from "@/utils/translateDifficulty";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Badge } from "../badges/Badge";
+import { Category } from "@/types/types";
+import { translateDifficulty } from "@/utils/Translations";
 
 interface CourseCardProps {
   id: number;
@@ -13,7 +12,7 @@ interface CourseCardProps {
   price: number;
   difficulty: string;
   instructorName: string;
-  categories: Category2[];
+  categories: Category[];
 }
 
 export const CourseCard = ({
@@ -32,7 +31,7 @@ export const CourseCard = ({
   return (
     <div
       className="border border-light-gray w-full rounded-lg cursor-pointer flex-col overflow-hidden aspect-[4/5] flex"
-      onClick={() => navigation.push(`/course/${id}`)}
+      onClick={() => navigation.push(`course/${id}`)}
       key={id}
     >
       <div className="w-full  relative overflow-hidden">

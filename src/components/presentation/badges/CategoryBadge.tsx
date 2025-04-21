@@ -1,4 +1,4 @@
-import { categoryColors } from "@/utils/categoryColors";
+import { categoryColors } from "@/utils/Constants";
 
 export const CategoryBadge = ({ categoryName }: { categoryName: string }) => {
   return (

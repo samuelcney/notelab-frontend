@@ -1,0 +1,8 @@
+export { useRegister } from "./auth/use-register";
+export { useGetCategories } from "./categories/use-get-categories";
+export { useGetCourses } from "./courses/use-get-courses";
+export { useGetCourseById } from "./courses/use-get-course-by-id";
+export { useGetLessonById } from "./lessons/use-get-lesson-by-id";
+export { useGetLessonsByModuleId } from "./lessons/use-get-lesson-by-module-id";
+export { useGetUsers } from "./users/use-get-users";
+export { useGetModuleById } from "./modules/use-get-module-by-id";

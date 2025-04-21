@@ -1,0 +1,18 @@
+import { CreateUserDTO, LoginDTO } from "@/types/types";
+import { api } from "../axios/axios-instance";
+
+export const authService = {
+  signIn: async (userData: LoginDTO) => {
+    const { data } = await api.post("/auth/login", userData);
+    return data;
+  },
+
+  signUp: async (userData: CreateUserDTO) => {
+    const { data } = await api.post("/auth/register", userData);
+    return data;
+  },
+
+  logout: async () => {
+    return await api.post("/auth/logout");
+  },
+};

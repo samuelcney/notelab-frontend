@@ -10,30 +10,39 @@ import {
 import { AvatarBallComponent } from "./AvatarBallComponent";
 import { useRouter } from "next/navigation";
 import Icon from "../../Icon";
-import { pathNameEnum } from "@/utils/enums/Enums";
+import { pathNameEnum } from "@/utils/Enums";
+import { useLogout } from "@/main/hooks/auth/use-logout";
+import { useCurrentUser } from "@/main/hooks/users/use-current-user";
 
 export const AvatarDropDown = () => {
   const navigation = useRouter();
+  const user = useCurrentUser();
+
+  const { mutateAsync: logout } = useLogout();
+
+  const userName = user?.user_metadata?.name ?? "Usuário";
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <AvatarBallComponent abbreviation="SC" />
+        <AvatarBallComponent abbreviation={userName} />
       </DropdownMenuTrigger>
       <DropdownMenuContent className="bg-light-dark animate-fade-in text-white mr-5 mt-2 border">
         <DropdownMenuLabel>Minha conta</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => navigation.push(pathNameEnum.PROFILE)}>
+        <DropdownMenuItem
+          onClick={() => navigation.replace(pathNameEnum.PROFILE)}
+        >
           <Icon name="User" />
           Perfil
         </DropdownMenuItem>
         <DropdownMenuItem
-          onClick={() => navigation.push(pathNameEnum.CONFIGURATION)}
+          onClick={() => navigation.replace(pathNameEnum.CONFIGURATION)}
         >
           <Icon name="Settings" /> Configurações
         </DropdownMenuItem>
 
-        <DropdownMenuItem onClick={() => navigation.push("/")}>
+        <DropdownMenuItem onClick={() => logout()}>
           <Icon name="LogOut" />
           Sair
         </DropdownMenuItem>

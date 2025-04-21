@@ -5,7 +5,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Modules } from "@/types/CourseInterface";
+import { Modules } from "@/types/types";
+
 import { useRouter } from "next/navigation";
 
 export const ChapterAccordion = ({
@@ -36,8 +37,8 @@ export const ChapterAccordion = ({
                   className="pl-2 cursor-pointer hover:underline"
                   key={i}
                   onClick={() =>
-                    navigation.push(
-                      `/course/${courseId}/lesson/${lesson.id}?moduleId=${item.id}`
+                    navigation.replace(
+                      `/dashboard/course/${courseId}/lesson/${lesson.id}?moduleId=${item.id}`
                     )
                   }
                 >

@@ -1,27 +1,34 @@
-import { useCourses } from "@/main/hooks/courses/useGetCourses";
+import { useGetCourses } from "@/main/hooks/courses/use-get-courses";
 import { CarouselRoot } from "./CourseCarouselRoot";
+import { CourseProps } from "@/types/types";
 
 export const CarouselContainer = () => {
-  const { data: courses, isPending } = useCourses();
+  const { data: courses, isPending } = useGetCourses();
+
+  const carouselsConfig = [
+    { title: "Mais recentes:", transform: (list: CourseProps[]) => list },
+    {
+      title: "Confira os cursos em alta:",
+      transform: (list: CourseProps[]) => [...list].reverse(),
+    },
+    {
+      title: "Cursos gratuitos para você aproveitar!",
+      transform: (list: CourseProps[]) => list,
+      isFreeCourses: true,
+    },
+  ];
+
   return (
     <div className="flex flex-1 h-full flex-col gap-20 w-[100vw] px-4 mb-10">
-      <CarouselRoot
-        title="Mais recentes:"
-        coursesList={courses ? [...courses] : []}
-        loading={isPending}
-      />
-
-      <CarouselRoot
-        title="Confira os cursos em alta:"
-        coursesList={courses ? [...courses].reverse() : []}
-        loading={isPending}
-      />
-
-      <CarouselRoot
-        title="Cursos gratuitos para você aproveitar!"
-        coursesList={courses ? courses : []}
-        loading={isPending}
-      />
+      {carouselsConfig.map((carousel, index) => (
+        <CarouselRoot
+          key={index}
+          title={carousel.title}
+          coursesList={carousel.transform(courses || [])}
+          loading={isPending}
+          isFreeCourses={carousel.isFreeCourses}
+        />
+      ))}
     </div>
   );
 };

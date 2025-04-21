@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import { Saira } from "next/font/google";
 import "./globals.css";
-import { QueryProvider } from "@/components/Providers/QueryProvider";
-import { SidebarProvider } from "@/components/Providers/SidebarProvider";
-import { ToastProvider } from "@/components/Providers/ToastProvider";
+import { QueryProvider } from "@/main/providers/QueryProvider";
+import { SidebarProvider } from "@/main/providers/SidebarProvider";
+import { ToastProvider } from "@/main/providers/ToastProvider";
 import { ModalProvider } from "@/main/context/modal";
-import { ThemeProvider } from "@/components/Providers/ThemeProvider";
+import { ThemeProvider } from "@/main/providers/ThemeProvider";
+import { AuthProvider } from "@/main/context/auth";
 
 const saira = Saira({
   variable: "--font-saira",
@@ -26,12 +27,14 @@ export default function RootLayout({
     <html lang="pt" suppressHydrationWarning>
       <body className={`${saira.variable} antialiased`}>
         <QueryProvider>
-          <ThemeProvider>
-            <SidebarProvider>
-              <ModalProvider>{children}</ModalProvider>
-            </SidebarProvider>
-            <ToastProvider />
-          </ThemeProvider>
+          <AuthProvider>
+            <ThemeProvider>
+              <SidebarProvider>
+                <ModalProvider>{children}</ModalProvider>
+              </SidebarProvider>
+              <ToastProvider />
+            </ThemeProvider>
+          </AuthProvider>
         </QueryProvider>
       </body>
     </html>

@@ -6,16 +6,16 @@ import React, {
   ReactNode,
   useEffect,
 } from "react";
-
 import Cookies from "js-cookie";
+import { SupabaseUserData, UserProps } from "@/types/types";
 
 interface UserData {
   token: string;
-  user: UserProps;
+  user: SupabaseUserData;
 }
 
 interface AuthContextProps {
-  user: UserProps | null;
+  user: SupabaseUserData | null;
   token: string | null;
   login: (userData: UserData) => void;
   logout: () => void;
@@ -28,7 +28,7 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [user, setUser] = useState<UserProps | null>(null);
+  const [user, setUser] = useState<SupabaseUserData | null>(null);
   const [token, setToken] = useState<string | null>(null);
 
   const login = (data: UserData) => {
@@ -40,10 +40,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       setUser(data.user);
       setToken(data.token);
 
-      Cookies.set("user", JSON.stringify(data.user || {}), { expires: 1 });
-      Cookies.set("token", data.token || "", { expires: 1 });
+      Cookies.set("user", JSON.stringify(data.user), { expires: 1 });
+      Cookies.set("token", data.token, { expires: 1 });
     } catch (error: any) {
-      throw new Error(error);
+      console.error("Erro ao fazer login:", error);
+      throw new Error("Falha ao realizar login");
     }
   };
 
@@ -51,6 +52,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     try {
       setUser(null);
       setToken(null);
+
       Cookies.remove("token");
       Cookies.remove("user");
     } catch (error) {

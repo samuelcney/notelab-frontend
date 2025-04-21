@@ -10,10 +10,11 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import Icon from "../../Icon";
-import { useCategories } from "@/main/hooks/categories/useGetCategories";
+import { useGetCategories } from "@/main/hooks";
+import { Category } from "@/types/types";
 
 export const Filter = () => {
-  const { data: categories } = useCategories();
+  const { data: categories } = useGetCategories();
   const [selectedCategories, setSelectedCategories] = React.useState<
     Record<string, boolean>
   >({});

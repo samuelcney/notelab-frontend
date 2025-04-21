@@ -10,23 +10,29 @@ import {
 } from "@/components/ui/carousel";
 import { CarouselTitle } from "./CarouselTitle";
 import { CourseCard } from "../course-card/CourseCard";
-import { CourseProps } from "@/types/CourseInterface";
+import { CourseProps } from "@/types/types";
 
 interface CourseCarouselProps {
   title: string;
   coursesList: CourseProps[];
   loading: boolean;
+  isFreeCourses?: boolean;
 }
 
 export const CarouselRoot = ({
   title,
   coursesList,
   loading,
+  isFreeCourses = false,
 }: CourseCarouselProps) => {
+  const courses = isFreeCourses
+    ? coursesList.filter((course) => course.price === 0)
+    : coursesList.filter((course) => course.price > 0);
+
   return (
     <div className="flex flex-1 flex-col gap-2 px-8 w-full">
       <CarouselTitle title={title} />
-      {coursesList.length === 0 && !loading ? (
+      {!loading && courses.length === 0 ? (
         <div className="text-center text-lg text-gray-500 w-full">
           Nenhum curso encontrado. Volte mais tarde!
         </div>
@@ -44,7 +50,7 @@ export const CarouselRoot = ({
                       <CourseCardSkeleton />
                     </CarouselItem>
                   ))
-              : coursesList?.map((course) => (
+              : courses.map((course) => (
                   <CarouselItem
                     key={course.id}
                     className="flex-shrink-0 flex-grow-0 basis-full max-sm:basis-1/3 sm:basis-1/2 md:basis-1/2 lg:basis-1/3 xl:basis-1/4"

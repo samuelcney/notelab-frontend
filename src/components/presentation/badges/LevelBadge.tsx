@@ -1,4 +1,4 @@
-import { translateDifficulty } from "@/utils/translateDifficulty";
+import { translateDifficulty } from "@/utils/Translations";
 
 export const LevelBadge = ({
   level,

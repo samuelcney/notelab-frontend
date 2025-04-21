@@ -5,12 +5,29 @@ interface AvatarProps {
   isBigSize?: boolean;
 }
 
+const getAbbreviation = (name: string) => {
+  if (!name) {
+    return "?";
+  }
+  const nameParts = name.split(" ");
+  if (nameParts.length === 1) {
+    return nameParts[0].substring(0, 2).toUpperCase();
+  }
+
+  return (
+    nameParts[0].charAt(0).toUpperCase() + nameParts[1].charAt(0).toUpperCase()
+  );
+};
+
 export const AvatarBallComponent = ({
   abbreviation,
   isBigSize,
 }: AvatarProps) => {
   const size = isBigSize ? "w-[62px] h-[62px]" : "w-[46px] h-[46px]";
   const fontSize = isBigSize ? "text-2xl" : "text-xl";
+
+  const abbreviatedName = getAbbreviation(abbreviation);
+
   return (
     <div className="relative">
       <span
@@ -18,12 +35,8 @@ export const AvatarBallComponent = ({
           !isBigSize && "cursor-pointer"
         }`}
       >
-        <h1
-          className={`${fontSize} text-white font-semibold tracking-wide ${
-            isBigSize ? "text-2xl" : "text-sm"
-          }`}
-        >
-          {abbreviation}
+        <h1 className={`${fontSize} text-white font-semibold tracking-wide`}>
+          {abbreviatedName}
         </h1>
       </span>
     </div>

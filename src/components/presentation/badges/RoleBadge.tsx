@@ -1,4 +1,4 @@
-import { translateUserRole } from "@/utils/translateUserRole";
+import { translateUserRole } from "@/utils/Translations";
 
 export const RoleBadge = ({ roleName }: { roleName: string }) => {
   const { name, color } = translateUserRole(roleName);

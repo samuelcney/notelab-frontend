@@ -9,7 +9,8 @@ import {
   adminPathNameEnum as adminPath,
   pathNameEnum as path,
   teacherPathNameEnum as teacherPath,
-} from "@/utils/enums/Enums";
+} from "@/utils/Enums";
+import { useCurrentUser } from "@/main/hooks/users/use-current-user";
 
 export const Sidebar = () => {
   const strokeW = 1.5;
@@ -20,6 +21,9 @@ export const Sidebar = () => {
   const pathname = usePathname();
 
   const sidebarRef = useRef<HTMLDivElement | null>(null);
+
+  const user = useCurrentUser();
+  const role = user?.app_metadata.role;
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -62,14 +66,15 @@ export const Sidebar = () => {
                 name="House"
                 strokeWidth={strokeW}
                 size={size}
-                color="white"
+                className="text-greenApp"
               />
             }
             onclick={() => {
-              navigation.push(path.HOME);
+              navigation.replace(path.HOME);
               closeSideBar();
             }}
           />
+
           <SidebarItem
             isActive={pathname === path.CATALOG}
             title="Catálogo"
@@ -79,48 +84,55 @@ export const Sidebar = () => {
                 name="Library"
                 strokeWidth={strokeW}
                 size={size}
-                color="white"
+                className="text-greenApp"
               />
             }
             onclick={() => {
-              navigation.push(path.CATALOG);
+              navigation.replace(path.CATALOG);
               closeSideBar();
             }}
           />
-          <SidebarItem
-            isActive={pathname === teacherPath.TEACHER_DASHBOARD}
-            title="Ensino"
-            isOpen={isOpen}
-            icon={
-              <Icon
-                name="Presentation"
-                strokeWidth={strokeW}
-                size={size}
-                color="white"
-              />
-            }
-            onclick={() => {
-              navigation.push(teacherPath.TEACHER_DASHBOARD);
-              closeSideBar();
-            }}
-          />
-          <SidebarItem
-            isActive={pathname === adminPath.ADMIN_USERS}
-            title="Usuários"
-            isOpen={isOpen}
-            icon={
-              <Icon
-                name="Users"
-                strokeWidth={strokeW}
-                size={size}
-                color="white"
-              />
-            }
-            onclick={() => {
-              navigation.push(adminPath.ADMIN_USERS);
-              closeSideBar();
-            }}
-          />
+
+          {role === "INSTRUCTOR" && (
+            <SidebarItem
+              isActive={pathname === teacherPath.TEACHER_DASHBOARD}
+              title="Ensino"
+              isOpen={isOpen}
+              icon={
+                <Icon
+                  name="Presentation"
+                  strokeWidth={strokeW}
+                  size={size}
+                  className="text-greenApp"
+                />
+              }
+              onclick={() => {
+                navigation.replace(teacherPath.TEACHER_DASHBOARD);
+                closeSideBar();
+              }}
+            />
+          )}
+
+          {role === "ADMIN" && (
+            <SidebarItem
+              isActive={pathname === adminPath.ADMIN_USERS}
+              title="Usuários"
+              isOpen={isOpen}
+              icon={
+                <Icon
+                  name="Users"
+                  strokeWidth={strokeW}
+                  size={size}
+                  className="text-greenApp"
+                />
+              }
+              onclick={() => {
+                navigation.replace(adminPath.ADMIN_USERS);
+                closeSideBar();
+              }}
+            />
+          )}
+
           <SidebarItem
             isActive={pathname === path.CONFIGURATION}
             title="Configurações"
@@ -130,11 +142,11 @@ export const Sidebar = () => {
                 name="Settings"
                 strokeWidth={strokeW}
                 size={size}
-                color="white"
+                className="text-greenApp"
               />
             }
             onclick={() => {
-              navigation.push(path.CONFIGURATION);
+              navigation.replace(path.CONFIGURATION);
               closeSideBar();
             }}
           />
