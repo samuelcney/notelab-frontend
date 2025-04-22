@@ -85,7 +85,7 @@ export default function ProfilePage() {
             </div>
 
             <div className="pt-2">
-              <button className="bg-greenApp text-white px-6 py-2 rounded-md hover:bg-green-600 transition duration-200 font-bold">
+              <button className="bg-greenApp text-white px-6 py-2 rounded-md hover:bg-greenApp/70 transition duration-200 font-bold">
                 Salvar alterações
               </button>
             </div>
