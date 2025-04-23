@@ -1,5 +1,7 @@
 "use client";
 
+import Icon from "@/components/Icon";
+
 interface AvatarProps {
   abbreviation: string;
   isBigSize?: boolean;
@@ -35,9 +37,13 @@ export const AvatarBallComponent = ({
           !isBigSize && "cursor-pointer"
         }`}
       >
-        <h1 className={`${fontSize} text-white font-semibold tracking-wide`}>
-          {abbreviatedName}
-        </h1>
+        {abbreviatedName ? (
+          <h1 className={`${fontSize} text-white font-semibold tracking-wide`}>
+            {abbreviatedName}
+          </h1>
+        ) : (
+          <Icon name="User" />
+        )}
       </span>
     </div>
   );

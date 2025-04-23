@@ -11,11 +11,11 @@ export default function HomePage() {
       <div className="flex flex-1 flex-col mt-14 items-center">
         <div className="flex gap-4 mb-14 w-full pl-8">
           <AvatarBallComponent
-            abbreviation={user!.user_metadata.name}
+            abbreviation={user?.user_metadata?.name ?? ""}
             isBigSize
           />
           <h1 className="text-2xl font-semibold flex items-center tracking-wide">
-            Bem vindo(a) de volta, {user?.user_metadata.name}
+            Bem vindo(a) de volta, {user?.user_metadata?.name}
           </h1>
         </div>
 

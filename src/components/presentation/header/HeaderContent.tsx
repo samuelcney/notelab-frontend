@@ -7,6 +7,7 @@ import ThemeToggle from "../theme/ThemeToggle";
 import { useRouter } from "next/navigation";
 import { HeaderTextItem } from "../header/HeaderTextItem";
 import { pathNameEnum } from "@/utils/Enums";
+import { NotificationDropDown } from "../notifications/NotificationDropdown";
 
 export const HeaderContent = ({
   haveSearchBar,
@@ -44,13 +45,7 @@ export const HeaderContent = ({
           color="white"
           onClick={() => navigation.replace(pathNameEnum.CART)}
         />
-        <Icon
-          name="Bell"
-          size={28}
-          strokeWidth={1}
-          className="cursor-pointer"
-          color="white"
-        />
+        <NotificationDropDown />
 
         <AvatarDropDown />
       </div>
