@@ -16,7 +16,10 @@ export const useLogin = () => {
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: [queryKeysEnum.SIGN_IN] });
       login(data);
-      push(pathNameEnum.HOME);
+
+      setTimeout(() => {
+        push(pathNameEnum.HOME);
+      }, 1500);
     },
     onError: (error: any) => {
       const errorMessage = getErrorMessage(error);

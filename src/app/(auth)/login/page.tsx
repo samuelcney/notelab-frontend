@@ -12,12 +12,15 @@ import { notify } from "@/components/presentation/toast/Toast";
 import { Input } from "@/components/presentation/input";
 import Icon from "@/components/Icon";
 import { Button } from "@/components/presentation/button";
+import LoadingScreen from "@/components/presentation/loading-screen/LoadingScreen";
 
 type LoginData = z.infer<typeof loginSchema>;
 
 export default function LoginPage() {
   const [hidePassword, setHidePassword] = useState(true);
   const { mutateAsync, isPending, error } = useLogin();
+  const [isVisualLoading, setIsVisualLoading] = useState(false);
+  const navigation = useRouter();
 
   const {
     register,
@@ -28,14 +31,19 @@ export default function LoginPage() {
   });
 
   const handleLogin = async (data: LoginData) => {
+    setIsVisualLoading(true);
     try {
       await mutateAsync(data);
     } catch {
       notify(error, "error");
+      setIsVisualLoading(false);
     }
   };
 
-  const navigation = useRouter();
+  if (isVisualLoading) {
+    return <LoadingScreen />;
+  }
+
   return (
     <div className="w-[90%] h-[90%] flex flex-col justify-center items-center font-semibold">
       <AnimatePresence>
