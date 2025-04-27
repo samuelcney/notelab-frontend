@@ -1,10 +1,10 @@
 "use client";
-import Image from "next/image";
-import { ReactNode, useRef } from "react";
-import Icon from "../../Icon";
 import { useSidebar } from "@/main/context/sidebar";
-import { useRouter } from "next/navigation";
 import { pathNameEnum } from "@/utils/Enums";
+import { useRouter } from "next/navigation";
+import { ReactNode } from "react";
+import Icon from "../../Icon";
+import { Logo } from "../Logo";
 
 interface HeaderRootProps {
   children?: ReactNode;
@@ -30,21 +30,11 @@ export const HeaderRoot = ({ children }: HeaderRootProps) => {
       </button>
 
       <div
-        className="flex flex-row items-center ml-8 gap-1"
+        className="flex flex-row items-center ml-4"
         onClick={() => push(pathNameEnum.HOME)}
         style={{ cursor: "pointer" }}
       >
-        {/* <Image
-          src="/images/logo.png"
-          width={44}
-          height={44}
-          alt="Logo"
-          className="mr-1"
-          priority
-        /> */}
-        <h1 className="text-2xl text-greenApp tracking-[0.15em] font-extrabold">
-          Notelab.io
-        </h1>
+        <Logo />
       </div>
 
       {children}

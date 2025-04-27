@@ -2,15 +2,15 @@
 import { useSidebar } from "@/main/context/sidebar";
 import Icon from "../../Icon";
 
-import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useRef } from "react";
-import { SidebarItem } from "./SidebarItem";
+import { useCurrentUser } from "@/main/hooks/users/use-current-user";
 import {
   adminPathNameEnum as adminPath,
   pathNameEnum as path,
   teacherPathNameEnum as teacherPath,
 } from "@/utils/Enums";
-import { useCurrentUser } from "@/main/hooks/users/use-current-user";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useRef } from "react";
+import { SidebarItem } from "./SidebarItem";
 
 export const Sidebar = () => {
   const strokeW = 1.5;
@@ -93,25 +93,26 @@ export const Sidebar = () => {
             }}
           />
 
-          {role === "INSTRUCTOR" && (
-            <SidebarItem
-              isActive={pathname === teacherPath.TEACHER_DASHBOARD}
-              title="Ensino"
-              isOpen={isOpen}
-              icon={
-                <Icon
-                  name="Presentation"
-                  strokeWidth={strokeW}
-                  size={size}
-                  className="text-greenApp"
-                />
-              }
-              onclick={() => {
-                navigation.replace(teacherPath.TEACHER_DASHBOARD);
-                closeSideBar();
-              }}
-            />
-          )}
+          {role === "INSTRUCTOR" ||
+            (role === "ADMIN" && (
+              <SidebarItem
+                isActive={pathname === teacherPath.TEACHER_DASHBOARD}
+                title="Ensino"
+                isOpen={isOpen}
+                icon={
+                  <Icon
+                    name="Presentation"
+                    strokeWidth={strokeW}
+                    size={size}
+                    className="text-greenApp"
+                  />
+                }
+                onclick={() => {
+                  navigation.replace(teacherPath.TEACHER_DASHBOARD);
+                  closeSideBar();
+                }}
+              />
+            ))}
 
           {role === "ADMIN" && (
             <SidebarItem

@@ -14,14 +14,6 @@ export default function ProfilePage() {
     avatarUrl: "",
   };
 
-  const getInitials = (name: string) => {
-    return name
-      .split(" ")
-      .map((n) => n[0])
-      .join("")
-      .toUpperCase();
-  };
-
   return (
     <PageRoot>
       <div className="flex flex-col w-full h-full p-6 max-w-4xl mx-auto">

@@ -15,7 +15,7 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
-        greenApp: "#31CB00",
+        greenApp: "#22c55e",
         "light-dark": "#171717",
         "light-gray": "#a8a8a8",
         "dark-gray": "#282828",

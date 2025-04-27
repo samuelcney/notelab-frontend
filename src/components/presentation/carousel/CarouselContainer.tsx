@@ -1,15 +1,21 @@
 import { useGetCourses } from "@/main/hooks/courses/use-get-courses";
-import { CarouselRoot } from "./CourseCarouselRoot";
 import { CourseProps } from "@/types/types";
+import { CarouselRoot } from "./CourseCarouselRoot";
 
 export const CarouselContainer = () => {
   const { data: courses, isPending } = useGetCourses();
 
   const carouselsConfig = [
-    { title: "Mais recentes:", transform: (list: CourseProps[]) => list },
+    {
+      title: "Mais recentes:",
+      transform: (list: CourseProps[]) => list,
+      isFreeCourses: true,
+    },
+
     {
       title: "Confira os cursos em alta:",
       transform: (list: CourseProps[]) => [...list].reverse(),
+      isFreeCourses: true,
     },
     {
       title: "Cursos gratuitos para você aproveitar!",

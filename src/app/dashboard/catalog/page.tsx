@@ -1,6 +1,5 @@
 "use client";
 import { PageRoot } from "@/components/layout/PageRoot";
-import { Badge } from "@/components/presentation/badges/Badge";
 import { CourseCatalogCard } from "@/components/presentation/course-card/CourseCatalogCard";
 import { CourseCatalogCardSkeleton } from "@/components/presentation/course-card/CourseCatalogCardSkeleton";
 import { useGetCourses } from "@/main/hooks";
@@ -14,7 +13,7 @@ export default function CatalogPage() {
           <h1 className="text-4xl font-semibold tracking-wide">Catálogo</h1>
         </div>
 
-        <div className="w-full items-center justify-center flex flex-1 gap-5 pb-12">
+        <div className="w-full items-center justify-center flex flex-1 gap-5 pb-12 max-sm:flex-col">
           <div className="flex h-full w-[20%] border border-foreground rounded-md flex-col gap-4 p-4">
             <h1 className="text-xl font-semibold">Filtros</h1>
           </div>

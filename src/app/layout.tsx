@@ -1,12 +1,12 @@
+import { AuthProvider } from "@/main/context/auth";
+import { ModalProvider } from "@/main/context/modal";
+import { QueryProvider } from "@/main/providers/QueryProvider";
+import { SidebarProvider } from "@/main/providers/SidebarProvider";
+import { ThemeProvider } from "@/main/providers/ThemeProvider";
+import { ToastProvider } from "@/main/providers/ToastProvider";
 import type { Metadata } from "next";
 import { Saira } from "next/font/google";
 import "./globals.css";
-import { QueryProvider } from "@/main/providers/QueryProvider";
-import { SidebarProvider } from "@/main/providers/SidebarProvider";
-import { ToastProvider } from "@/main/providers/ToastProvider";
-import { ModalProvider } from "@/main/context/modal";
-import { ThemeProvider } from "@/main/providers/ThemeProvider";
-import { AuthProvider } from "@/main/context/auth";
 
 const saira = Saira({
   variable: "--font-saira",

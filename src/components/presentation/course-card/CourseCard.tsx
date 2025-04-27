@@ -1,10 +1,10 @@
 "use client";
 
+import { Category } from "@/types/types";
+import { translateDifficulty } from "@/utils/Translations";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Badge } from "../badges/Badge";
-import { Category } from "@/types/types";
-import { translateDifficulty } from "@/utils/Translations";
 
 interface CourseCardProps {
   id: number;
@@ -34,7 +34,7 @@ export const CourseCard = ({
       onClick={() => navigation.push(`course/${id}`)}
       key={id}
     >
-      <div className="w-full  relative overflow-hidden">
+      <div className="w-full relative overflow-hidden">
         <Badge.Level level={difficulty} isFromCard />
         <Image
           src={"/images/background/image1.jpg"}

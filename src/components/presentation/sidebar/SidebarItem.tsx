@@ -1,5 +1,4 @@
 import { JSX } from "react";
-import { boolean } from "zod";
 
 export const SidebarItem = ({
   icon,

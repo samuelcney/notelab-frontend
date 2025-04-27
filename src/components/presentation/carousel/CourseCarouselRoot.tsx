@@ -8,9 +8,9 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { CarouselTitle } from "./CarouselTitle";
-import { CourseCard } from "../course-card/CourseCard";
 import { CourseProps } from "@/types/types";
+import { CourseCard } from "../course-card/CourseCard";
+import { CarouselTitle } from "./CarouselTitle";
 
 interface CourseCarouselProps {
   title: string;
@@ -53,7 +53,7 @@ export const CarouselRoot = ({
               : courses.map((course) => (
                   <CarouselItem
                     key={course.id}
-                    className="flex-shrink-0 flex-grow-0 basis-full max-sm:basis-1/3 sm:basis-1/2 md:basis-1/2 lg:basis-1/3 xl:basis-1/4"
+                    className="flex-shrink-0 flex-grow-0 basis-full max-sm:basis-1/3 sm:basis-1/2 md:basis-1/3 lg:basis-1/3 xl:basis-1/5"
                   >
                     <CourseCard
                       id={course.id}

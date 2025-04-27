@@ -1,9 +1,9 @@
 "use client";
-import React, { ReactNode } from "react";
-import { Header } from "../presentation/header";
-import { Sidebar } from "../presentation/sidebar/Sidebar";
 import { useModal } from "@/main/context/modal";
+import { ReactNode } from "react";
+import { Header } from "../presentation/header";
 import { Modal } from "../presentation/modal/Modal";
+import { Sidebar } from "../presentation/sidebar/Sidebar";
 
 interface PageLayoutProps {
   children: ReactNode;
