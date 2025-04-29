@@ -4,9 +4,10 @@ import { AvatarDropDown } from "../avatar-profile/AvatarDropDown";
 import { SearchInput } from "../search-input/SearchInput";
 import ThemeToggle from "../theme/ThemeToggle";
 
+import { useCurrentUser } from "@/main/hooks/users/use-current-user";
+import { pathNameEnum } from "@/utils/Enums";
 import { useRouter } from "next/navigation";
 import { HeaderTextItem } from "../header/HeaderTextItem";
-import { pathNameEnum } from "@/utils/Enums";
 import { NotificationDropDown } from "../notifications/NotificationDropdown";
 
 export const HeaderContent = ({
@@ -15,6 +16,8 @@ export const HeaderContent = ({
   haveSearchBar?: boolean;
 }) => {
   const navigation = useRouter();
+
+  const role = useCurrentUser()?.app_metadata.role;
 
   return (
     <div
@@ -25,10 +28,12 @@ export const HeaderContent = ({
       {haveSearchBar && <SearchInput />}
 
       <div className="flex h-full items-center gap-7 pr-2">
-        <HeaderTextItem
-          text="Ensine na NoteLab.io"
-          onclick={() => navigation.replace(pathNameEnum.SEND_REQUEST)}
-        />
+        {role !== "INSTRUCTOR" && (
+          <HeaderTextItem
+            text="Ensine na NoteLab.io"
+            onclick={() => navigation.replace(pathNameEnum.SEND_REQUEST)}
+          />
+        )}
 
         <HeaderTextItem
           text="Meus cursos"

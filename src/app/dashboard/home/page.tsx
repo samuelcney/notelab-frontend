@@ -9,7 +9,7 @@ export default function HomePage() {
   const user = useCurrentUser();
   return (
     <PageRoot>
-      <div className="flex flex-1 flex-col items-center gap-8">
+      <div className="flex flex-1 flex-col items-center gap-8 mb-12">
         <HeroSection />
 
         <CarouselContainer />

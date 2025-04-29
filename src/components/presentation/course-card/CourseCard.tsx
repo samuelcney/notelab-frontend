@@ -1,6 +1,8 @@
 "use client";
 
 import { Category } from "@/types/types";
+import { BACKGROUND_IMAGE_PATHS } from "@/utils/Constants";
+import { getRandomItem } from "@/utils/Functions";
 import { translateDifficulty } from "@/utils/Translations";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -28,16 +30,18 @@ export const CourseCard = ({
   const { name: levelName, color: levelColor } =
     translateDifficulty(difficulty);
 
+  const randomImagePath = getRandomItem(BACKGROUND_IMAGE_PATHS);
+
   return (
     <div
       className="border border-light-gray w-full rounded-lg cursor-pointer flex-col overflow-hidden aspect-[4/5] flex"
       onClick={() => navigation.push(`course/${id}`)}
       key={id}
     >
-      <div className="w-full relative overflow-hidden">
+      <div className="w-full relative overflow-hidden h-[60%]">
         <Badge.Level level={difficulty} isFromCard />
         <Image
-          src={"/images/background/image1.jpg"}
+          src={randomImagePath}
           alt={`Banner - ${courseName}`}
           width={1000}
           height={300}

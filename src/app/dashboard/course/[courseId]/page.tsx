@@ -1,23 +1,26 @@
 "use client";
+import { PageRoot } from "@/components/layout/PageRoot";
+import { AvatarBallComponent } from "@/components/presentation/avatar-profile/AvatarBallComponent";
 import { Badge } from "@/components/presentation/badges/Badge";
 import { Button } from "@/components/presentation/button";
 import { ChapterAccordion } from "@/components/presentation/chapters/ChapterAccordion";
 import { ChapterAccordionSkeleton } from "@/components/presentation/chapters/ChapterAccordionSkeleton";
 import { CourseContentSkeleton } from "@/components/presentation/course-details/CourseContentSkeleton";
 import { CourseHeaderSkeleton } from "@/components/presentation/course-details/CourseHeaderSkeleton";
-import { PageRoot } from "@/components/layout/PageRoot";
-import { AvatarBallComponent } from "@/components/presentation/avatar-profile/AvatarBallComponent";
 import { Skeleton } from "@/components/ui/skeleton";
 
+import { useGetCourseById } from "@/main/hooks";
+import { BACKGROUND_IMAGE_PATHS } from "@/utils/Constants";
+import { getInitials, getRandomItem } from "@/utils/Functions";
 import Image from "next/image";
 import { useParams } from "next/navigation";
-import { getInitials } from "@/utils/Functions";
-import { useGetCourseById } from "@/main/hooks";
 
 export default function CoursePage() {
   const { courseId } = useParams();
 
   const { data, isPending } = useGetCourseById(Number(courseId));
+
+  const randomImagePath = getRandomItem(BACKGROUND_IMAGE_PATHS);
 
   return (
     <PageRoot isOverflowHidden>
@@ -26,11 +29,11 @@ export default function CoursePage() {
           <div className="w-full">
             {!isPending ? (
               <Image
-                src={"/images/background/image1.jpg"}
+                src={randomImagePath}
                 alt="Banner"
                 width={1350}
                 height={300}
-                className="object-cover w-full h-72 aspect-square "
+                className="object-cover w-full h-80 aspect-square"
               />
             ) : (
               <Skeleton className="w-full h-72" />
