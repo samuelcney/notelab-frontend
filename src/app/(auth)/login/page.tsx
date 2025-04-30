@@ -1,17 +1,17 @@
 "use client";
 import { AnimatePresence, motion } from "framer-motion";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { loginSchema } from "@/main/schemas/login.schema";
-import { z } from "zod";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useLogin } from "@/main/hooks/auth/use-login";
-import { notify } from "@/components/presentation/toast/Toast";
-import { Input } from "@/components/presentation/input";
 import Icon from "@/components/Icon";
 import { Button } from "@/components/presentation/button";
+import { Input } from "@/components/presentation/input";
+import { notify } from "@/components/presentation/toast/Toast";
+import { useLogin } from "@/main/hooks/auth/use-login";
+import { loginSchema } from "@/main/schemas/login.schema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
 type LoginData = z.infer<typeof loginSchema>;
 
@@ -86,7 +86,10 @@ export default function LoginPage() {
               />
 
               <div className="w-full flex justify-end">
-                <p className="text-xs underline mr-1 text-foreground font-normal tracking-widest cursor-pointer">
+                <p
+                  className="text-xs underline mr-1 text-foreground font-normal tracking-widest cursor-pointer"
+                  onClick={() => navigation.replace("/recover-password")}
+                >
                   Esqueci minha senha
                 </p>
               </div>
