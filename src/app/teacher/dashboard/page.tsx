@@ -1,11 +1,27 @@
-import { PageRoot } from "@/components/layout/PageRoot";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+"use client";
+
+import { PageRoot } from "@/presentation/layout/PageRoot";
+import { Button } from "@/presentation/ui/button";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/presentation/ui/card";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/presentation/ui/tabs";
+import { Separator } from "@radix-ui/react-dropdown-menu";
+
 import { BookOpen, PlusCircle, Users } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export default function TeacherDashboard() {
+  const { replace } = useRouter();
+
   return (
     <PageRoot>
       <div className="flex flex-1 w-full h-full pt-6 px-1 flex-col">
@@ -29,6 +45,9 @@ export default function TeacherDashboard() {
               <Button
                 variant="default"
                 className="h-10 text-background bg-foreground"
+                onClick={() => {
+                  replace("/teacher/dashboard/add-course");
+                }}
               >
                 <PlusCircle className="mr-2 h-4 w-4 text-background" />
                 <p className="text-background font-semibold text-base">

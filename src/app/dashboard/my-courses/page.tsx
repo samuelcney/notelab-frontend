@@ -1,4 +1,4 @@
-import { PageRoot } from "@/components/layout/PageRoot";
+import { PageRoot } from "@/presentation/layout/PageRoot";
 
 export default function MyCoursesPage() {
   return (

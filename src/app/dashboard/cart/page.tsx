@@ -1,8 +1,9 @@
 "use client";
-import { Button } from "@/components/presentation/button";
-import { PageRoot } from "@/components/layout/PageRoot";
-import { useRouter } from "next/navigation";
+
+import { Button } from "@/presentation/components/button";
+import { PageRoot } from "@/presentation/layout/PageRoot";
 import { pathNameEnum } from "@/utils/Enums";
+import { useRouter } from "next/navigation";
 
 export default function CartPage() {
   const navigation = useRouter();

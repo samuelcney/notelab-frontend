@@ -1,8 +1,8 @@
-import { notify } from "@/components/presentation/toast/Toast";
 import { useAuth } from "@/main/context/auth";
 import { authService } from "@/main/services/auth/auth-service";
+import { notify } from "@/presentation/components/toast/Toast";
 import { getErrorMessage } from "@/utils/Errors";
-import { useQueryClient, useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
 export const useLogout = () => {

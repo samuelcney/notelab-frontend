@@ -1,9 +1,11 @@
 "use client";
 
-import { PageRoot } from "@/components/layout/PageRoot";
-import { notify } from "@/components/presentation/toast/Toast";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Button } from "@/components/ui/button";
+import { teacherRequestSchema } from "@/main/schemas/send-request.schema";
+
+import { notify } from "@/presentation/components/toast/Toast";
+import { PageRoot } from "@/presentation/layout/PageRoot";
+import { Alert, AlertDescription, AlertTitle } from "@/presentation/ui/alert";
+import { Button } from "@/presentation/ui/button";
 import {
   Card,
   CardContent,
@@ -11,23 +13,23 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+} from "@/presentation/ui/card";
+import { Input } from "@/presentation/ui/input";
+import { Separator } from "@/presentation/ui/separator";
+import { Textarea } from "@/presentation/ui/textarea";
+
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Separator } from "@/components/ui/separator";
-import { Textarea } from "@/components/ui/textarea";
-import { teacherRequestSchema } from "@/main/schemas/send-request.schema";
-
+} from "@/presentation/ui/select";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CheckCircle, Music } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { Label } from "presentation/ui/label";
+
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -61,7 +63,7 @@ export default function SendTeacherRequestPage() {
   return (
     <PageRoot>
       <div className="flex flex-1 w-full h-full pt-6 px-1 flex-col">
-        <div className="mt-6 mb-14">
+        <div className="">
           {showSuccess ? (
             <Alert className="bg-green-50 border-green-200 max-w-3xl mx-auto">
               <CheckCircle className="h-5 w-5 text-green-600" />
@@ -263,6 +265,7 @@ export default function SendTeacherRequestPage() {
                     variant="outline"
                     type="button"
                     onClick={() => router.back()}
+                    className="border border-foreground text-foreground hover:bg-foreground/10"
                   >
                     Cancelar
                   </Button>

@@ -1,17 +1,18 @@
 "use client";
-import { PageRoot } from "@/components/layout/PageRoot";
-import { AvatarBallComponent } from "@/components/presentation/avatar-profile/AvatarBallComponent";
-import { Badge } from "@/components/presentation/badges/Badge";
-import { Button } from "@/components/presentation/button";
-import { ChapterAccordion } from "@/components/presentation/chapters/ChapterAccordion";
-import { ChapterAccordionSkeleton } from "@/components/presentation/chapters/ChapterAccordionSkeleton";
-import { CourseContentSkeleton } from "@/components/presentation/course-details/CourseContentSkeleton";
-import { CourseHeaderSkeleton } from "@/components/presentation/course-details/CourseHeaderSkeleton";
-import { Skeleton } from "@/components/ui/skeleton";
 
 import { useGetCourseById } from "@/main/hooks";
+import { AvatarBallComponent } from "@/presentation/components/avatar-profile/AvatarBallComponent";
+import { Badge } from "@/presentation/components/badges/Badge";
+import { Button } from "@/presentation/components/button";
+import { ChapterAccordion } from "@/presentation/components/chapters/ChapterAccordion";
+import { ChapterAccordionSkeleton } from "@/presentation/components/chapters/ChapterAccordionSkeleton";
+import { CourseContentSkeleton } from "@/presentation/components/course-details/CourseContentSkeleton";
+import { CourseHeaderSkeleton } from "@/presentation/components/course-details/CourseHeaderSkeleton";
+import { PageRoot } from "@/presentation/layout/PageRoot";
+import { Skeleton } from "@/presentation/ui/skeleton";
 import { BACKGROUND_IMAGE_PATHS } from "@/utils/Constants";
 import { getInitials, getRandomItem } from "@/utils/Functions";
+
 import Image from "next/image";
 import { useParams } from "next/navigation";
 

@@ -1,9 +1,9 @@
 "use client";
 import { AnimatePresence, motion } from "framer-motion";
 
-import Icon from "@/components/Icon";
-import { Button } from "@/components/presentation/button";
-import { Input } from "@/components/presentation/input";
+import { Button } from "@/presentation/components/button";
+import Icon from "@/presentation/components/Icon";
+import { Input } from "@/presentation/components/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useState } from "react";

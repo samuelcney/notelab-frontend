@@ -1,5 +1,6 @@
 "use client";
-import ImageSlideshow from "@/components/presentation/image-slide-show/ImageSlideShow";
+
+import ImageSlideshow from "@/presentation/components/image-slide-show/ImageSlideShow";
 import { usePathname } from "next/navigation";
 
 export default function AuthLayout({

@@ -1,12 +1,12 @@
 "use client";
 import { AnimatePresence, motion } from "framer-motion";
 
-import Icon from "@/components/Icon";
-import { Button } from "@/components/presentation/button";
-import { Input } from "@/components/presentation/input";
-import { notify } from "@/components/presentation/toast/Toast";
 import { useLogin } from "@/main/hooks/auth/use-login";
 import { loginSchema } from "@/main/schemas/login.schema";
+import Icon from "@/presentation/components/Icon";
+import { Button } from "@/presentation/components/button";
+import { Input } from "@/presentation/components/input";
+import { notify } from "@/presentation/components/toast/Toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useState } from "react";

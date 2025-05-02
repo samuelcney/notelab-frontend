@@ -1,8 +1,9 @@
 "use client";
-import { PageRoot } from "@/components/layout/PageRoot";
-import { CourseCatalogCard } from "@/components/presentation/course-card/CourseCatalogCard";
-import { CourseCatalogCardSkeleton } from "@/components/presentation/course-card/CourseCatalogCardSkeleton";
+
 import { useGetCourses } from "@/main/hooks";
+import { CourseCatalogCard } from "@/presentation/components/course-card/CourseCatalogCard";
+import { CourseCatalogCardSkeleton } from "@/presentation/components/course-card/CourseCatalogCardSkeleton";
+import { PageRoot } from "@/presentation/layout/PageRoot";
 
 export default function CatalogPage() {
   const { data: courses, isPending } = useGetCourses();

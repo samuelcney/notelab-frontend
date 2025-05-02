@@ -1,9 +1,10 @@
 "use client";
-import { PageRoot } from "@/components/layout/PageRoot";
-import { CarouselContainer } from "@/components/presentation/carousel/CarouselContainer";
-import { Footer } from "@/components/presentation/footer/footer";
-import { HeroSection } from "@/components/presentation/hero-section/hero-section";
+
 import { useCurrentUser } from "@/main/hooks/users/use-current-user";
+import { CarouselContainer } from "@/presentation/components/carousel/CarouselContainer";
+import { Footer } from "@/presentation/components/footer/footer";
+import { HeroSection } from "@/presentation/components/hero-section/hero-section";
+import { PageRoot } from "@/presentation/layout/PageRoot";
 
 export default function HomePage() {
   const user = useCurrentUser();

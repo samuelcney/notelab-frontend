@@ -39,3 +39,16 @@ export enum queryKeysEnum {
   SIGN_UP = "SIGN_UP",
   LOGOUT = "LOG_OUT",
 }
+
+export enum courseLevelEnum {
+  BEGINNER = "BEGINNER",
+  INTERMEDIATE = "INTERMEDIATE",
+  ADVANCED = "ADVANCED",
+}
+
+export enum lessonTypeEnum {
+  VIDEO = "VIDEO",
+  PDF = "PDF",
+  TEXT = "TEXT",
+  QUIZ = "QUIZ",
+}

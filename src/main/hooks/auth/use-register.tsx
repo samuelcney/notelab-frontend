@@ -1,9 +1,10 @@
 "use client";
-import { notify } from "@/components/presentation/toast/Toast";
+
 import { authService } from "@/main/services/auth/auth-service";
+import { notify } from "@/presentation/components/toast/Toast";
 import { queryKeysEnum } from "@/utils/Enums";
 import { getErrorMessage } from "@/utils/Errors";
-import { useQueryClient, useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
 export const useRegister = () => {

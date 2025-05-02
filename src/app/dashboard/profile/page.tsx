@@ -1,7 +1,7 @@
 "use client";
-import { PageRoot } from "@/components/layout/PageRoot";
-import { AvatarBallComponent } from "@/components/presentation/avatar-profile/AvatarBallComponent";
 import { useCurrentUser } from "@/main/hooks/users/use-current-user";
+import { AvatarBallComponent } from "@/presentation/components/avatar-profile/AvatarBallComponent";
+import { PageRoot } from "@/presentation/layout/PageRoot";
 
 export default function ProfilePage() {
   const user = useCurrentUser();

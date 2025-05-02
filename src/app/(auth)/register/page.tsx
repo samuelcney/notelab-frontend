@@ -1,15 +1,16 @@
 "use client";
 import { AnimatePresence, motion } from "framer-motion";
 
-import { useState } from "react";
-import { z } from "zod";
-import { registerSchema } from "@/main/schemas/register.schema";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useRegister } from "@/main/hooks";
-import { Input } from "@/components/presentation/input";
-import Icon from "@/components/Icon";
-import { Button } from "@/components/presentation/button";
+import { registerSchema } from "@/main/schemas/register.schema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+
+import Icon from "@/presentation/components/Icon";
+import { Button } from "@/presentation/components/button";
+import { Input } from "@/presentation/components/input";
 import { useRouter } from "next/navigation";
 
 type RegisterData = z.infer<typeof registerSchema>;
