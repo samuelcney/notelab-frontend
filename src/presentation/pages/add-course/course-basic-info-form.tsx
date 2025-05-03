@@ -13,8 +13,14 @@ import {
   CardHeader,
   CardTitle,
 } from "@/presentation/ui/card";
+import { Checkbox } from "@/presentation/ui/checkbox";
 import { Input } from "@/presentation/ui/input";
 import { Label } from "@/presentation/ui/label";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/presentation/ui/popover";
 import {
   Select,
   SelectContent,
@@ -22,16 +28,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/presentation/ui/select";
-import { Textarea } from "@/presentation/ui/textarea";
 import { courseLevelEnum } from "@/utils/Enums";
 import { useCourseStore } from "../../../main/stores/courseStore";
 
 export function CourseBasicInfoForm() {
   const {
     course,
-    setTitle,
-    setDescription,
-    setCategory,
+    setName,
+    addCategory,
+    removeCategory,
     setDifficulty,
     setCoverImage,
   } = useCourseStore();
@@ -64,58 +69,88 @@ export function CourseBasicInfoForm() {
           <Input
             id="titulo"
             placeholder="Ex: Violão para Iniciantes"
-            value={course.title}
-            onChange={(e) => setTitle(e.target.value)}
+            value={course.name}
+            onChange={(e) => setName(e.target.value)}
           />
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="descricao">Descrição *</Label>
-          <Textarea
-            id="descricao"
-            placeholder="Descreva o que os alunos aprenderão neste curso..."
-            className="min-h-32"
-            value={course.description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
+          <Label htmlFor="categoria">Categorias *</Label>
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button
+                variant="outline"
+                className="w-full justify-between text-foreground"
+              >
+                {course.categories.length > 0
+                  ? `${course.categories.length} categoria(s) selecionada(s)`
+                  : "Selecionar categorias"}
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-full max-w-sm">
+              <div className="grid gap-2">
+                {data?.map((category) => (
+                  <label
+                    key={category.id}
+                    className="flex items-center gap-2 cursor-pointer"
+                  >
+                    <Checkbox
+                      checked={course.categories.includes(category.id)}
+                      onCheckedChange={(checked) => {
+                        if (checked) {
+                          addCategory(category.id);
+                        } else {
+                          removeCategory(category.id);
+                        }
+                      }}
+                    />
+                    <span className="text-sm">{category.name}</span>
+                  </label>
+                ))}
+              </div>
+            </PopoverContent>
+          </Popover>
+
+          <div className="flex flex-wrap gap-2 mt-2">
+            {course.categories.map((catId) => {
+              const category = data?.find((c) => c.id === catId);
+              if (!category) return null;
+              return (
+                <Button
+                  key={catId}
+                  variant="secondary"
+                  className="flex items-center gap-1 justify-between"
+                >
+                  {category.name}
+                  <Button
+                    onClick={() => removeCategory(catId)}
+                    className="ml-1 text-xs"
+                    variant={"ghost"}
+                  >
+                    <X className="w-3 h-3" />
+                  </Button>
+                </Button>
+              );
+            })}
+          </div>
         </div>
 
-        <div className="grid gap-4 sm:grid-cols-2">
-          <div className="space-y-2">
-            <Label htmlFor="categoria">Categoria *</Label>
-            <Select value={course.category} onValueChange={setCategory}>
-              <SelectTrigger id="categoria">
-                <SelectValue placeholder="Selecione uma categoria" />
-              </SelectTrigger>
-              <SelectContent>
-                {data?.map((category) => (
-                  <SelectItem value={category.id} key={category.id}>
-                    {category.name.toUpperCase()}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="nivel">Nível *</Label>
-            <Select value={course.difficulty} onValueChange={setDifficulty}>
-              <SelectTrigger id="nivel">
-                <SelectValue placeholder="Selecione um nível" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value={courseLevelEnum.BEGINNER}>
-                  Iniciante
-                </SelectItem>
-                <SelectItem value={courseLevelEnum.INTERMEDIATE}>
-                  Intermediário
-                </SelectItem>
-                <SelectItem value={courseLevelEnum.ADVANCED}>
-                  Avançado
-                </SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
+        <div className="space-y-2">
+          <Label htmlFor="nivel">Nível *</Label>
+          <Select value={course.difficulty} onValueChange={setDifficulty}>
+            <SelectTrigger id="nivel">
+              <SelectValue placeholder="Selecione um nível" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value={courseLevelEnum.BEGINNER}>
+                Iniciante
+              </SelectItem>
+              <SelectItem value={courseLevelEnum.INTERMEDIATE}>
+                Intermediário
+              </SelectItem>
+              <SelectItem value={courseLevelEnum.ADVANCED}>Avançado</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
 
         <div className="space-y-2">
@@ -145,7 +180,7 @@ export function CourseBasicInfoForm() {
                   <div className="flex flex-col items-center gap-1 text-center">
                     <ImageIcon className="h-8 w-8 text-muted-foreground" />
                     <div className="text-xs text-muted-foreground">
-                      Arraste uma imagem ou clique para fazer upload
+                      Clique no botão para adicionar uma imagem de capa
                     </div>
                   </div>
                 )}

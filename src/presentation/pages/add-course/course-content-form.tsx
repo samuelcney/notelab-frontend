@@ -25,7 +25,10 @@ import {
 import { lessonTypeEnum } from "@/utils/Enums";
 import { FileText, Plus, Trash2 } from "lucide-react";
 import { useState } from "react";
-import { LessonContentModal } from "./lesson-content-modal";
+import {
+  LessonContent,
+  LessonContentModal,
+} from "./content/lesson-content-modal";
 
 export function CourseContentForm() {
   const [isContentModalOpen, setIsContentModalOpen] = useState(false);
@@ -40,10 +43,11 @@ export function CourseContentForm() {
     course,
     addModule,
     removeModule,
-    updateModuleTitle,
+    updateModuleName,
     addLesson,
     removeLesson,
     updateLesson,
+    addContentToLesson,
   } = useCourseStore();
 
   return (
@@ -77,9 +81,9 @@ export function CourseContentForm() {
                   <AccordionTrigger className="hover:no-underline">
                     <div className="flex items-center gap-2">
                       <Input
-                        value={module.title}
+                        value={module.name}
                         onChange={(e) =>
-                          updateModuleTitle(module.id, e.target.value)
+                          updateModuleName(module.id, e.target.value)
                         }
                         onClick={(e) => e.stopPropagation()}
                         className="w-64 sm:w-96"
@@ -131,12 +135,12 @@ export function CourseContentForm() {
                         >
                           <div className="flex flex-1 flex-col gap-2 sm:flex-row sm:items-center">
                             <Input
-                              value={lesson.title}
+                              value={lesson.name}
                               onChange={(e) =>
                                 updateLesson(
                                   module.id,
                                   lesson.id,
-                                  "title",
+                                  "name",
                                   e.target.value
                                 )
                               }
@@ -168,24 +172,8 @@ export function CourseContentForm() {
                                   <SelectItem value={lessonTypeEnum.TEXT}>
                                     Texto
                                   </SelectItem>
-                                  <SelectItem value={lessonTypeEnum.QUIZ}>
-                                    Quiz
-                                  </SelectItem>
                                 </SelectContent>
                               </Select>
-                              <Input
-                                value={lesson.duration}
-                                onChange={(e) =>
-                                  updateLesson(
-                                    module.id,
-                                    lesson.id,
-                                    "duration",
-                                    e.target.value
-                                  )
-                                }
-                                className="w-20"
-                                placeholder="00:00"
-                              />
                             </div>
                           </div>
                           <div className="flex justify-end">
@@ -201,12 +189,13 @@ export function CourseContentForm() {
                             <Button
                               variant="outline"
                               size="sm"
+                              className="text-foreground"
                               onClick={() => {
                                 setActiveLesson({
                                   lessonId: lesson.id,
                                   moduleId: module.id,
                                   type: lesson.type as "VIDEO" | "TEXT" | "PDF",
-                                  defaultValue: lesson.title ?? null,
+                                  defaultValue: lesson.name ?? null,
                                 });
                                 setIsContentModalOpen(true);
                               }}
@@ -251,9 +240,11 @@ export function CourseContentForm() {
           lessonId={activeLesson.lessonId}
           moduleId={activeLesson.moduleId}
           type={activeLesson.type}
-          defaultValue={activeLesson.defaultValue}
+          defaultValue={activeLesson.defaultValue as LessonContent | null}
           onSave={(newContent) => {
-            console.log("Novo conteúdo da aula:", newContent);
+            addContentToLesson(activeLesson.lessonId, newContent as any);
+            setIsContentModalOpen(false);
+            setActiveLesson(null);
           }}
         />
       )}

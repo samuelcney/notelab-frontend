@@ -6,21 +6,22 @@ import { create } from "zustand";
 
 export type Lesson = {
   id: string;
-  title: string;
+  name: string;
   duration: string;
   type: lessonTypeEnum;
+  content?: string | File | null;
 };
 
 export type Module = {
   id: string;
-  title: string;
+  name: string;
   lessons: Lesson[];
 };
 
 export type CourseState = {
-  title: string;
+  name: string;
   description: string;
-  category: string;
+  categories: string[];
   difficulty: courseLevelEnum;
   coverImage: string | null;
   modules: Module[];
@@ -34,16 +35,18 @@ export type CourseState = {
 
 type CourseStore = {
   course: CourseState;
-  setTitle: (title: string) => void;
+  setName: (name: string) => void;
   setDescription: (description: string) => void;
-  setCategory: (category: string) => void;
+  setCategories: (categories: string[]) => void;
+  addCategory: (category: string) => void;
+  removeCategory: (category: string) => void;
   setDifficulty: (difficulty: CourseState["difficulty"]) => void;
   setCoverImage: (coverImage: string | null) => void;
   setInstructorId: (instructorId: string) => void;
 
   addModule: () => void;
   removeModule: (id: string) => void;
-  updateModuleTitle: (id: string, title: string) => void;
+  updateModuleName: (id: string, name: string) => void;
   addLesson: (moduleId: string) => void;
   removeLesson: (moduleId: string, lessonId: string) => void;
   updateLesson: (
@@ -53,18 +56,22 @@ type CourseStore = {
     value: string
   ) => void;
 
+  addContentToLesson: (lessonId: string, content: string | File | null) => void;
+  removeContentFromLesson: (lessonId: string) => void;
+
   setTypeCourse: (typeCourse: "free" | "paid") => void;
   setPrice: (price: number) => void;
   setPromotionalPrice: (promotionalPrice: number) => void;
   setIssueCertificate: (issueCertificate: boolean) => void;
   setWorkload: (workload: string) => void;
   resetCourse: () => void;
+  setCourse: (course: CourseState) => void;
 };
 
 const initialState: CourseState = {
-  title: "",
+  name: "",
   description: "",
-  category: "",
+  categories: [],
   difficulty: courseLevelEnum.BEGINNER,
   coverImage: null,
   modules: [],
@@ -79,11 +86,32 @@ const initialState: CourseState = {
 export const useCourseStore = create<CourseStore>((set) => ({
   course: initialState,
 
-  setTitle: (title) => set((state) => ({ course: { ...state.course, title } })),
+  setName: (name) => set((state) => ({ course: { ...state.course, name } })),
   setDescription: (description) =>
     set((state) => ({ course: { ...state.course, description } })),
-  setCategory: (category) =>
-    set((state) => ({ course: { ...state.course, category } })),
+
+  setCategories: (categories) =>
+    set((state) => ({ course: { ...state.course, categories } })),
+
+  addCategory: (category) =>
+    set((state) => {
+      if (state.course.categories.includes(category)) return state;
+      return {
+        course: {
+          ...state.course,
+          categories: [...state.course.categories, category],
+        },
+      };
+    }),
+
+  removeCategory: (category) =>
+    set((state) => ({
+      course: {
+        ...state.course,
+        categories: state.course.categories.filter((c) => c !== category),
+      },
+    })),
+
   setDifficulty: (difficulty) =>
     set((state) => ({ course: { ...state.course, difficulty } })),
   setCoverImage: (coverImage) =>
@@ -95,7 +123,7 @@ export const useCourseStore = create<CourseStore>((set) => ({
     set((state) => {
       const newModule: Module = {
         id: nanoid(),
-        title: `Novo Módulo`,
+        name: `Módulo ${state.course.modules.length + 1}`,
         lessons: [],
       };
       return {
@@ -114,12 +142,12 @@ export const useCourseStore = create<CourseStore>((set) => ({
       },
     })),
 
-  updateModuleTitle: (id, title) =>
+  updateModuleName: (id, name) =>
     set((state) => ({
       course: {
         ...state.course,
         modules: state.course.modules.map((module) =>
-          module.id === id ? { ...module, title } : module
+          module.id === id ? { ...module, name } : module
         ),
       },
     })),
@@ -133,7 +161,7 @@ export const useCourseStore = create<CourseStore>((set) => ({
 
       const newLesson: Lesson = {
         id: nanoid(),
-        title: "Nova Aula",
+        name: `Aula ${state.course.modules[moduleIndex].lessons.length + 1}`,
         duration: "00:00",
         type: lessonTypeEnum.VIDEO,
       };
@@ -143,6 +171,40 @@ export const useCourseStore = create<CourseStore>((set) => ({
         ...updatedModules[moduleIndex],
         lessons: [...updatedModules[moduleIndex].lessons, newLesson],
       };
+
+      return {
+        course: {
+          ...state.course,
+          modules: updatedModules,
+        },
+      };
+    }),
+
+  addContentToLesson: (lessonId, content) =>
+    set((state) => {
+      const updatedModules = state.course.modules.map((module) => ({
+        ...module,
+        lessons: module.lessons.map((lesson) =>
+          lesson.id === lessonId ? { ...lesson, content } : lesson
+        ),
+      }));
+
+      return {
+        course: {
+          ...state.course,
+          modules: updatedModules,
+        },
+      };
+    }),
+
+  removeContentFromLesson: (lessonId) =>
+    set((state) => {
+      const updatedModules = state.course.modules.map((module) => ({
+        ...module,
+        lessons: module.lessons.map((lesson) =>
+          lesson.id === lessonId ? { ...lesson, content: null } : lesson
+        ),
+      }));
 
       return {
         course: {
@@ -163,7 +225,7 @@ export const useCourseStore = create<CourseStore>((set) => ({
       const newModules = [...state.course.modules];
       newModules[moduleIndex] = {
         ...module,
-        lessons: module.lessons.filter((aula) => aula.id !== lessonId),
+        lessons: module.lessons.filter((lesson) => lesson.id !== lessonId),
       };
 
       return {
@@ -209,4 +271,11 @@ export const useCourseStore = create<CourseStore>((set) => ({
     set((state) => ({ course: { ...state.course, workload } })),
 
   resetCourse: () => set({ course: initialState }),
+
+  setCourse: (course) => ({
+    course: {
+      ...initialState,
+      ...course,
+    },
+  }),
 }));
