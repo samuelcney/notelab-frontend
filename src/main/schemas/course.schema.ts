@@ -26,6 +26,5 @@ export const courseSchema = z.object({
   price: z.number().min(0),
   promotionalPrice: z.number().min(0),
   issueCertificate: z.boolean(),
-  workload: z.string().min(1),
   instructorId: z.string().min(1),
 });

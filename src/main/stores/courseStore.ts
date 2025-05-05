@@ -29,7 +29,6 @@ export type CourseState = {
   price: number;
   promotionalPrice: number;
   issueCertificate: boolean;
-  workload: string;
   instructorId: string;
 };
 
@@ -63,7 +62,6 @@ type CourseStore = {
   setPrice: (price: number) => void;
   setPromotionalPrice: (promotionalPrice: number) => void;
   setIssueCertificate: (issueCertificate: boolean) => void;
-  setWorkload: (workload: string) => void;
   resetCourse: () => void;
   setCourse: (course: CourseState) => void;
 };
@@ -79,7 +77,6 @@ const initialState: CourseState = {
   price: 0,
   promotionalPrice: 0,
   issueCertificate: false,
-  workload: "",
   instructorId: "",
 };
 
@@ -267,8 +264,6 @@ export const useCourseStore = create<CourseStore>((set) => ({
     set((state) => ({ course: { ...state.course, promotionalPrice } })),
   setIssueCertificate: (issueCertificate) =>
     set((state) => ({ course: { ...state.course, issueCertificate } })),
-  setWorkload: (workload) =>
-    set((state) => ({ course: { ...state.course, workload } })),
 
   resetCourse: () => set({ course: initialState }),
 

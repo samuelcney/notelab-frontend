@@ -21,7 +21,6 @@ export function CourseConfigForm() {
     setPromotionalPrice,
     setIssueCertificate,
     setTypeCourse,
-    setWorkload,
   } = useCourseStore();
 
   return (
@@ -107,18 +106,6 @@ export function CourseConfigForm() {
                 Os alunos receberão um certificado ao concluir o curso.
               </p>
             </div>
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="workload">Carga Horária (horas)</Label>
-            <Input
-              id="workload"
-              type="number"
-              placeholder="10"
-              value={course.workload}
-              onChange={(e) => setWorkload(e.target.value)}
-              disabled={!course.issueCertificate}
-            />
           </div>
         </div>
       </CardContent>
