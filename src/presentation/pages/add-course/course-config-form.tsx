@@ -1,6 +1,6 @@
 "use client";
 
-import { useCourseStore } from "@/main/stores/courseStore";
+import { useCourseStore } from "@/main/stores/course-store";
 import {
   Card,
   CardContent,
@@ -15,13 +15,8 @@ import { RadioGroup, RadioGroupItem } from "@/presentation/ui/radio-group";
 import { Separator } from "@/presentation/ui/separator";
 
 export function CourseConfigForm() {
-  const {
-    course,
-    setPrice,
-    setPromotionalPrice,
-    setIssueCertificate,
-    setTypeCourse,
-  } = useCourseStore();
+  const { course, setPrice, setIssueCertificate, setTypeCourse } =
+    useCourseStore();
 
   return (
     <Card className="mt-4 shadow-none">
@@ -70,18 +65,11 @@ export function CourseConfigForm() {
                 type="number"
                 placeholder="0.00"
                 value={course.price}
-                onChange={(e) => setPrice(Number(e.target.value))}
-                disabled={course.typeCourse === "free"}
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="promo-price">Preço Promocional (R$)</Label>
-              <Input
-                id="promo-price"
-                type="number"
-                placeholder="0.00"
-                value={course.promotionalPrice}
-                onChange={(e) => setPromotionalPrice(Number(e.target.value))}
+                onChange={(e) => {
+                  const value =
+                    course.typeCourse === "free" ? 0 : e.target.value;
+                  setPrice(Number(value));
+                }}
                 disabled={course.typeCourse === "free"}
               />
             </div>

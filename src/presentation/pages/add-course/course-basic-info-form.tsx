@@ -29,7 +29,7 @@ import {
   SelectValue,
 } from "@/presentation/ui/select";
 import { courseLevelEnum } from "@/utils/Enums";
-import { useCourseStore } from "../../../main/stores/courseStore";
+import { useCourseStore } from "../../../main/stores/course-store";
 
 export function CourseBasicInfoForm() {
   const {
@@ -122,13 +122,12 @@ export function CourseBasicInfoForm() {
                   className="flex items-center gap-1 justify-between"
                 >
                   {category.name}
-                  <Button
+                  <span
                     onClick={() => removeCategory(catId)}
                     className="ml-1 text-xs"
-                    variant={"ghost"}
                   >
                     <X className="w-3 h-3" />
-                  </Button>
+                  </span>
                 </Button>
               );
             })}

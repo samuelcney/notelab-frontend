@@ -1,10 +1,24 @@
 "use client";
 import { useCurrentUser } from "@/main/hooks/users/use-current-user";
+import { useUserProfileStore } from "@/main/stores/user-profile-store";
 import { AvatarBallComponent } from "@/presentation/components/avatar-profile/AvatarBallComponent";
 import { PageRoot } from "@/presentation/layout/PageRoot";
+import { Input } from "@/presentation/ui/input";
 
 export default function ProfilePage() {
   const user = useCurrentUser();
+  const { setAvatarUrl } = useUserProfileStore();
+
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setAvatarUrl(e.target?.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   const userData = {
     name: user?.user_metadata.name,
@@ -30,14 +44,16 @@ export default function ProfilePage() {
                 />
               </div>
             ) : (
-              <AvatarBallComponent abbreviation={userData.name!} isBigSize />
+              <AvatarBallComponent
+                abbreviation={userData.name!}
+                isBigSize
+                className="w-20 h-20"
+              />
             )}
-            <button className="text-sm text-greenApp hover:underline">
-              Alterar foto
-            </button>
+
+            <Input type="file" accept="image/*" className="" />
           </div>
 
-          {/* Formulário */}
           <div className="flex-1 w-full space-y-5">
             <div>
               <label className="block text-sm font-medium mb-1">Nome</label>

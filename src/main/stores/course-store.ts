@@ -27,7 +27,6 @@ export type CourseState = {
   modules: Module[];
   typeCourse: "free" | "paid";
   price: number;
-  promotionalPrice: number;
   issueCertificate: boolean;
   instructorId: string;
 };
@@ -55,12 +54,15 @@ type CourseStore = {
     value: string
   ) => void;
 
-  addContentToLesson: (lessonId: string, content: string | File | null) => void;
+  addContentToLesson: (
+    moduleId: string,
+    lessonId: string,
+    content: string | File | null
+  ) => void;
   removeContentFromLesson: (lessonId: string) => void;
 
   setTypeCourse: (typeCourse: "free" | "paid") => void;
   setPrice: (price: number) => void;
-  setPromotionalPrice: (promotionalPrice: number) => void;
   setIssueCertificate: (issueCertificate: boolean) => void;
   resetCourse: () => void;
   setCourse: (course: CourseState) => void;
@@ -75,7 +77,6 @@ const initialState: CourseState = {
   modules: [],
   typeCourse: "free",
   price: 0,
-  promotionalPrice: 0,
   issueCertificate: false,
   instructorId: "",
 };
@@ -177,18 +178,30 @@ export const useCourseStore = create<CourseStore>((set) => ({
       };
     }),
 
-  addContentToLesson: (lessonId, content) =>
+  addContentToLesson: (moduleId, lessonId, content) =>
     set((state) => {
-      const updatedModules = state.course.modules.map((module) => ({
-        ...module,
-        lessons: module.lessons.map((lesson) =>
-          lesson.id === lessonId ? { ...lesson, content } : lesson
-        ),
-      }));
+      const course = { ...state.course };
+      const moduleIndex = course.modules.findIndex((m) => m.id === moduleId);
+      if (moduleIndex === -1) return { course };
+
+      const lessonIndex = course.modules[moduleIndex].lessons.findIndex(
+        (l) => l.id === lessonId
+      );
+      if (lessonIndex === -1) return { course };
+
+      const updatedModules = [...course.modules];
+      const updatedLessons = [...updatedModules[moduleIndex].lessons];
+      const updatedLesson = { ...updatedLessons[lessonIndex], content };
+
+      updatedLessons[lessonIndex] = updatedLesson;
+      updatedModules[moduleIndex] = {
+        ...updatedModules[moduleIndex],
+        lessons: updatedLessons,
+      };
 
       return {
         course: {
-          ...state.course,
+          ...course,
           modules: updatedModules,
         },
       };
@@ -196,17 +209,20 @@ export const useCourseStore = create<CourseStore>((set) => ({
 
   removeContentFromLesson: (lessonId) =>
     set((state) => {
-      const updatedModules = state.course.modules.map((module) => ({
-        ...module,
-        lessons: module.lessons.map((lesson) =>
-          lesson.id === lessonId ? { ...lesson, content: null } : lesson
-        ),
-      }));
+      const modules = state.course.modules.map((module) => {
+        const lessons = module.lessons.map((lesson) => {
+          if (lesson.id === lessonId) {
+            return { ...lesson, content: undefined };
+          }
+          return lesson;
+        });
+        return { ...module, lessons };
+      });
 
       return {
         course: {
           ...state.course,
-          modules: updatedModules,
+          modules,
         },
       };
     }),
@@ -259,18 +275,24 @@ export const useCourseStore = create<CourseStore>((set) => ({
 
   setTypeCourse: (typeCourse) =>
     set((state) => ({ course: { ...state.course, typeCourse } })),
-  setPrice: (price) => set((state) => ({ course: { ...state.course, price } })),
-  setPromotionalPrice: (promotionalPrice) =>
-    set((state) => ({ course: { ...state.course, promotionalPrice } })),
+  setPrice: (price) =>
+    set((state) => ({
+      course: {
+        ...state.course,
+        price: price < 0 ? 0 : price,
+      },
+    })),
+
   setIssueCertificate: (issueCertificate) =>
     set((state) => ({ course: { ...state.course, issueCertificate } })),
 
   resetCourse: () => set({ course: initialState }),
 
-  setCourse: (course) => ({
-    course: {
-      ...initialState,
-      ...course,
-    },
-  }),
+  setCourse: (course) =>
+    set(() => ({
+      course: {
+        ...initialState,
+        ...course,
+      },
+    })),
 }));

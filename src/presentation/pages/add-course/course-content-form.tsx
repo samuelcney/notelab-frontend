@@ -1,4 +1,4 @@
-import { useCourseStore } from "@/main/stores/courseStore";
+import { useCourseStore } from "@/main/stores/course-store";
 import {
   Accordion,
   AccordionContent,
@@ -37,6 +37,7 @@ export function CourseContentForm() {
     moduleId: string;
     type: "VIDEO" | "TEXT" | "PDF";
     defaultValue?: string | File | null;
+    lessonContent?: LessonContent | null;
   } | null>(null);
 
   const {
@@ -240,9 +241,13 @@ export function CourseContentForm() {
           lessonId={activeLesson.lessonId}
           moduleId={activeLesson.moduleId}
           type={activeLesson.type}
-          defaultValue={activeLesson.defaultValue as LessonContent | null}
+          defaultValue={activeLesson.lessonContent ?? null}
           onSave={(newContent) => {
-            addContentToLesson(activeLesson.lessonId, newContent as any);
+            addContentToLesson(
+              activeLesson.moduleId,
+              activeLesson.lessonId,
+              newContent as any
+            );
             setIsContentModalOpen(false);
             setActiveLesson(null);
           }}

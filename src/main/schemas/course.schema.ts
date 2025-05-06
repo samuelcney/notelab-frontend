@@ -24,7 +24,6 @@ export const courseSchema = z.object({
   modules: z.array(moduleSchema).min(1),
   typeCourse: z.enum(["free", "paid"]),
   price: z.number().min(0),
-  promotionalPrice: z.number().min(0),
   issueCertificate: z.boolean(),
   instructorId: z.string().min(1),
 });

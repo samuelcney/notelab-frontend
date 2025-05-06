@@ -13,7 +13,7 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/presentation/ui/tabs";
-import { useCourseStore } from "../../../main/stores/courseStore";
+import { useCourseStore } from "../../../main/stores/course-store";
 import { CourseBasicInfoForm } from "./course-basic-info-form";
 import { CourseConfigForm } from "./course-config-form";
 import { CourseContentForm } from "./course-content-form";
