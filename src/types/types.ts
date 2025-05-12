@@ -26,6 +26,7 @@ export interface UserType {
   role: string;
   isActiveUser: boolean;
   createdAt: string;
+  updatedAt: string;
   info: UserInfo;
 }
 

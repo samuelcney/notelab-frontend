@@ -20,7 +20,7 @@ export function AvatarBallComponent({
   return (
     <div
       className={
-        `flex items-center justify-center rounded-full bg-green-500 text-white font-bold uppercase ${sizeClass} ` +
+        `flex items-center justify-center rounded-full bg-green-500 text-white font-bold uppercase ${sizeClass} flex justify-center items-center overflow-hidden shadow-lg border-2 border-white` +
         className
       }
     >

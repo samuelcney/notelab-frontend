@@ -2,7 +2,7 @@
 import { useCurrentUser } from "@/main/hooks/users/use-current-user";
 import { useUserProfileStore } from "@/main/stores/user-profile-store";
 import { PageRoot } from "@/presentation/layout/PageRoot";
-import { Loader2 } from "lucide-react";
+import { Loader2, Mail, Pencil, Phone, User2 } from "lucide-react";
 
 export default function ProfilePage() {
   const { user, isLoading } = useCurrentUser();
@@ -19,28 +19,20 @@ export default function ProfilePage() {
     }
   };
 
-  const userData = {
-    name: user?.name,
-    email: user?.email,
-    bio: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet, quidem blanditiis aspernatur expedita nemo quas cumque illum iste laborum beatae officia quibusdam enim quis veniam libero quasi minus eos id?",
-    phone: "(11) 99999-9999",
-    avatarUrl: user?.info.avatarUrl,
-  };
-
   return (
     <PageRoot>
-      <div className="flex flex-col w-full h-full">
+      <div className="flex flex-col w-full h-full bg-background text-foreground">
         <div className="w-full h-[25%] bg-gradient-to-r from-green-800 to-green-700 py-16 px-6 md:px-12 relative">
-          <div className="w-36 h-36 rounded-full ml-16 absolute top-36 bg-green-500 flex justify-center items-center overflow-hidden">
+          <div className="w-40 h-40 rounded-full ml-16 absolute top-32 bg-green-500 flex justify-center items-center overflow-hidden shadow-lg border-4 border-white">
             {user?.info.avatarUrl === "" ? (
               <h1 className="text-white font-bold uppercase text-4xl">
-                {userData.name?.slice(0, 2)}
+                {user.name?.slice(0, 2)}
               </h1>
             ) : isLoading ? (
-              <Loader2 className="animate-spin w-10 h-10" />
+              <Loader2 className="animate-spin w-10 h-10 text-white" />
             ) : (
               <img
-                src={`${user?.info?.avatarUrl}`}
+                src={user?.info?.avatarUrl}
                 alt="Imagem do usuário"
                 className="w-full h-full object-cover"
                 width={144}
@@ -50,9 +42,40 @@ export default function ProfilePage() {
           </div>
         </div>
 
-        <div className="w-full flex-1 flex p-10">
-          <div className="border border-foreground w-full h-full rounded-r rounded-l ">
-            a
+        <div className="w-full flex-1 flex flex-col md:flex-row p-6 pt-28 md:pt-32 gap-8">
+          <div className="border w-full md:w-1/3 h-fit rounded-xl p-6 shadow-md relative">
+            <button className="absolute top-4 right-4 text-muted-foreground hover:text-green-700 transition-colors">
+              <Pencil size={20} />
+            </button>
+
+            <h2 className="text-xl font-semibold mb-4">Informações Pessoais</h2>
+            <div className="flex items-center gap-3 mb-3">
+              <User2 className="text-green-700" />
+              <span>{user?.name ?? "---"}</span>
+            </div>
+            <div className="flex items-center gap-3 mb-3">
+              <Mail className="text-green-700" />
+              <span>{user?.email ?? "---"}</span>
+            </div>
+            <div className="flex items-center gap-3 mb-10">
+              <Phone className="text-green-700" />
+              <span>{user?.info.phone ?? "---"}</span>
+            </div>
+
+            <div className="w-full flex items-center justify-end">
+              <span className="text-sm text-muted-foreground">
+                Última atualização:{" "}
+                <span className="italic text-sm text-muted-foreground">
+                  {user?.createdAt}
+                </span>
+              </span>
+            </div>
+          </div>
+          <div className="border w-full md:w-2/3 h-fit rounded-xl p-6 shadow-md relative">
+            <h2 className="text-xl font-semibold mb-4">Sobre</h2>
+            <p className="text-muted-foreground leading-relaxed">
+              {user?.info.bio ?? "---"}
+            </p>
           </div>
         </div>
       </div>
