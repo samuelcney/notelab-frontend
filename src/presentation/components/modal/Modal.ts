@@ -1,7 +1,7 @@
-import { ProfileContent } from "./ProfileContent";
-import { SideModalRoot } from "./SideModalRoot";
+import { EditProfileModal } from "./EditProfile";
+import { ModalRoot } from "./ModalRoot";
 
 export const Modal = {
-  ProfileRoot: SideModalRoot,
-  ProfileContent,
+  Root: ModalRoot,
+  EditProfile: EditProfileModal,
 };

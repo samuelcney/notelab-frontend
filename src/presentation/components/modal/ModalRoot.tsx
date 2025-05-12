@@ -7,13 +7,15 @@ interface SidebarProps {
   onClose: () => void;
   children?: ReactNode;
   widthPercentage?: number;
+  heightPercentage?: number;
 }
 
-export const SideModalRoot = ({
+export const ModalRoot = ({
   children,
   onClose,
   isOpen,
   widthPercentage,
+  heightPercentage,
 }: SidebarProps) => {
   const widthPer = widthPercentage ? `w-[${widthPercentage}%]` : "w-[45%]";
 
@@ -21,7 +23,7 @@ export const SideModalRoot = ({
     <AnimatePresence mode="wait">
       {isOpen && (
         <motion.div
-          className="fixed inset-0 bg-black bg-opacity-50 flex justify-end z-50"
+          className="fixed inset-0 bg-black bg-opacity-50 flex justify-center z-50"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -29,7 +31,7 @@ export const SideModalRoot = ({
           onClick={onClose}
         >
           <motion.div
-            className={`bg-background h-full ${widthPer} shadow-lg relative flex flex-col p-4`}
+            className={`bg-background h-auto ${widthPer} shadow-lg relative flex flex-col p-4`}
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
             exit={{ x: "100%" }}

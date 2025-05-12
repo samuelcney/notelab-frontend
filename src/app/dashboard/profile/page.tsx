@@ -1,12 +1,15 @@
 "use client";
+import { useModal } from "@/main/context/modal";
 import { useCurrentUser } from "@/main/hooks/users/use-current-user";
 import { useUserProfileStore } from "@/main/stores/user-profile-store";
+import { Modal } from "@/presentation/components/modal/Modal";
 import { PageRoot } from "@/presentation/layout/PageRoot";
 import { Loader2, Mail, Pencil, Phone, User2 } from "lucide-react";
 
 export default function ProfilePage() {
   const { user, isLoading } = useCurrentUser();
   const { setAvatarUrl } = useUserProfileStore();
+  const { openModal, isModalOpen, closeModal } = useModal();
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -44,7 +47,10 @@ export default function ProfilePage() {
 
         <div className="w-full flex-1 flex flex-col md:flex-row p-6 pt-28 md:pt-32 gap-8">
           <div className="border w-full md:w-1/3 h-fit rounded-xl p-6 shadow-md relative">
-            <button className="absolute top-4 right-4 text-muted-foreground hover:text-green-700 transition-colors">
+            <button
+              className="absolute top-4 right-4 text-muted-foreground hover:text-green-700 transition-colors"
+              onClick={() => openModal("profile")}
+            >
               <Pencil size={20} />
             </button>
 
@@ -79,6 +85,12 @@ export default function ProfilePage() {
           </div>
         </div>
       </div>
+
+      {isModalOpen && (
+        <Modal.Root isOpen={isModalOpen} onClose={closeModal}>
+          <Modal.EditProfile />
+        </Modal.Root>
+      )}
     </PageRoot>
   );
 }
