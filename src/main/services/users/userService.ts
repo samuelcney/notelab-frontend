@@ -1,4 +1,4 @@
-import { api } from "../axios/axios-instance";
+import { api } from "../../http/axios/axios-instance";
 
 export const userService = {
   getAllUsers: async () => {

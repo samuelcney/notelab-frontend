@@ -9,10 +9,10 @@ import { AvatarBallComponent } from "../avatar-profile/AvatarBallComponent";
 
 export function HeroSection() {
   const [greeting, setGreeting] = useState<string>("");
-  const user = useCurrentUser();
+  const { user } = useCurrentUser();
   const { push } = useRouter();
 
-  const userName = user?.user_metadata.name;
+  const userName = user?.name;
 
   useEffect(() => {
     const hour = new Date().getHours();

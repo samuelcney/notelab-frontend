@@ -17,7 +17,7 @@ export const HeaderContent = ({
 }) => {
   const navigation = useRouter();
 
-  const role = useCurrentUser()?.app_metadata.role;
+  const { user } = useCurrentUser();
 
   return (
     <div
@@ -28,7 +28,7 @@ export const HeaderContent = ({
       {haveSearchBar && <SearchInput />}
 
       <div className="flex h-full items-center gap-7 pr-2">
-        {role !== "INSTRUCTOR" && (
+        {user?.role !== "INSTRUCTOR" && (
           <HeaderTextItem
             text="Ensine na NoteLab.io"
             onclick={() => navigation.replace(pathNameEnum.SEND_REQUEST)}

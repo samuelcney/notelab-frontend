@@ -15,11 +15,11 @@ import { AvatarBallComponent } from "./AvatarBallComponent";
 
 export const AvatarDropDown = () => {
   const navigation = useRouter();
-  const user = useCurrentUser();
+  const { user } = useCurrentUser();
 
   const { mutateAsync: logout } = useLogout();
 
-  const userName = user?.user_metadata?.name ?? "Usuário";
+  const userName = user?.name ?? "";
 
   return (
     <DropdownMenu>

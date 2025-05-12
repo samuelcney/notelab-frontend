@@ -19,6 +19,22 @@ export type UserProps = {
   isActiveUser: boolean;
 };
 
+export interface UserType {
+  id: string;
+  email: string;
+  name: string;
+  role: string;
+  isActiveUser: boolean;
+  createdAt: string;
+  info: UserInfo;
+}
+
+export interface UserInfo {
+  bio: string;
+  avatarUrl: string;
+  phone: string;
+}
+
 export type SupabaseUserData = {
   id: string;
   aud: string;
@@ -29,6 +45,7 @@ export type SupabaseUserData = {
   user_metadata: {
     name: string;
     email_verified: boolean;
+    avatar_url: string;
   };
   app_metadata: {
     role: string;

@@ -22,8 +22,8 @@ export const Sidebar = () => {
 
   const sidebarRef = useRef<HTMLDivElement | null>(null);
 
-  const user = useCurrentUser();
-  const role = user?.app_metadata.role;
+  const { user } = useCurrentUser();
+  const role = user?.role;
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {

@@ -1,5 +1,5 @@
-import { NextRequest, NextResponse } from "next/server";
 import { jwtVerify } from "jose";
+import { NextRequest, NextResponse } from "next/server";
 
 interface SupabaseUser {
   user_metadata: {

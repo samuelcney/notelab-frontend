@@ -2,9 +2,10 @@
 import { useCurrentUser } from "@/main/hooks/users/use-current-user";
 import { useUserProfileStore } from "@/main/stores/user-profile-store";
 import { PageRoot } from "@/presentation/layout/PageRoot";
+import { Loader2 } from "lucide-react";
 
 export default function ProfilePage() {
-  const user = useCurrentUser();
+  const { user, isLoading } = useCurrentUser();
   const { setAvatarUrl } = useUserProfileStore();
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -19,22 +20,34 @@ export default function ProfilePage() {
   };
 
   const userData = {
-    name: user?.user_metadata.name,
+    name: user?.name,
     email: user?.email,
     bio: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet, quidem blanditiis aspernatur expedita nemo quas cumque illum iste laborum beatae officia quibusdam enim quis veniam libero quasi minus eos id?",
     phone: "(11) 99999-9999",
-    avatarUrl: "",
+    avatarUrl: user?.info.avatarUrl,
   };
 
   return (
     <PageRoot>
       <div className="flex flex-col w-full h-full">
         <div className="w-full h-[25%] bg-gradient-to-r from-green-800 to-green-700 py-16 px-6 md:px-12 relative">
-          {/* <div className="w-36 h-36 rounded-full ml-16 absolute top-36 bg-green-500 flex justify-center items-center">
+          <div className="w-36 h-36 rounded-full ml-16 absolute top-36 bg-green-500 flex justify-center items-center overflow-hidden">
+            {user?.info.avatarUrl === "" ? (
               <h1 className="text-white font-bold uppercase text-4xl">
                 {userData.name?.slice(0, 2)}
               </h1>
-            </div> */}
+            ) : isLoading ? (
+              <Loader2 className="animate-spin w-10 h-10" />
+            ) : (
+              <img
+                src={`${user?.info?.avatarUrl}`}
+                alt="Imagem do usuário"
+                className="w-full h-full object-cover"
+                width={144}
+                height={144}
+              />
+            )}
+          </div>
         </div>
 
         <div className="w-full flex-1 flex p-10">

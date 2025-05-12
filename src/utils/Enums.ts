@@ -22,7 +22,7 @@ export enum roleEnum {
   INSTRUCTOR = "INSTRUCTOR",
 }
 
-export enum queryKeysEnum {
+export enum QueryKeysEnum {
   GET_CATEGORIES = "CATEGORIES",
   GET_CATEGORIES_BY_ID = "CATEGORIES_BY_ID",
   GET_COURSES = "COURSES",
@@ -38,6 +38,7 @@ export enum queryKeysEnum {
   SIGN_IN = "SIGN_IN",
   SIGN_UP = "SIGN_UP",
   LOGOUT = "LOG_OUT",
+  CURRENT_USER = "CURRENT_USER",
 }
 
 export enum courseLevelEnum {

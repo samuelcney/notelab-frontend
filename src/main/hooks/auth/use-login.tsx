@@ -1,7 +1,7 @@
 import { useAuth } from "@/main/context/auth";
 import { authService } from "@/main/services/auth/auth-service";
 import { notify } from "@/presentation/components/toast/Toast";
-import { pathNameEnum, queryKeysEnum } from "@/utils/Enums";
+import { pathNameEnum, QueryKeysEnum } from "@/utils/Enums";
 import { getErrorMessage } from "@/utils/Errors";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
@@ -14,7 +14,7 @@ export const useLogin = () => {
   return useMutation({
     mutationFn: authService.signIn,
     onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: [queryKeysEnum.SIGN_IN] });
+      queryClient.invalidateQueries({ queryKey: [QueryKeysEnum.SIGN_IN] });
       login(data);
 
       setTimeout(() => {
