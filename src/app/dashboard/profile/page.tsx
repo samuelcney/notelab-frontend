@@ -1,13 +1,13 @@
 "use client";
 import { useModal } from "@/main/context/modal";
-import { useCurrentUser } from "@/main/hooks/users/use-current-user";
+import { useCurrentUser } from "@/main/hooks/auth/use-current-user";
 import { useUserProfileStore } from "@/main/stores/user-profile-store";
 import { Modal } from "@/presentation/components/modal/Modal";
 import { PageRoot } from "@/presentation/layout/PageRoot";
-import { Loader2, Mail, Pencil, Phone, User2 } from "lucide-react";
+import { Mail, Pencil, Phone, User2 } from "lucide-react";
 
 export default function ProfilePage() {
-  const { user, isLoading } = useCurrentUser();
+  const user = useCurrentUser();
   const { setAvatarUrl } = useUserProfileStore();
   const { openModal, isModalOpen, closeModal } = useModal();
 
@@ -31,8 +31,6 @@ export default function ProfilePage() {
               <h1 className="text-white font-bold uppercase text-4xl">
                 {user.name?.slice(0, 2)}
               </h1>
-            ) : isLoading ? (
-              <Loader2 className="animate-spin w-10 h-10 text-white" />
             ) : (
               <img
                 src={user?.info?.avatarUrl}

@@ -1,5 +1,5 @@
+import { useCurrentUser } from "@/main/hooks/auth/use-current-user";
 import { useLogout } from "@/main/hooks/auth/use-logout";
-import { useCurrentUser } from "@/main/hooks/users/use-current-user";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,7 +15,7 @@ import { AvatarBallComponent } from "./AvatarBallComponent";
 
 export const AvatarDropDown = () => {
   const navigation = useRouter();
-  const { user } = useCurrentUser();
+  const user = useCurrentUser();
 
   const { mutateAsync: logout } = useLogout();
 

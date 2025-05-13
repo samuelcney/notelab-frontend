@@ -2,7 +2,7 @@
 import { useSidebar } from "@/main/context/sidebar";
 import Icon from "../Icon";
 
-import { useCurrentUser } from "@/main/hooks/users/use-current-user";
+import { useCurrentUser } from "@/main/hooks/auth/use-current-user";
 import {
   adminPathNameEnum as adminPath,
   pathNameEnum as path,
@@ -22,7 +22,7 @@ export const Sidebar = () => {
 
   const sidebarRef = useRef<HTMLDivElement | null>(null);
 
-  const { user } = useCurrentUser();
+  const user = useCurrentUser();
   const role = user?.role;
 
   useEffect(() => {

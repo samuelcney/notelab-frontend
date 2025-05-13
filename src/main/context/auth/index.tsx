@@ -1,96 +1,84 @@
+// AuthProvider.tsx
 "use client";
-import React, {
-  createContext,
-  useContext,
-  useState,
-  ReactNode,
-  useEffect,
-} from "react";
-import Cookies from "js-cookie";
-import { SupabaseUserData, UserProps } from "@/types/types";
 
-interface UserData {
-  token: string;
-  user: SupabaseUserData;
-}
+import Cookies from "js-cookie";
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
+
+import { useMe } from "@/main/hooks";
+import LoadingScreen from "@/presentation/components/loading-screen/LoadingScreen";
+import { UserType } from "@/types/types";
 
 interface AuthContextProps {
-  user: SupabaseUserData | null;
+  user: UserType;
   token: string | null;
-  login: (userData: UserData) => void;
+  login: (token: string, user: UserType) => void;
   logout: () => void;
+  signed: boolean;
 }
 
-const AuthContext = createContext<AuthContextProps | undefined>(undefined);
+const AuthContext = createContext<AuthContextProps>({} as AuthContextProps);
 
-interface AuthProviderProps {
-  children: ReactNode;
-}
-
-export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [user, setUser] = useState<SupabaseUserData | null>(null);
+export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [token, setToken] = useState<string | null>(null);
+  const [user, setUser] = useState<UserType | null>(null);
 
-  const login = (data: UserData) => {
-    try {
-      if (!data.user || !data.token) {
-        throw new Error("Dados de usuário ou token inválidos");
-      }
+  const { data: fetchedUser, isLoading } = useMe(token, !user);
 
-      setUser(data.user);
-      setToken(data.token);
-
-      Cookies.set("user", JSON.stringify(data.user), { expires: 1 });
-      Cookies.set("token", data.token, { expires: 1 });
-    } catch (error: any) {
-      console.error("Erro ao fazer login:", error);
-      throw new Error("Falha ao realizar login");
-    }
+  const login = (newToken: string, newUser: UserType) => {
+    Cookies.set("token", newToken, { expires: 1 });
+    Cookies.set("user", JSON.stringify(newUser), { expires: 1 });
+    setToken(newToken);
+    setUser(newUser);
   };
 
   const logout = () => {
-    try {
-      setUser(null);
-      setToken(null);
-
-      Cookies.remove("token");
-      Cookies.remove("user");
-    } catch (error) {
-      console.error("Erro ao realizar logout:", error);
-    }
+    Cookies.remove("token");
+    Cookies.remove("user");
+    setToken(null);
+    setUser(null);
   };
 
   useEffect(() => {
-    try {
-      const storedUser = Cookies.get("user");
-      const storedToken = Cookies.get("token");
+    const storedToken = Cookies.get("token");
+    const storedUser = Cookies.get("user");
 
-      if (storedUser && storedToken) {
-        setUser(JSON.parse(storedUser));
-        setToken(storedToken);
-      } else {
-        setUser(null);
-        setToken(null);
-        Cookies.remove("token");
-        Cookies.remove("user");
-      }
-    } catch (error) {
-      console.error("Erro ao carregar usuário do cookie:", error);
-      setUser(null);
-      setToken(null);
-      Cookies.remove("token");
-      Cookies.remove("user");
-    }
+    if (storedToken) setToken(storedToken);
+    if (storedUser) setUser(JSON.parse(storedUser));
   }, []);
 
+  useEffect(() => {
+    if (fetchedUser && !user) {
+      setUser(fetchedUser);
+      Cookies.set("user", JSON.stringify(fetchedUser), { expires: 1 });
+    }
+  }, [fetchedUser]);
+
+  if (!user && isLoading) {
+    return <LoadingScreen />;
+  }
+
   return (
-    <AuthContext.Provider value={{ user, token, login, logout }}>
+    <AuthContext.Provider
+      value={{
+        user: user as UserType,
+        token,
+        login,
+        logout,
+        signed: !!user,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
 };
 
-export const useAuth = (): AuthContextProps => {
+export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
     throw new Error("useAuth deve ser usado dentro de um AuthProvider");

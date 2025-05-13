@@ -1,6 +1,6 @@
 "use client";
 
-import { useCurrentUser } from "@/main/hooks/users/use-current-user";
+import { useCurrentUser } from "@/main/hooks/auth/use-current-user";
 
 interface AvatarBallComponentProps {
   abbreviation: string;
@@ -15,7 +15,7 @@ export function AvatarBallComponent({
 }: AvatarBallComponentProps) {
   const sizeClass = isBigSize ? "h-16 w-16 text-xl" : "h-10 w-10 text-sm";
 
-  const { user } = useCurrentUser();
+  const user = useCurrentUser();
 
   return (
     <div

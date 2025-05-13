@@ -14,8 +14,10 @@ export const useLogin = () => {
   return useMutation({
     mutationFn: authService.signIn,
     onSuccess: (data) => {
+      const { token, user } = data;
+
       queryClient.invalidateQueries({ queryKey: [QueryKeysEnum.SIGN_IN] });
-      login(data);
+      login(token, user);
 
       setTimeout(() => {
         push(pathNameEnum.HOME);

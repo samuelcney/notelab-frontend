@@ -2,14 +2,14 @@
 
 import { useEffect, useState } from "react";
 
-import { useCurrentUser } from "@/main/hooks/users/use-current-user";
+import { useCurrentUser } from "@/main/hooks/auth/use-current-user";
 import { Button } from "@/presentation/ui/button";
 import { useRouter } from "next/navigation";
 import { AvatarBallComponent } from "../avatar-profile/AvatarBallComponent";
 
 export function HeroSection() {
   const [greeting, setGreeting] = useState<string>("");
-  const { user } = useCurrentUser();
+  const user = useCurrentUser();
   const { push } = useRouter();
 
   const userName = user?.name;

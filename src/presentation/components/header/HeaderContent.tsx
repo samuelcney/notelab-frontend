@@ -4,7 +4,7 @@ import { AvatarDropDown } from "../avatar-profile/AvatarDropDown";
 import { SearchInput } from "../search-input/SearchInput";
 import ThemeToggle from "../theme/ThemeToggle";
 
-import { useCurrentUser } from "@/main/hooks/users/use-current-user";
+import { useCurrentUser } from "@/main/hooks/auth/use-current-user";
 import { pathNameEnum } from "@/utils/Enums";
 import { useRouter } from "next/navigation";
 import { NotificationDropDown } from "../notifications/NotificationDropdown";
@@ -17,7 +17,7 @@ export const HeaderContent = ({
 }) => {
   const navigation = useRouter();
 
-  const { user } = useCurrentUser();
+  const user = useCurrentUser();
 
   return (
     <div

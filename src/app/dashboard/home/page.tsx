@@ -1,6 +1,6 @@
 "use client";
 
-import { useCurrentUser } from "@/main/hooks/users/use-current-user";
+import { useCurrentUser } from "@/main/hooks/auth/use-current-user";
 import { CarouselContainer } from "@/presentation/components/carousel/CarouselContainer";
 import { Footer } from "@/presentation/components/footer/footer";
 import { HeroSection } from "@/presentation/components/hero-section/hero-section";
