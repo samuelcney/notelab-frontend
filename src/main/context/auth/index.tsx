@@ -1,4 +1,3 @@
-// AuthProvider.tsx
 "use client";
 
 import Cookies from "js-cookie";
