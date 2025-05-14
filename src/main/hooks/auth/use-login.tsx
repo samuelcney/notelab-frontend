@@ -4,10 +4,12 @@ import { notify } from "@/presentation/components/toast/Toast";
 import { QueryKeysEnum } from "@/utils/Enums";
 import { getErrorMessage } from "@/utils/Errors";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 
 export const useLogin = () => {
   const queryClient = useQueryClient();
   const { login } = useAuth();
+  const { push } = useRouter();
 
   return useMutation({
     mutationFn: authService.signIn,
@@ -16,6 +18,9 @@ export const useLogin = () => {
 
       queryClient.invalidateQueries({ queryKey: [QueryKeysEnum.SIGN_IN] });
       login(token, user);
+      push("/dashboard/home");
+
+      setTimeout(() => {}, 3000);
     },
     onError: (error: any) => {
       const errorMessage = getErrorMessage(error);

@@ -39,6 +39,7 @@ export enum QueryKeysEnum {
   SIGN_UP = "SIGN_UP",
   LOGOUT = "LOG_OUT",
   CURRENT_USER = "CURRENT_USER",
+  CREATE_COURSE = "CREATE_COURSE",
 }
 
 export enum courseLevelEnum {

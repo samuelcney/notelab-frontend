@@ -28,6 +28,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/presentation/ui/select";
+import { Textarea } from "@/presentation/ui/textarea";
 import { courseLevelEnum } from "@/utils/Enums";
 import { useCourseStore } from "../../../main/stores/course-store";
 
@@ -39,6 +40,7 @@ export function CourseBasicInfoForm() {
     removeCategory,
     setDifficulty,
     setCoverImage,
+    setDescription,
   } = useCourseStore();
 
   const { data } = useGetCategories();
@@ -71,6 +73,17 @@ export function CourseBasicInfoForm() {
             placeholder="Ex: Violão para Iniciantes"
             value={course.name}
             onChange={(e) => setName(e.target.value)}
+          />
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="titulo">Descrição *</Label>
+          <Textarea
+            id="titulo"
+            placeholder=""
+            value={course.description}
+            onChange={(e) => setDescription(e.target.value)}
+            rows={16}
           />
         </div>
 

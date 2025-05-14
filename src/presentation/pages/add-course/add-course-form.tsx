@@ -2,8 +2,9 @@
 
 import { ArrowLeft, Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
 
+import { useCurrentUser } from "@/main/hooks/auth/use-current-user";
+import { useCreateCourse } from "@/main/hooks/courses/use-create-course";
 import { notify } from "@/presentation/components/toast/Toast";
 import { Button } from "@/presentation/ui/button";
 import { Separator } from "@/presentation/ui/separator";
@@ -20,39 +21,27 @@ import { CourseContentForm } from "./course-content-form";
 
 export function AddCourseForm() {
   const router = useRouter();
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const { resetCourse, course, setCourse } = useCourseStore();
+  const { resetCourse, course, setCourse, setInstructorId } = useCourseStore();
+  const { mutateAsync: createCourse, isPending } = useCreateCourse();
+  const { id: instructorId } = useCurrentUser();
 
   const handleSubmit = async (isDraft = false) => {
-    setIsSubmitting(true);
     try {
       await new Promise((resolve) => setTimeout(resolve, 1500));
 
-      if (isDraft) localStorage.setItem("course", JSON.stringify(course));
-
-      console.log("Course data:", course);
-
+      if (isDraft) {
+        console.log(course);
+      }
       if (!isDraft) {
-        resetCourse();
         localStorage.removeItem("course");
+        await createCourse({ ...course, instructorId: instructorId });
+        resetCourse();
         router.push("/teacher/dashboard");
       }
     } catch (error) {
       notify("Erro", "error");
-    } finally {
-      setIsSubmitting(false);
     }
   };
-
-  useEffect(() => {
-    const storedCourse = localStorage.getItem("course");
-    if (storedCourse) {
-      const parsedCourse = JSON.parse(storedCourse);
-      if (parsedCourse) {
-        setCourse(parsedCourse);
-      }
-    }
-  }, []);
 
   return (
     <div className="w-full">
@@ -77,21 +66,21 @@ export function AddCourseForm() {
         <div className="flex items-center gap-2">
           <Button
             onClick={() => handleSubmit(true)}
-            disabled={isSubmitting}
+            disabled={isPending}
             variant="outline"
             className="border-foreground"
           >
-            {isSubmitting ? (
+            {isPending ? (
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
             ) : null}
             Salvar Rascunho
           </Button>
           <Button
             onClick={() => handleSubmit(false)}
-            disabled={isSubmitting}
+            disabled={isPending}
             className="bg-greenApp"
           >
-            {isSubmitting ? (
+            {isPending ? (
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
             ) : null}
             Publicar Curso
