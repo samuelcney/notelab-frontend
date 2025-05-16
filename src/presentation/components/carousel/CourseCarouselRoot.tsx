@@ -33,8 +33,8 @@ export const CarouselRoot = ({
     <div className="flex flex-1 flex-col gap-2 px-8 w-full">
       <CarouselTitle title={title} />
       {!loading && courses.length === 0 ? (
-        <div className="text-center text-lg text-gray-500 w-full">
-          Nenhum curso encontrado. Volte mais tarde!
+        <div className="pl-4 text-lg text-gray-500 w-full h-[100px]">
+          No momento não há cursos disponíveis.
         </div>
       ) : (
         <Carousel className="">

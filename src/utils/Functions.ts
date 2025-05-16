@@ -17,3 +17,33 @@ export function getRandomItem(array: string[]) {
   const randomIndex = Math.floor(Math.random() * array.length);
   return array[randomIndex];
 }
+
+export function convertToEmbedUrl(url: string): string | null {
+  try {
+    const parsedUrl = new URL(url);
+
+    if (
+      parsedUrl.hostname.includes("youtube.com") &&
+      parsedUrl.pathname === "/watch"
+    ) {
+      const videoId = parsedUrl.searchParams.get("v");
+      return videoId ? `https://www.youtube.com/embed/${videoId}` : null;
+    }
+
+    if (parsedUrl.hostname === "youtu.be") {
+      const videoId = parsedUrl.pathname.slice(1);
+      return videoId ? `https://www.youtube.com/embed/${videoId}` : null;
+    }
+
+    if (
+      parsedUrl.hostname.includes("youtube.com") &&
+      parsedUrl.pathname.startsWith("/embed/")
+    ) {
+      return url;
+    }
+
+    return null;
+  } catch {
+    return null;
+  }
+}

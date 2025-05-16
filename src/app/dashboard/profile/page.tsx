@@ -25,17 +25,17 @@ export default function ProfilePage() {
   return (
     <PageRoot>
       <div className="flex flex-col w-full h-full bg-background text-foreground">
-        <div className="w-full h-[25%] bg-gradient-to-r from-green-800 to-green-700 py-16 px-6 md:px-12 relative">
-          <div className="w-40 h-40 rounded-full ml-16 absolute top-32 bg-green-500 flex justify-center items-center overflow-hidden shadow-lg border-4 border-white">
-            {user?.info.avatarUrl === "" ? (
+        <div className="w-full h-[35%] bg-gradient-to-r from-green-800 to-green-700 py-16 px-6 md:px-12 relative">
+          <div className="w-44 h-44 rounded-full ml-16 absolute top-56 bg-green-500 flex justify-center items-center overflow-hidden shadow-lg border-4 border-white">
+            {user?.userBio?.avatarUrl === "" ? (
               <h1 className="text-white font-bold uppercase text-4xl">
-                {user.name?.slice(0, 2)}
+                {user?.name?.slice(0, 2)}
               </h1>
             ) : (
               <img
-                src={user?.info?.avatarUrl}
-                alt="Imagem do usuário"
-                className="w-full h-full object-cover"
+                src={user?.userBio?.avatarUrl}
+                alt="avatar"
+                className="w-full h-full object-cover items-center justify-center flex"
                 width={144}
                 height={144}
               />
@@ -44,7 +44,7 @@ export default function ProfilePage() {
         </div>
 
         <div className="w-full flex-1 flex flex-col md:flex-row p-6 pt-28 md:pt-32 gap-8">
-          <div className="border w-full md:w-1/3 h-fit rounded-xl p-6 shadow-md relative">
+          <div className="border w-full md:w-1/3 h-fit rounded-xl p-6 shadow-md relative border-foreground">
             <button
               className="absolute top-4 right-4 text-muted-foreground hover:text-green-700 transition-colors"
               onClick={() => openModal("profile")}
@@ -63,7 +63,7 @@ export default function ProfilePage() {
             </div>
             <div className="flex items-center gap-3 mb-10">
               <Phone className="text-green-700" />
-              <span>{user?.info.phone ?? "---"}</span>
+              <span>{user?.userBio?.phone ?? "---"}</span>
             </div>
 
             <div className="w-full flex items-center justify-end">
@@ -75,10 +75,10 @@ export default function ProfilePage() {
               </span>
             </div>
           </div>
-          <div className="border w-full md:w-2/3 h-fit rounded-xl p-6 shadow-md relative">
+          <div className="border w-full md:w-2/3 h-fit rounded-xl p-6 shadow-md relative border-foreground">
             <h2 className="text-xl font-semibold mb-4">Sobre</h2>
             <p className="text-muted-foreground leading-relaxed">
-              {user?.info.bio ?? "---"}
+              {user?.userBio?.bio ?? "---"}
             </p>
           </div>
         </div>

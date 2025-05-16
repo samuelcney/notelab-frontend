@@ -23,7 +23,6 @@ export const Sidebar = () => {
   const sidebarRef = useRef<HTMLDivElement | null>(null);
 
   const user = useCurrentUser();
-  const role = user?.role;
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -93,28 +92,27 @@ export const Sidebar = () => {
             }}
           />
 
-          {role === "INSTRUCTOR" ||
-            (role === "ADMIN" && (
-              <SidebarItem
-                isActive={pathname === teacherPath.TEACHER_DASHBOARD}
-                title="Ensino"
-                isOpen={isOpen}
-                icon={
-                  <Icon
-                    name="Presentation"
-                    strokeWidth={strokeW}
-                    size={size}
-                    className="text-greenApp"
-                  />
-                }
-                onclick={() => {
-                  navigation.replace(teacherPath.TEACHER_DASHBOARD);
-                  closeSideBar();
-                }}
-              />
-            ))}
+          {(user?.role === "INSTRUCTOR" || user?.role === "ADMIN") && (
+            <SidebarItem
+              isActive={pathname === teacherPath.TEACHER_DASHBOARD}
+              title="Ensino"
+              isOpen={isOpen}
+              icon={
+                <Icon
+                  name="Presentation"
+                  strokeWidth={strokeW}
+                  size={size}
+                  className="text-greenApp"
+                />
+              }
+              onclick={() => {
+                navigation.replace(teacherPath.TEACHER_DASHBOARD);
+                closeSideBar();
+              }}
+            />
+          )}
 
-          {role === "ADMIN" && (
+          {user?.role === "ADMIN" && (
             <SidebarItem
               isActive={pathname === adminPath.ADMIN_USERS}
               title="Usuários"

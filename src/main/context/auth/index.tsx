@@ -19,6 +19,7 @@ interface AuthContextProps {
   login: (token: string, user: UserType) => void;
   logout: () => void;
   signed: boolean;
+  updateUser: (user: UserType) => void;
 }
 
 const AuthContext = createContext<AuthContextProps>({} as AuthContextProps);
@@ -41,6 +42,19 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     Cookies.remove("user");
     setToken(null);
     setUser(null);
+  };
+
+  const updateUser = (updatedUser: UserType) => {
+    setUser(
+      (prevUser) =>
+        ({
+          ...prevUser,
+          ...updatedUser,
+        } as UserType)
+    );
+    Cookies.set("user", JSON.stringify({ ...user, ...updatedUser }), {
+      expires: 1,
+    });
   };
 
   useEffect(() => {
@@ -70,6 +84,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         login,
         logout,
         signed: !!user,
+        updateUser,
       }}
     >
       {children}

@@ -9,16 +9,6 @@ export type LoginDTO = {
   password: string;
 };
 
-export type UserProps = {
-  id?: string;
-  name: string;
-  email: string;
-  createdAt: string;
-  updatedAt: string;
-  role: string;
-  isActiveUser: boolean;
-};
-
 export interface UserType {
   id: string;
   email: string;
@@ -27,7 +17,7 @@ export interface UserType {
   isActiveUser: boolean;
   createdAt: string;
   updatedAt: string;
-  info: UserInfo;
+  userBio: UserInfo;
 }
 
 export interface UserInfo {
@@ -75,7 +65,7 @@ export type CourseProps = {
   description: string;
   price: number;
   difficulty: string;
-  instructorId: number;
+  instructorId: string;
   createdAt: string;
   updatedAt: string;
   instructor: Instructor;
@@ -84,7 +74,7 @@ export type CourseProps = {
 };
 
 export type Instructor = {
-  id: number;
+  id: string;
   name: string;
   email: string;
   role: string;
@@ -111,5 +101,5 @@ export type Modules = {
 export type Lessons = {
   id: number;
   title: string;
-  content: string;
+  videoUrl: string;
 };

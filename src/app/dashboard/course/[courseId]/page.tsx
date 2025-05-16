@@ -1,6 +1,7 @@
 "use client";
 
 import { useGetCourseById } from "@/main/hooks";
+import { useGetUserById } from "@/main/hooks/users/use-get-user-by-id";
 import { AvatarBallComponent } from "@/presentation/components/avatar-profile/AvatarBallComponent";
 import { Badge } from "@/presentation/components/badges/Badge";
 import { Button } from "@/presentation/components/button";
@@ -10,6 +11,7 @@ import { CourseContentSkeleton } from "@/presentation/components/course-details/
 import { CourseHeaderSkeleton } from "@/presentation/components/course-details/CourseHeaderSkeleton";
 import { PageRoot } from "@/presentation/layout/PageRoot";
 import { Skeleton } from "@/presentation/ui/skeleton";
+import { UserType } from "@/types/types";
 import { BACKGROUND_IMAGE_PATHS } from "@/utils/Constants";
 import { getInitials, getRandomItem } from "@/utils/Functions";
 
@@ -20,6 +22,8 @@ export default function CoursePage() {
   const { courseId } = useParams();
 
   const { data, isPending } = useGetCourseById(Number(courseId));
+
+  const { data: instructor } = useGetUserById(data?.instructorId ?? "");
 
   const randomImagePath = getRandomItem(BACKGROUND_IMAGE_PATHS);
 
@@ -76,6 +80,7 @@ export default function CoursePage() {
                     <AvatarBallComponent
                       abbreviation={getInitials(data?.instructor?.name ?? "")}
                       isBigSize
+                      user={instructor ?? ({} as UserType)}
                     />
                     <p className="text-sm">{data?.instructor?.name}</p>
                     <p className="text-sm">{data?.instructor?.email}</p>

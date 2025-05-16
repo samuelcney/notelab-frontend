@@ -6,15 +6,15 @@ import { create } from "zustand";
 
 export type Lesson = {
   id: string;
-  name: string;
-  duration: string;
+  title: string;
+  duration: number;
   type: lessonTypeEnum;
-  content?: string | File | null;
+  videoUrl?: string | File | null;
 };
 
 export type Module = {
   id: string;
-  name: string;
+  title: string;
   lessons: Lesson[];
 };
 
@@ -121,7 +121,7 @@ export const useCourseStore = create<CourseStore>((set) => ({
     set((state) => {
       const newModule: Module = {
         id: nanoid(),
-        name: `Módulo ${state.course.modules.length + 1}`,
+        title: `Módulo ${state.course.modules.length + 1}`,
         lessons: [],
       };
       return {
@@ -159,8 +159,8 @@ export const useCourseStore = create<CourseStore>((set) => ({
 
       const newLesson: Lesson = {
         id: nanoid(),
-        name: `Aula ${state.course.modules[moduleIndex].lessons.length + 1}`,
-        duration: "00:00",
+        title: `Aula ${state.course.modules[moduleIndex].lessons.length + 1}`,
+        duration: 0,
         type: lessonTypeEnum.VIDEO,
       };
 
@@ -178,7 +178,7 @@ export const useCourseStore = create<CourseStore>((set) => ({
       };
     }),
 
-  addContentToLesson: (moduleId, lessonId, content) =>
+  addContentToLesson: (moduleId, lessonId, videoUrl) =>
     set((state) => {
       const course = { ...state.course };
       const moduleIndex = course.modules.findIndex((m) => m.id === moduleId);
@@ -191,7 +191,7 @@ export const useCourseStore = create<CourseStore>((set) => ({
 
       const updatedModules = [...course.modules];
       const updatedLessons = [...updatedModules[moduleIndex].lessons];
-      const updatedLesson = { ...updatedLessons[lessonIndex], content };
+      const updatedLesson = { ...updatedLessons[lessonIndex], videoUrl };
 
       updatedLessons[lessonIndex] = updatedLesson;
       updatedModules[moduleIndex] = {

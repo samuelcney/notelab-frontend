@@ -1,13 +1,11 @@
 "use client";
 
-import { useCurrentUser } from "@/main/hooks/auth/use-current-user";
 import { CarouselContainer } from "@/presentation/components/carousel/CarouselContainer";
 import { Footer } from "@/presentation/components/footer/footer";
 import { HeroSection } from "@/presentation/components/hero-section/hero-section";
 import { PageRoot } from "@/presentation/layout/PageRoot";
 
 export default function HomePage() {
-  const user = useCurrentUser();
   return (
     <PageRoot>
       <div className="flex flex-1 flex-col items-center gap-8 mb-12">
