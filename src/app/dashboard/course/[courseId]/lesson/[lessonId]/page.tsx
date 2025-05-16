@@ -1,6 +1,7 @@
 "use client";
 
-import { useGetModuleById, useGetLessonsByModuleId } from "@/main/hooks";
+import { useGetLessonsByModuleId, useGetModuleById } from "@/main/hooks";
+import { convertToEmbedUrl } from "@/utils/Functions";
 import { ArrowLeft } from "lucide-react";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 
@@ -14,6 +15,12 @@ export default function LessonPage() {
 
   const { data: lessons } = useGetLessonsByModuleId(Number(moduleId));
   const { data: module } = useGetModuleById(Number(moduleId));
+
+  const currentLesson = lessons?.find(
+    (lesson) => lesson.id.toString() === lessonId
+  );
+
+  const embedUrl = convertToEmbedUrl(currentLesson?.videoUrl || "");
 
   return (
     <div className="max-w-[100vw] h-full flex items-center flex-col overflow-hidden">
@@ -32,7 +39,7 @@ export default function LessonPage() {
           <div className="flex-1 h-full">
             <iframe
               className="w-full h-full"
-              src="https://www.youtube.com/embed/-ElGAUrbqUY?si=6PcW-G184a39sowI"
+              src={embedUrl || ""}
               title="YouTube video player"
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

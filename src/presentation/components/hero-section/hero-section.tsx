@@ -30,7 +30,11 @@ export function HeroSection() {
       <div className="absolute inset-0  bg-cover bg-center opacity-10"></div>
       <div className="relative z-10 max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row items-start md:items-center gap-6 mb-8">
-          <AvatarBallComponent abbreviation={userName || ""} isBigSize />
+          <AvatarBallComponent
+            abbreviation={userName || ""}
+            isBigSize
+            user={user}
+          />
           <div className="flex flex-col">
             <span className="text-green-400 font-medium">{greeting}</span>
             <h1 className="text-3xl md:text-4xl font-bold text-white">

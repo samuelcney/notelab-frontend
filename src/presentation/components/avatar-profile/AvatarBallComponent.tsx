@@ -1,21 +1,22 @@
 "use client";
 
-import { useCurrentUser } from "@/main/hooks/auth/use-current-user";
+import { UserType } from "@/types/types";
 
 interface AvatarBallComponentProps {
   abbreviation: string;
   isBigSize?: boolean;
   className?: string;
+  isMyProfile?: boolean;
+  user: UserType;
 }
 
 export function AvatarBallComponent({
   abbreviation,
   isBigSize,
   className,
+  user,
 }: AvatarBallComponentProps) {
   const sizeClass = isBigSize ? "h-16 w-16 text-xl" : "h-10 w-10 text-sm";
-
-  const user = useCurrentUser();
 
   return (
     <div
@@ -24,9 +25,9 @@ export function AvatarBallComponent({
         className
       }
     >
-      {user?.info.avatarUrl ? (
+      {user?.userBio?.avatarUrl ? (
         <img
-          src={user?.info.avatarUrl}
+          src={user?.userBio?.avatarUrl}
           alt="Avatar"
           className={`rounded-full ${sizeClass} object-cover`}
           loading="lazy"

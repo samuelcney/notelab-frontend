@@ -1,5 +1,7 @@
 "use client";
 
+import { useCurrentUser } from "@/main/hooks/auth/use-current-user";
+import { useGetCoursesByInstructorId } from "@/main/hooks/courses/use-get-instructor-courses";
 import { PageRoot } from "@/presentation/layout/PageRoot";
 import { Button } from "@/presentation/ui/button";
 import {
@@ -21,6 +23,8 @@ import { useRouter } from "next/navigation";
 
 export default function TeacherDashboard() {
   const { replace } = useRouter();
+  const user = useCurrentUser();
+  const { data: course } = useGetCoursesByInstructorId(user.id);
 
   return (
     <PageRoot>
@@ -66,10 +70,10 @@ export default function TeacherDashboard() {
                     <BookOpen className="h-4 w-4 text-muted-foreground" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold text-foreground">8</div>
-                    <p className="text-sm text-muted-foreground">
-                      +2 no último mês
-                    </p>
+                    <div className="text-2xl font-bold text-foreground">
+                      {course?.length}
+                    </div>
+                    <p className="text-sm text-muted-foreground">---</p>
                   </CardContent>
                 </Card>
                 <Card>
@@ -80,12 +84,8 @@ export default function TeacherDashboard() {
                     <Users className="h-4 w-4 text-muted-foreground" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold text-foreground">
-                      127
-                    </div>
-                    <p className="text-sm text-muted-foreground">
-                      +18 no último mês
-                    </p>
+                    <div className="text-2xl font-bold text-foreground">0</div>
+                    <p className="text-sm text-muted-foreground">---</p>
                   </CardContent>
                 </Card>
               </div>

@@ -12,6 +12,11 @@ export const courseService = {
     return data;
   },
 
+  getCourseByInstructorId: async (id: string) => {
+    const { data } = await api.get(`courses/instructor/${id}`);
+    return data;
+  },
+
   createCourse: async (courseData: CourseState) => {
     const { data } = await api.post("/courses", {
       instructorId: courseData.instructorId,
