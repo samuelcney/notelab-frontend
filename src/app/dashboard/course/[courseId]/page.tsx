@@ -74,7 +74,7 @@ export default function CoursePage() {
             </div>
             {!isPending ? (
               <div className="flex mt-8 w-full justify-center px-8">
-                <div className="flex w-full justify-between gap-20">
+                <div className="flex w-full justify-between gap-20 overflow-hidden">
                   <div className="flex flex-col gap-2">
                     <h1 className="text-lg font-semibold">Instrutor:</h1>
                     <AvatarBallComponent
@@ -86,10 +86,12 @@ export default function CoursePage() {
                     <p className="text-sm">{data?.instructor?.email}</p>
                   </div>
 
-                  <div className="flex flex-col gap-6 items-center flex-1">
-                    <p className="flex-1 text-justify text-sm tracking-wide">
-                      {data?.description}
-                    </p>
+                  <div className="flex flex-col gap-6 flex-1 overflow-hidden">
+                    <div className=" flex flex-col gap-2 break-words ">
+                      <p className="flex-1 text-justify text-sm tracking-wide break-words">
+                        {data?.description}
+                      </p>
+                    </div>
 
                     <Button.Root>
                       <Button.Content title={"ADICIONAR AO CARRINHO"} />
