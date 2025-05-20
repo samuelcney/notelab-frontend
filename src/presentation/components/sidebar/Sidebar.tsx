@@ -8,6 +8,7 @@ import {
   instructorPathNameEnum as instructorPath,
   pathNameEnum as path,
 } from "@/utils/Enums";
+import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef } from "react";
 import { SidebarItem } from "./SidebarItem";
@@ -55,100 +56,114 @@ export const Sidebar = () => {
         className={`fixed left-0 top-[70px] h-[calc(100vh-70px)] bg-dark-gray transition-transform duration-300 ease-in-out z-20
           ${isOpen ? "translate-x-0 w-64" : "-translate-x-full w-64"}`}
       >
-        <nav className="flex flex-col gap-4 w-full px-4 pt-6">
-          <SidebarItem
-            isActive={pathname === path.HOME}
-            title="Início"
-            isOpen={isOpen}
-            icon={
-              <Icon
-                name="House"
-                strokeWidth={strokeW}
-                size={size}
-                className="text-greenApp"
-              />
-            }
-            onclick={() => {
-              navigation.replace(path.HOME);
-              closeSideBar();
-            }}
-          />
-
-          <SidebarItem
-            isActive={pathname === path.CATALOG}
-            title="Catálogo"
-            isOpen={isOpen}
-            icon={
-              <Icon
-                name="Library"
-                strokeWidth={strokeW}
-                size={size}
-                className="text-greenApp"
-              />
-            }
-            onclick={() => {
-              navigation.replace(path.CATALOG);
-              closeSideBar();
-            }}
-          />
-
-          {(user?.role === "INSTRUCTOR" || user?.role === "ADMIN") && (
+        <nav className="flex flex-col justify-between h-full pb-4">
+          <div className="gap-4 w-full px-4 pt-6 flex flex-col">
             <SidebarItem
-              isActive={pathname === instructorPath.INSTRUCTOR_DASHBOARD}
-              title="Ensino"
+              isActive={pathname === path.HOME}
+              title="Início"
               isOpen={isOpen}
               icon={
                 <Icon
-                  name="Presentation"
+                  name="House"
                   strokeWidth={strokeW}
                   size={size}
                   className="text-greenApp"
                 />
               }
               onclick={() => {
-                navigation.replace(instructorPath.INSTRUCTOR_DASHBOARD);
+                navigation.replace(path.HOME);
                 closeSideBar();
               }}
             />
-          )}
 
-          {user?.role === "ADMIN" && (
             <SidebarItem
-              isActive={pathname === adminPath.ADMIN_USERS}
-              title="Usuários"
+              isActive={pathname === path.CATALOG}
+              title="Catálogo"
               isOpen={isOpen}
               icon={
                 <Icon
-                  name="Users"
+                  name="Library"
                   strokeWidth={strokeW}
                   size={size}
                   className="text-greenApp"
                 />
               }
               onclick={() => {
-                navigation.replace(adminPath.ADMIN_USERS);
+                navigation.replace(path.CATALOG);
                 closeSideBar();
               }}
             />
-          )}
 
-          <SidebarItem
-            isActive={pathname === path.CONFIGURATION}
-            title="Configurações"
-            isOpen={isOpen}
-            icon={
-              <Icon
-                name="Settings"
-                strokeWidth={strokeW}
-                size={size}
-                className="text-greenApp"
+            {(user?.role === "INSTRUCTOR" || user?.role === "ADMIN") && (
+              <SidebarItem
+                isActive={pathname === instructorPath.INSTRUCTOR_DASHBOARD}
+                title="Ensino"
+                isOpen={isOpen}
+                icon={
+                  <Icon
+                    name="Presentation"
+                    strokeWidth={strokeW}
+                    size={size}
+                    className="text-greenApp"
+                  />
+                }
+                onclick={() => {
+                  navigation.replace(instructorPath.INSTRUCTOR_DASHBOARD);
+                  closeSideBar();
+                }}
               />
-            }
-            onclick={() => {
-              navigation.replace(path.CONFIGURATION);
-              closeSideBar();
-            }}
-          />
+            )}
+
+            {user?.role === "ADMIN" && (
+              <SidebarItem
+                isActive={pathname === adminPath.ADMIN_USERS}
+                title="Usuários"
+                isOpen={isOpen}
+                icon={
+                  <Icon
+                    name="Users"
+                    strokeWidth={strokeW}
+                    size={size}
+                    className="text-greenApp"
+                  />
+                }
+                onclick={() => {
+                  navigation.replace(adminPath.ADMIN_USERS);
+                  closeSideBar();
+                }}
+              />
+            )}
+
+            <SidebarItem
+              isActive={pathname === path.CONFIGURATION}
+              title="Configurações"
+              isOpen={isOpen}
+              icon={
+                <Icon
+                  name="Settings"
+                  strokeWidth={strokeW}
+                  size={size}
+                  className="text-greenApp"
+                />
+              }
+              onclick={() => {
+                navigation.replace(path.CONFIGURATION);
+                closeSideBar();
+              }}
+            />
+          </div>
+          <div className="flex items-center w-full justify-center pr-5">
+            {/* <Music className="h-6 w-6 text-green-500" /> */}
+            <Image
+              src={"/images/logo.png"}
+              alt="Notelab Logo"
+              width={48}
+              height={48}
+            />
+            <span className="text-xl font-bold text-white">
+              Notelab<span className="text-green-500">.io</span>
+            </span>
+          </div>
         </nav>
       </div>
     </div>
