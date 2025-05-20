@@ -1,10 +1,13 @@
 "use client";
+
+import type React from "react";
+
 import { useModal } from "@/main/context/modal";
 import { useCurrentUser } from "@/main/hooks/auth/use-current-user";
 import { useUserProfileStore } from "@/main/stores/user-profile-store";
 import { Modal } from "@/presentation/components/modal/Modal";
 import { PageRoot } from "@/presentation/layout/PageRoot";
-import { Mail, Pencil, Phone, User2 } from "lucide-react";
+import { Camera, Mail, Pencil, Phone, User2 } from "lucide-react";
 
 export default function ProfilePage() {
   const user = useCurrentUser();
@@ -22,64 +25,144 @@ export default function ProfilePage() {
     }
   };
 
+  const renderAvatar = () => {
+    if (user?.userBio?.avatarUrl === "") {
+      return (
+        <div className="w-full h-full bg-green-600 flex items-center justify-center">
+          <h1 className="text-white font-bold uppercase text-4xl">
+            {user?.name?.slice(0, 2)}
+          </h1>
+        </div>
+      );
+    }
+
+    return (
+      <img
+        src={user?.userBio?.avatarUrl}
+        alt="avatar"
+        className="w-full h-full object-cover"
+        width={144}
+        height={144}
+      />
+    );
+  };
+
   return (
     <PageRoot>
-      <div className="flex flex-col w-full h-full bg-background text-foreground">
-        <div className="w-full h-[35%] bg-gradient-to-r from-green-800 to-green-700 py-16 px-6 md:px-12 relative">
-          <div className="w-44 h-44 rounded-full ml-16 absolute top-56 bg-green-500 flex justify-center items-center overflow-hidden shadow-lg border-4 border-white">
-            {user?.userBio?.avatarUrl === "" ? (
-              <h1 className="text-white font-bold uppercase text-4xl">
-                {user?.name?.slice(0, 2)}
-              </h1>
-            ) : (
-              <img
-                src={user?.userBio?.avatarUrl}
-                alt="avatar"
-                className="w-full h-full object-cover items-center justify-center flex"
-                width={144}
-                height={144}
-              />
-            )}
+      <div className="flex flex-col w-full min-h-screen bg-background text-foreground">
+        <div className="w-full h-44 bg-gradient-to-r from-green-800 via-green-700 to-green-600 relative">
+          <div className="absolute inset-0 opacity-20  bg-cover bg-center" />
+
+          <div className="absolute -bottom-16 left-1/2 transform -translate-x-1/2 md:left-16 md:translate-x-0">
+            <div className="relative group">
+              <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-white shadow-lg">
+                {renderAvatar()}
+              </div>
+
+              <label
+                htmlFor="avatar-upload"
+                className="absolute bottom-0 right-0 bg-green-600 hover:bg-green-700 text-white p-2 rounded-full cursor-pointer shadow-md transition-all duration-200"
+              >
+                <Camera size={16} />
+                <input
+                  id="avatar-upload"
+                  type="file"
+                  className="hidden"
+                  accept="image/*"
+                  onChange={handleImageUpload}
+                />
+              </label>
+            </div>
           </div>
         </div>
 
-        <div className="w-full flex-1 flex flex-col md:flex-row p-6 pt-28 md:pt-32 gap-8">
-          <div className="border w-full md:w-1/3 h-fit rounded-xl p-6 shadow-md relative border-foreground">
+        <div className="w-full flex-1 flex flex-col px-4 md:px-16 pt-20 pb-8 gap-6">
+          <div className="flex justify-between items-center">
+            <h1 className="text-2xl font-bold">{user?.name ?? "---"}</h1>
             <button
-              className="absolute top-4 right-4 text-muted-foreground hover:text-green-700 transition-colors"
+              className="flex items-center gap-2 px-4 py-2 rounded-lg bg-foreground text-green-600 hover:scale-[1.01] transition-transform"
               onClick={() => openModal("profile")}
             >
-              <Pencil size={20} />
+              <Pencil size={16} />
+              <span className="hidden md:inline">Editar Perfil</span>
             </button>
-
-            <h2 className="text-xl font-semibold mb-4">Informações Pessoais</h2>
-            <div className="flex items-center gap-3 mb-3">
-              <User2 className="text-green-700" />
-              <span>{user?.name ?? "---"}</span>
-            </div>
-            <div className="flex items-center gap-3 mb-3">
-              <Mail className="text-green-700" />
-              <span>{user?.email ?? "---"}</span>
-            </div>
-            <div className="flex items-center gap-3 mb-10">
-              <Phone className="text-green-700" />
-              <span>{user?.userBio?.phone ?? "---"}</span>
-            </div>
-
-            <div className="w-full flex items-center justify-end">
-              <span className="text-sm text-muted-foreground">
-                Última atualização:{" "}
-                <span className="italic text-sm text-muted-foreground">
-                  {user?.createdAt}
-                </span>
-              </span>
-            </div>
           </div>
-          <div className="border w-full md:w-2/3 h-fit rounded-xl p-6 shadow-md relative border-foreground">
-            <h2 className="text-xl font-semibold mb-4">Sobre</h2>
-            <p className="text-muted-foreground leading-relaxed">
-              {user?.userBio?.bio ?? "---"}
-            </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="bg-foreground rounded-xl p-6 shadow-sm border border-gray-100">
+              <h2 className="text-lg font-semibold mb-4 text-green-600 border-b pb-2">
+                Informações Pessoais
+              </h2>
+
+              <div className="space-y-4">
+                <div className="flex items-center gap-3">
+                  <div className="bg-green-50 p-2 rounded-full">
+                    <User2 size={18} className="text-green-600" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500">Nome</p>
+                    <p className="font-medium text-background">
+                      {user?.name ?? "---"}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <div className="bg-green-50 p-2 rounded-full">
+                    <Mail size={18} className="text-green-600" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500">Email</p>
+                    <p className="font-medium text-background">
+                      {user?.email ?? "---"}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <div className="bg-green-50 p-2 rounded-full">
+                    <Phone size={18} className="text-green-600" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500">Telefone</p>
+                    <p className="font-medium text-background">
+                      {user?.userBio?.phone ?? "---"}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-6 pt-4 border-t text-right">
+                <span className="text-xs text-gray-500">
+                  Última atualização:{" "}
+                  <span className="italic">{user?.createdAt}</span>
+                </span>
+              </div>
+            </div>
+
+            <div className="bg-foreground rounded-xl p-6 shadow-sm border border-gray-100 md:col-span-2">
+              <h2 className="text-lg font-semibold mb-4 text-green-600 border-b pb-2">
+                Sobre
+              </h2>
+
+              {user?.userBio?.bio ? (
+                <p className="text-gray-600 leading-relaxed">
+                  {user.userBio.bio}
+                </p>
+              ) : (
+                <div className="flex flex-col items-center justify-center h-40 text-center">
+                  <p className="text-gray-400 mb-3">
+                    Nenhuma informação disponível
+                  </p>
+                  <button
+                    className="text-sm text-green-600 hover:text-green-600 underline"
+                    onClick={() => openModal("profile")}
+                  >
+                    Adicionar biografia
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>

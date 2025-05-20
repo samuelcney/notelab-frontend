@@ -7,7 +7,7 @@ import { create } from "zustand";
 export type Lesson = {
   id: string;
   title: string;
-  duration: number;
+  duration?: number;
   type: lessonTypeEnum;
   videoUrl?: string | File | null;
 };
@@ -21,11 +21,11 @@ export type Module = {
 export type CourseState = {
   name: string;
   description: string;
-  categories: string[];
+  categories: number[];
   difficulty: courseLevelEnum;
-  coverImage: string | null;
+  coverImage?: string | null;
   modules: Module[];
-  typeCourse: "free" | "paid";
+  typeCourse?: "free" | "paid";
   price: number;
   issueCertificate: boolean;
   instructorId: string;
@@ -35,9 +35,9 @@ type CourseStore = {
   course: CourseState;
   setName: (name: string) => void;
   setDescription: (description: string) => void;
-  setCategories: (categories: string[]) => void;
-  addCategory: (category: string) => void;
-  removeCategory: (category: string) => void;
+  setCategories: (categories: number[]) => void;
+  addCategory: (category: number) => void;
+  removeCategory: (category: number) => void;
   setDifficulty: (difficulty: CourseState["difficulty"]) => void;
   setCoverImage: (coverImage: string | null) => void;
   setInstructorId: (instructorId: string) => void;
@@ -47,11 +47,11 @@ type CourseStore = {
   updateModuleName: (id: string, name: string) => void;
   addLesson: (moduleId: string) => void;
   removeLesson: (moduleId: string, lessonId: string) => void;
-  updateLesson: (
+  updateLesson: <K extends keyof Lesson>(
     moduleId: string,
     lessonId: string,
     field: keyof Lesson,
-    value: string
+    value: Lesson[K]
   ) => void;
 
   addContentToLesson: (
@@ -140,12 +140,12 @@ export const useCourseStore = create<CourseStore>((set) => ({
       },
     })),
 
-  updateModuleName: (id, name) =>
+  updateModuleName: (id, title) =>
     set((state) => ({
       course: {
         ...state.course,
         modules: state.course.modules.map((module) =>
-          module.id === id ? { ...module, name } : module
+          module.id === id ? { ...module, title } : module
         ),
       },
     })),
@@ -212,7 +212,7 @@ export const useCourseStore = create<CourseStore>((set) => ({
       const modules = state.course.modules.map((module) => {
         const lessons = module.lessons.map((lesson) => {
           if (lesson.id === lessonId) {
-            return { ...lesson, content: undefined };
+            return { ...lesson, videoUrl: null };
           }
           return lesson;
         });

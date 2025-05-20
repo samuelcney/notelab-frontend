@@ -23,18 +23,22 @@ export function LessonTypeSelector({
       <label className="text-sm font-medium text-foreground">
         Tipo de Conteúdo
       </label>
-      <Select value={value} onValueChange={onChange}>
+      <Select
+        value={value}
+        onValueChange={onChange}
+        defaultValue={lessonTypeEnum.VIDEO_URL}
+      >
         <SelectTrigger className="mt-1">
           <SelectValue placeholder="Selecione o tipo" />
         </SelectTrigger>
         <SelectContent>
+          <SelectItem value={lessonTypeEnum.VIDEO_URL}>Vídeo (URL)</SelectItem>
           <SelectItem
             value={lessonTypeEnum.VIDEO}
             className="hover:bg-gray-400"
           >
             Vídeo (Arquivo)
           </SelectItem>
-          <SelectItem value={lessonTypeEnum.VIDEO_URL}>Vídeo (URL)</SelectItem>
         </SelectContent>
       </Select>
     </div>

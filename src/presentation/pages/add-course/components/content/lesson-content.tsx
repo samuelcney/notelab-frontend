@@ -128,7 +128,7 @@ export function LessonContent({ lesson, moduleId }: LessonContentProps) {
             placeholder="Cole a URL do vídeo aqui (YouTube, Vimeo, etc.)"
           />
           <p className="text-xs text-muted-foreground">
-            Exemplo: "https://www.youtube.com/embed/xxxxxx"
+            Exemplo: "https://www.youtube.com/xxxxxx"
           </p>
         </div>
       )}

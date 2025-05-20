@@ -11,11 +11,32 @@ import { useRouter } from "next/navigation";
 export const ChapterAccordion = ({
   courseId,
   chapterList,
+  isPresentation,
 }: {
   chapterList: Modules[];
   courseId: number;
+  isPresentation?: boolean;
 }) => {
   const navigation = useRouter();
+
+  if (isPresentation) {
+    return (
+      <>
+        {chapterList.map((item, index) => (
+          <Accordion type="single" collapsible key={index} value={item.name}>
+            <AccordionItem value={item.name} key={item.name}>
+              <AccordionTrigger>{item.name}</AccordionTrigger>
+              {item.lessons.map((lesson, i) => (
+                <AccordionContent className="pl-2" key={i}>
+                  - {lesson.title}
+                </AccordionContent>
+              ))}
+            </AccordionItem>
+          </Accordion>
+        ))}
+      </>
+    );
+  }
   return (
     <>
       {chapterList.length <= 0 ? (

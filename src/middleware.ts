@@ -17,7 +17,7 @@ const secret = new TextEncoder().encode(
 function hasAccess(path: string, role: string): boolean {
   const accessMap: Record<string, string[]> = {
     "/admin": ["ADMIN"],
-    "/teacher": ["INSTRUCTOR", "ADMIN"],
+    "/instructor": ["INSTRUCTOR", "ADMIN"],
     "/dashboard": ["STUDENT", "INSTRUCTOR", "ADMIN"],
   };
 
@@ -60,7 +60,7 @@ export const config = {
     "/dashboard/:path*",
     "/admin",
     "/admin/:path*",
-    "/teacher",
-    "/teacher/:path*",
+    "/instructor",
+    "/instructor/:path*",
   ],
 };

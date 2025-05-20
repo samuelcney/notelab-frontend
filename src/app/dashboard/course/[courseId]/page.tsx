@@ -2,30 +2,46 @@
 
 import { useGetCourseById } from "@/main/hooks";
 import { useGetUserById } from "@/main/hooks/users/use-get-user-by-id";
-import { AvatarBallComponent } from "@/presentation/components/avatar-profile/AvatarBallComponent";
-import { Badge } from "@/presentation/components/badges/Badge";
-import { Button } from "@/presentation/components/button";
 import { ChapterAccordion } from "@/presentation/components/chapters/ChapterAccordion";
 import { ChapterAccordionSkeleton } from "@/presentation/components/chapters/ChapterAccordionSkeleton";
-import { CourseContentSkeleton } from "@/presentation/components/course-details/CourseContentSkeleton";
-import { CourseHeaderSkeleton } from "@/presentation/components/course-details/CourseHeaderSkeleton";
 import { PageRoot } from "@/presentation/layout/PageRoot";
+import { CoursePresentation } from "@/presentation/pages/course-presentation";
 import { Skeleton } from "@/presentation/ui/skeleton";
-import { UserType } from "@/types/types";
 import { BACKGROUND_IMAGE_PATHS } from "@/utils/Constants";
-import { getInitials, getRandomItem } from "@/utils/Functions";
+import { pathNameEnum } from "@/utils/Enums";
+import { getRandomItem } from "@/utils/Functions";
 
 import Image from "next/image";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 export default function CoursePage() {
   const { courseId } = useParams();
+  const { replace } = useRouter();
 
-  const { data, isPending } = useGetCourseById(Number(courseId));
+  const { data, isPending } = useGetCourseById(String(courseId));
 
   const { data: instructor } = useGetUserById(data?.instructorId ?? "");
 
   const randomImagePath = getRandomItem(BACKGROUND_IMAGE_PATHS);
+
+  if (!data) {
+    return (
+      <div className="flex items-center justify-center w-full h-full flex-col gap-2">
+        <h1 className="text-4xl font-bold text-greenApp">
+          Ops... Curso não encontrado.
+        </h1>
+        <p className="text-xl">
+          O curso que você tentou acessar não existe ou foi removido.
+        </p>
+        <a
+          href={pathNameEnum.HOME}
+          className="text-blue-600 underline mt-2 text-lg"
+        >
+          Voltar para o início
+        </a>
+      </div>
+    );
+  }
 
   return (
     <PageRoot isOverflowHidden>
@@ -45,63 +61,12 @@ export default function CoursePage() {
             )}
           </div>
           <div className="p-3 w-full">
-            <div className="flex items-center gap-4 p-2 min-h-[100px]">
-              {!isPending ? (
-                <div className="flex flex-row gap-6 w-full justify-between">
-                  <div className="flex flex-col gap-1">
-                    <h1 className="font-semibold text-3xl leading-tight">
-                      {data?.name}
-                    </h1>
-                    <h2 className="text-greenApp text-xl">R$ {data?.price}</h2>
-                  </div>
-
-                  <div className="flex flex-row h-6 gap-2 mt-2">
-                    <div className="flex gap-2">
-                      {data?.categories.map((item) => (
-                        <Badge.Category
-                          key={item.category.id}
-                          categoryName={item.category.name}
-                        />
-                      ))}
-                    </div>
-                    <span className="w-[1px] h-full bg-foreground" />
-                    <Badge.Level level={data?.difficulty ?? ""} />
-                  </div>
-                </div>
-              ) : (
-                <CourseHeaderSkeleton />
-              )}
-            </div>
-            {!isPending ? (
-              <div className="flex mt-8 w-full justify-center px-8">
-                <div className="flex w-full justify-between gap-20 overflow-hidden">
-                  <div className="flex flex-col gap-2">
-                    <h1 className="text-lg font-semibold">Instrutor:</h1>
-                    <AvatarBallComponent
-                      abbreviation={getInitials(data?.instructor?.name ?? "")}
-                      isBigSize
-                      user={instructor ?? ({} as UserType)}
-                    />
-                    <p className="text-sm">{data?.instructor?.name}</p>
-                    <p className="text-sm">{data?.instructor?.email}</p>
-                  </div>
-
-                  <div className="flex flex-col gap-6 flex-1 overflow-hidden">
-                    <div className=" flex flex-col gap-2 break-words ">
-                      <p className="flex-1 text-justify text-sm tracking-wide break-words">
-                        {data?.description}
-                      </p>
-                    </div>
-
-                    <Button.Root>
-                      <Button.Content title={"ADICIONAR AO CARRINHO"} />
-                    </Button.Root>
-                  </div>
-                </div>
-              </div>
-            ) : (
-              <CourseContentSkeleton />
-            )}
+            <CoursePresentation.Header isPending={isPending} data={data!} />
+            <CoursePresentation.Info
+              isPending={isPending}
+              data={data!}
+              instructor={instructor}
+            />
           </div>
         </div>
 
@@ -114,6 +79,7 @@ export default function CoursePage() {
             <ChapterAccordion
               chapterList={data?.modules ?? []}
               courseId={Number(courseId)}
+              isPresentation={true}
             />
           )}
         </div>

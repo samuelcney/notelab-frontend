@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const teacherRequestSchema = z.object({
+export const instructorRequestSchema = z.object({
   fullName: z.string().nonempty({ message: "Nome é obrigatório." }),
   cpf: z
     .string()

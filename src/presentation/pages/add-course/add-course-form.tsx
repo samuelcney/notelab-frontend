@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 
 import { useCurrentUser } from "@/main/hooks/auth/use-current-user";
 import { useCreateCourse } from "@/main/hooks/courses/use-create-course";
+import { courseSchema } from "@/main/schemas/course.schema";
 import { notify } from "@/presentation/components/toast/Toast";
 import { Button } from "@/presentation/ui/button";
 import { Separator } from "@/presentation/ui/separator";
@@ -14,6 +15,7 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/presentation/ui/tabs";
+import { useEffect, useState } from "react";
 import { useCourseStore } from "../../../main/stores/course-store";
 import { CourseBasicInfoForm } from "./course-basic-info-form";
 import { CourseConfigForm } from "./course-config-form";
@@ -21,7 +23,8 @@ import { CourseContentForm } from "./course-content-form";
 
 export function AddCourseForm() {
   const router = useRouter();
-  const { resetCourse, course, setCourse, setInstructorId } = useCourseStore();
+  const { resetCourse, course } = useCourseStore();
+  const [isCourseValid, setIsCourseValid] = useState(false);
   const { mutateAsync: createCourse, isPending } = useCreateCourse();
   const { id: instructorId } = useCurrentUser();
 
@@ -31,17 +34,42 @@ export function AddCourseForm() {
 
       if (isDraft) {
         console.log(course);
+        return;
       }
-      if (!isDraft) {
-        localStorage.removeItem("course");
-        await createCourse({ ...course, instructorId: instructorId });
-        resetCourse();
-        router.push("/teacher/dashboard");
+
+      const result = courseSchema.safeParse({ ...course, instructorId });
+
+      if (!result.success) {
+        const fieldErrors = result.error.flatten().fieldErrors;
+
+        for (const [field, messages] of Object.entries(fieldErrors)) {
+          if (messages && messages.length > 0) {
+            notify(messages[0], "error");
+          }
+        }
+
+        return;
       }
+
+      const courseData = result.data;
+
+      const data = {
+        ...courseData,
+        instructorId: instructorId,
+      };
+
+      await createCourse(data);
+      resetCourse();
+      router.push("/instructor/dashboard");
     } catch (error) {
-      notify("Erro", "error");
+      notify("Erro inesperado ao criar curso", "error");
     }
   };
+
+  useEffect(() => {
+    const result = courseSchema.safeParse(course);
+    setIsCourseValid(result.success);
+  }, [course]);
 
   return (
     <div className="w-full">
@@ -51,7 +79,7 @@ export function AddCourseForm() {
             className="flex items-center gap-2 cursor-pointer"
             onClick={() => {
               resetCourse();
-              router.replace("/teacher/dashboard");
+              router.replace("/instructor/dashboard");
             }}
           >
             <ArrowLeft className="h-4 w-4 cursor-pointer" />

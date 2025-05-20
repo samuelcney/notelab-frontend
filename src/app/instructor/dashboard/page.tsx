@@ -21,7 +21,7 @@ import { Separator } from "@radix-ui/react-dropdown-menu";
 import { BookOpen, PlusCircle, Users } from "lucide-react";
 import { useRouter } from "next/navigation";
 
-export default function TeacherDashboard() {
+export default function InstructorDashboard() {
   const { replace } = useRouter();
   const user = useCurrentUser();
   const { data: course } = useGetCoursesByInstructorId(user.id);
@@ -50,7 +50,7 @@ export default function TeacherDashboard() {
                 variant="default"
                 className="h-10 text-background bg-foreground"
                 onClick={() => {
-                  replace("/teacher/dashboard/add-course");
+                  replace("/instructor/dashboard/add-course");
                 }}
               >
                 <PlusCircle className="mr-2 h-4 w-4 text-background" />

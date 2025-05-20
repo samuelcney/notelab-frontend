@@ -1,7 +1,5 @@
 "use client";
 
-import { teacherRequestSchema } from "@/main/schemas/send-request.schema";
-
 import { notify } from "@/presentation/components/toast/Toast";
 import { PageRoot } from "@/presentation/layout/PageRoot";
 import { Alert, AlertDescription, AlertTitle } from "@/presentation/ui/alert";
@@ -30,13 +28,14 @@ import { CheckCircle, Music } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Label } from "presentation/ui/label";
 
+import { instructorRequestSchema } from "@/main/schemas/send-request.schema";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-type FormData = z.infer<typeof teacherRequestSchema>;
+type FormData = z.infer<typeof instructorRequestSchema>;
 
-export default function SendTeacherRequestPage() {
+export default function SendInstructorRequestPage() {
   const router = useRouter();
   const [showSuccess, setShowSuccess] = useState(false);
 
@@ -46,12 +45,11 @@ export default function SendTeacherRequestPage() {
     setValue,
     formState: { errors, isSubmitting },
   } = useForm<FormData>({
-    resolver: zodResolver(teacherRequestSchema),
+    resolver: zodResolver(instructorRequestSchema),
   });
 
   const onSubmit = async (data: FormData) => {
     try {
-      console.log(data);
       await new Promise((resolve) => setTimeout(resolve, 1500));
       setShowSuccess(true);
       notify("Solicitação enviada com sucesso!", "success");

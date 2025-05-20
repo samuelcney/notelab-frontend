@@ -3,7 +3,7 @@ import { CourseProps } from "@/types/types";
 import { QueryKeysEnum } from "@/utils/Enums";
 import { useQuery } from "@tanstack/react-query";
 
-export const useGetCourseById = (id: number) => {
+export const useGetCourseById = (id: string) => {
   return useQuery<CourseProps>({
     queryKey: [QueryKeysEnum.GET_COURSE_BY_ID, id],
     queryFn: () => courseService.getCourseById(id),

@@ -5,8 +5,8 @@ import Icon from "../Icon";
 import { useCurrentUser } from "@/main/hooks/auth/use-current-user";
 import {
   adminPathNameEnum as adminPath,
+  instructorPathNameEnum as instructorPath,
   pathNameEnum as path,
-  teacherPathNameEnum as teacherPath,
 } from "@/utils/Enums";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef } from "react";
@@ -94,7 +94,7 @@ export const Sidebar = () => {
 
           {(user?.role === "INSTRUCTOR" || user?.role === "ADMIN") && (
             <SidebarItem
-              isActive={pathname === teacherPath.TEACHER_DASHBOARD}
+              isActive={pathname === instructorPath.INSTRUCTOR_DASHBOARD}
               title="Ensino"
               isOpen={isOpen}
               icon={
@@ -106,7 +106,7 @@ export const Sidebar = () => {
                 />
               }
               onclick={() => {
-                navigation.replace(teacherPath.TEACHER_DASHBOARD);
+                navigation.replace(instructorPath.INSTRUCTOR_DASHBOARD);
                 closeSideBar();
               }}
             />

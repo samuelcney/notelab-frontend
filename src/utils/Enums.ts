@@ -12,8 +12,8 @@ export enum adminPathNameEnum {
   ADMIN_USERS = "/admin/users",
 }
 
-export enum teacherPathNameEnum {
-  TEACHER_DASHBOARD = "/teacher/dashboard",
+export enum instructorPathNameEnum {
+  INSTRUCTOR_DASHBOARD = "/instructor/dashboard",
 }
 
 export enum roleEnum {
@@ -51,6 +51,6 @@ export enum courseLevelEnum {
 }
 
 export enum lessonTypeEnum {
-  VIDEO = "VIDEO",
   VIDEO_URL = "VIDEO_URL",
+  VIDEO = "VIDEO",
 }

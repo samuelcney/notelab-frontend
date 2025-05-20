@@ -47,3 +47,9 @@ export function convertToEmbedUrl(url: string): string | null {
     return null;
   }
 }
+
+export function formatSeconds(seconds: number): string {
+  const m = String(Math.floor(seconds / 60)).padStart(2, "0");
+  const s = String(seconds % 60).padStart(2, "0");
+  return `${m}:${s}`;
+}

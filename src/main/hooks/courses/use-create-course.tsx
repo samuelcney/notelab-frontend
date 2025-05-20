@@ -18,7 +18,7 @@ export const useCreateCourse = () => {
     },
     onError: (error: any) => {
       const errorMessage = getErrorMessage(error);
-      console.log("Error:", errorMessage);
+      console.error("Error:", errorMessage);
       notify(errorMessage, "error");
     },
   });
