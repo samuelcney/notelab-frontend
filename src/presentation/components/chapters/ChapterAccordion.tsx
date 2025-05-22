@@ -27,7 +27,7 @@ export const ChapterAccordion = ({
             <AccordionItem value={item.name} key={item.name}>
               <AccordionTrigger>{item.name}</AccordionTrigger>
               {item.lessons.map((lesson, i) => (
-                <AccordionContent className="pl-2" key={i}>
+                <AccordionContent className="pl-3" key={i}>
                   - {lesson.title}
                 </AccordionContent>
               ))}

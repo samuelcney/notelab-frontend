@@ -33,6 +33,7 @@ export default function CatalogPage() {
 
     return matchesCategory && matchesSearch;
   });
+
   const handleCategoryChange = (categoryId: number) => {
     setSelectedCategories((prev) =>
       prev.includes(categoryId)

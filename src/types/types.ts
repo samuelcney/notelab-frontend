@@ -102,4 +102,5 @@ export type Lessons = {
   id: number;
   title: string;
   videoUrl: string;
+  duration: string;
 };
