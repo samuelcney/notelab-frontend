@@ -18,13 +18,13 @@ import {
 } from "@/presentation/ui/tabs";
 import { Separator } from "@radix-ui/react-dropdown-menu";
 
-import { BookOpen, PlusCircle, Users } from "lucide-react";
+import { BookOpen, Loader2, PlusCircle, Users } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 export default function InstructorDashboard() {
   const { replace } = useRouter();
   const user = useCurrentUser();
-  const { data: course } = useGetCoursesByInstructorId(user.id);
+  const { data: course, isPending } = useGetCoursesByInstructorId(user.id);
 
   return (
     <PageRoot>
@@ -71,7 +71,11 @@ export default function InstructorDashboard() {
                   </CardHeader>
                   <CardContent>
                     <div className="text-2xl font-bold text-foreground">
-                      {course?.length}
+                      {isPending ? (
+                        <Loader2 className="animate-spin" />
+                      ) : (
+                        course?.length
+                      )}
                     </div>
                     <p className="text-sm text-muted-foreground">---</p>
                   </CardContent>

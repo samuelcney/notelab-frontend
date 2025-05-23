@@ -32,7 +32,7 @@ export const instructorRequestSchema = z.object({
     .string()
     .nonempty({ message: "Instrumentos são obrigatórios." }),
   biography: z.string().nonempty({ message: "Biografia é obrigatória." }),
-  certificate: z
+  documents: z
     .instanceof(File)
     .refine((file) => file.size <= 5 * 1024 * 1024, {
       message: "Arquivo deve ter no máximo 5MB.",

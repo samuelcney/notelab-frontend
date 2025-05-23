@@ -127,10 +127,12 @@ export default function CatalogPage() {
           <div className="hidden md:flex h-full w-[20%] border border-foreground rounded-md flex-col gap-4 p-4 sticky top-24">
             <div className="flex justify-between items-center">
               <h2 className="text-xl font-semibold">Filtros</h2>
-              {selectedCategories.length > 0 && (
+              {selectedCategories.length > 0 ? (
                 <Button variant="ghost" size="sm" onClick={clearFilters}>
                   Limpar
                 </Button>
+              ) : (
+                <Button variant="ghost" size="sm" disabled></Button>
               )}
             </div>
 
@@ -145,8 +147,8 @@ export default function CatalogPage() {
             </div>
 
             <div className="border-t pt-4 border-foreground">
-              <h3 className="font-medium mb-2">Categorias de Instrumentos</h3>
-              <div className="space-y-2">
+              <h3 className="font-medium mb-4">Categorias de Instrumentos</h3>
+              <div className="space-y-6">
                 {isLoadingCategories ? (
                   <div className="space-y-2">
                     {[1, 2, 3, 4, 5].map((i) => (
@@ -186,7 +188,7 @@ export default function CatalogPage() {
             <div className="w-full md:ml-9">
               <h2 className="text-2xl md:text-3xl font-semibold">
                 {selectedCategories.length > 0
-                  ? `Cursos filtrados (${filteredCourses.length})`
+                  ? `Filtros Ativos (${filteredCourses.length})`
                   : "Todos os cursos"}
               </h2>
             </div>

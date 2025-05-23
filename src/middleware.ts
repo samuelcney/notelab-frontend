@@ -10,6 +10,8 @@ interface SupabaseUser {
   };
 }
 
+const PUBLIC_PATHS = ["/login", "/register", "/recover-password"];
+
 const secret = new TextEncoder().encode(
   process.env.NEXT_PUBLIC_SUPABASE_JWT_SECRET
 );
@@ -33,6 +35,15 @@ function hasAccess(path: string, role: string): boolean {
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
   const token = req.cookies.get("token")?.value;
+  const isPublicPath = PUBLIC_PATHS.some((path) => pathname.startsWith(path));
+
+  if (isPublicPath && token) {
+    return NextResponse.redirect(new URL("/dashboard/home", req.url));
+  }
+
+  if (isPublicPath && !token) {
+    return NextResponse.next();
+  }
 
   if (!token) {
     return NextResponse.redirect(new URL("/login", req.url));
@@ -62,5 +73,8 @@ export const config = {
     "/admin/:path*",
     "/instructor",
     "/instructor/:path*",
+    "/login",
+    "/register",
+    "/recover-password",
   ],
 };

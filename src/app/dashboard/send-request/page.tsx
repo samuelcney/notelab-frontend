@@ -29,6 +29,7 @@ import { useRouter } from "next/navigation";
 import { Label } from "presentation/ui/label";
 
 import { instructorRequestSchema } from "@/main/schemas/send-request.schema";
+import { pathNameEnum } from "@/utils/Enums";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -84,7 +85,7 @@ export default function SendInstructorRequestPage() {
                   Torne-se um Professor de Música
                 </CardTitle>
                 <CardDescription className="text-sm text-foreground">
-                  Preencha o formulário abaixo e envie seu certificado para
+                  Preencha o formulário abaixo e envie seus documentos para
                   começar a ensinar música em nossa plataforma
                 </CardDescription>
               </CardHeader>
@@ -240,19 +241,19 @@ export default function SendInstructorRequestPage() {
                   <Separator />
 
                   <div className="space-y-2">
-                    <Label>Certificado</Label>
+                    <Label>Documentos</Label>
                     <Input
                       type="file"
                       accept=".pdf,.jpg,.jpeg,.png"
                       onChange={(e) => {
                         if (e.target.files?.[0]) {
-                          setValue("certificate", e.target.files[0]);
+                          setValue("documents", e.target.files[0]);
                         }
                       }}
                     />
-                    {errors.certificate && (
+                    {errors.documents && (
                       <p className="text-red-500 text-sm">
-                        {errors.certificate.message}
+                        {errors.documents.message}
                       </p>
                     )}
                   </div>
@@ -262,7 +263,7 @@ export default function SendInstructorRequestPage() {
                   <Button
                     variant="outline"
                     type="button"
-                    onClick={() => router.back()}
+                    onClick={() => router.push(pathNameEnum.HOME)}
                     className="border border-foreground text-foreground hover:bg-foreground/10"
                   >
                     Cancelar
