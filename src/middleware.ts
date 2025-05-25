@@ -1,12 +1,12 @@
 import { jwtVerify } from "jose";
 import { NextRequest, NextResponse } from "next/server";
 
-interface SupabaseUser {
-  user_metadata: {
-    name: string;
+interface SupabaseUserPayload {
+  user_metadata?: {
+    name?: string;
   };
-  app_metadata: {
-    role: string;
+  app_metadata?: {
+    role?: string;
   };
 }
 
@@ -38,7 +38,16 @@ export async function middleware(req: NextRequest) {
   const isPublicPath = PUBLIC_PATHS.some((path) => pathname.startsWith(path));
 
   if (isPublicPath && token) {
-    return NextResponse.redirect(new URL("/dashboard/home", req.url));
+    try {
+      const { payload } = await jwtVerify(token, secret);
+      return NextResponse.redirect(new URL("/dashboard/home", req.url));
+    } catch (err) {
+      console.warn("Token inválido em rota pública. Deixando prosseguir.");
+      const res = NextResponse.next();
+      res.cookies.delete("token");
+      res.cookies.delete("user");
+      return res;
+    }
   }
 
   if (isPublicPath && !token) {
@@ -51,27 +60,26 @@ export async function middleware(req: NextRequest) {
 
   try {
     const { payload } = await jwtVerify(token, secret);
-    const user = payload as unknown as SupabaseUser;
-    const userRole = user.app_metadata?.role;
+    const userPayload = payload as SupabaseUserPayload;
+    const role = userPayload.app_metadata?.role;
 
-    if (!hasAccess(pathname, userRole)) {
+    if (!role || !hasAccess(pathname, role)) {
       return NextResponse.redirect(new URL("/unauthorized", req.url));
     }
 
     return NextResponse.next();
   } catch (error) {
     console.error("Erro ao verificar JWT:", error);
-    return NextResponse.redirect(new URL("/login", req.url));
+    const res = NextResponse.redirect(new URL("/login", req.url));
+    res.cookies.delete("token");
+    return res;
   }
 }
 
 export const config = {
   matcher: [
-    "/dashboard",
     "/dashboard/:path*",
-    "/admin",
     "/admin/:path*",
-    "/instructor",
     "/instructor/:path*",
     "/login",
     "/register",

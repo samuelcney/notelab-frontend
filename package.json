@@ -26,6 +26,7 @@
     "@radix-ui/react-toast": "^1.2.11",
     "@radix-ui/react-tooltip": "^1.1.8",
     "@supabase/auth-helpers-shared": "^0.7.0",
+    "@supabase/supabase-js": "^2.49.8",
     "@tanstack/react-query": "^5.67.1",
     "@tanstack/react-query-persist-client": "^5.67.1",
     "@types/js-cookie": "^3.0.6",

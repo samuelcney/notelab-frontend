@@ -1,12 +1,12 @@
 "use client";
 import { AnimatePresence, motion } from "framer-motion";
 
+import { useSendRecoverPassword } from "@/main/hooks/auth/use-request-password-reset";
 import { Button } from "@/presentation/components/button";
 import Icon from "@/presentation/components/Icon";
 import { Input } from "@/presentation/components/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -20,8 +20,8 @@ const recoverPasswordSchema = z.object({
 type recoverData = z.infer<typeof recoverPasswordSchema>;
 
 export default function RecoverPasswordPage() {
-  const [hidePassword, setHidePassword] = useState(true);
   const navigation = useRouter();
+  const { mutateAsync } = useSendRecoverPassword();
 
   const {
     register,
@@ -32,7 +32,7 @@ export default function RecoverPasswordPage() {
   });
 
   const handleRecoverPassword = async (data: recoverData) => {
-    console.log(data);
+    await mutateAsync(data.email);
   };
 
   return (
