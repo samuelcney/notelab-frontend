@@ -1,7 +1,7 @@
+import { CourseProps } from "@/types/types";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Badge } from "../badges/Badge";
-import { CourseProps } from "@/types/types";
 
 export const CourseCatalogCard = ({ ...course }: CourseProps) => {
   const navigation = useRouter();
@@ -34,10 +34,7 @@ export const CourseCatalogCard = ({ ...course }: CourseProps) => {
 
         <div className="flex overflow-x-auto gap-2 mt-2">
           {course.categories.map((item) => (
-            <Badge.Category
-              categoryName={item.category.name}
-              key={item.category.id}
-            />
+            <Badge.Category categoryName={item.name} key={item.id} />
           ))}
         </div>
 

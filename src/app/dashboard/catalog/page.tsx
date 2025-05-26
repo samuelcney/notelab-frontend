@@ -23,9 +23,7 @@ export default function CatalogPage() {
   const filteredCourses = courses.filter((course) => {
     const matchesCategory =
       selectedCategories.length === 0 ||
-      course.categories.some((cat) =>
-        selectedCategories.includes(cat.category.id)
-      );
+      course.categories.some((cat) => selectedCategories.includes(cat.id));
 
     const matchesSearch =
       course.name.toLowerCase().includes(searchTerm.toLowerCase()) ||

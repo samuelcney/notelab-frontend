@@ -19,7 +19,7 @@ export const Filter = () => {
     Record<string, boolean>
   >({});
 
-  const handleCheckedChange = (categoryId: string, checked: boolean) => {
+  const handleCheckedChange = (categoryId: number, checked: boolean) => {
     setSelectedCategories((prev) => ({
       ...prev,
       [categoryId]: checked,

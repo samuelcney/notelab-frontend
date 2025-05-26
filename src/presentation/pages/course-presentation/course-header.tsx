@@ -21,10 +21,7 @@ export const CourseHeader = ({ isPending, data }: Props) => {
         <div className="flex flex-row h-6 gap-2 mt-2">
           <div className="flex gap-2">
             {data?.categories.map((item) => (
-              <Badge.Category
-                key={item.category.id}
-                categoryName={item.category.name}
-              />
+              <Badge.Category key={item.id} categoryName={item.name} />
             ))}
           </div>
           <span className="w-[1px] h-full bg-foreground" />

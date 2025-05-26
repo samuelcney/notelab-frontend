@@ -56,8 +56,8 @@ export const CourseCard = ({
           </div>
 
           <div className="flex overflow-x-auto gap-2 mt-3">
-            {categories.map((item) => (
-              <Badge.Category categoryName={item.name} key={item.id} />
+            {categories?.map((item) => (
+              <Badge.Category key={item.id} categoryName={item.name} />
             ))}
           </div>
 
