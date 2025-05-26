@@ -4,7 +4,6 @@ import { useModal } from "@/main/context/modal";
 import { useCurrentUser } from "@/main/hooks/auth/use-current-user";
 import { Modal } from "@/presentation/components/modal/Modal";
 import { PageRoot } from "@/presentation/layout/PageRoot";
-import { formatDateTime } from "@/utils/Functions";
 import { Camera, Mail, Pencil, Phone, User2 } from "lucide-react";
 
 export default function ProfilePage() {
@@ -25,9 +24,11 @@ export default function ProfilePage() {
 
     return (
       <img
-        src={user?.userBio?.avatarUrl}
+        src={user?.userBio?.avatarUrl || "/images/default-avatar.png"}
         alt="avatar"
-        className="w-full h-full object-cover"
+        className={`w-full h-full object-cover ${
+          !user?.userBio?.avatarUrl ? "bg-greenApp" : ""
+        }`}
         width={144}
         height={144}
       />
@@ -116,9 +117,7 @@ export default function ProfilePage() {
               <div className="mt-6 pt-4 border-t text-right">
                 <span className="text-xs text-gray-500">
                   Última atualização:{" "}
-                  <span className="italic">
-                    {user?.updatedAt && formatDateTime(user?.updatedAt)}
-                  </span>
+                  <span className="italic">{user?.updatedAt}</span>
                 </span>
               </div>
             </div>

@@ -71,7 +71,9 @@ export type CourseProps = {
   instructor: Instructor;
   modules: Modules[];
   categories: Category[];
-  isActive: boolean;
+  isActiveCourse: boolean;
+  coverImage?: string;
+  issueCertificate: boolean;
 };
 
 export type Instructor = {
