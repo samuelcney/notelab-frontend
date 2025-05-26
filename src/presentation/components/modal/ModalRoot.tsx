@@ -23,15 +23,14 @@ export const ModalRoot = ({
     <AnimatePresence mode="wait">
       {isOpen && (
         <motion.div
-          className="fixed inset-0 bg-black bg-opacity-50 flex justify-center z-50"
+          className="fixed inset-0 bg-black bg-opacity-50 flex justify-center z-50 pt-10"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
-          onClick={onClose}
         >
           <motion.div
-            className={`bg-background h-auto ${widthPer} shadow-lg relative flex flex-col p-4`}
+            className={`bg-background h-fit ${widthPer} shadow-lg relative flex flex-col p-4 w-[50%] max-lg:w-[80%] max-sm:w-[90%] rounded-lg overflow-hidden overflow-y-auto`}
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
             exit={{ x: "100%" }}

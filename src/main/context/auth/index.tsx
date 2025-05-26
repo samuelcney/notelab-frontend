@@ -14,21 +14,21 @@ import LoadingScreen from "@/presentation/components/loading-screen/LoadingScree
 import { UserType } from "@/types/types";
 
 interface AuthContextProps {
-  user: UserType;
+  user: UserType | null;
   token: string | null;
   login: (token: string, user: UserType) => void;
   logout: () => void;
   signed: boolean;
-  updateUser: (user: UserType) => void;
+  updateUser: (user: Partial<UserType>) => void;
 }
 
-const AuthContext = createContext<AuthContextProps>({} as AuthContextProps);
+const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [token, setToken] = useState<string | null>(null);
   const [user, setUser] = useState<UserType | null>(null);
 
-  const { data: fetchedUser, isLoading } = useMe(token, !user);
+  const { data: fetchedUser, isLoading } = useMe(token, !user && !!token);
 
   const login = (newToken: string, newUser: UserType) => {
     Cookies.set("token", newToken, { expires: 1 });
@@ -44,16 +44,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setUser(null);
   };
 
-  const updateUser = (updatedUser: UserType) => {
-    setUser(
-      (prevUser) =>
-        ({
-          ...prevUser,
-          ...updatedUser,
-        } as UserType)
-    );
-    Cookies.set("user", JSON.stringify({ ...user, ...updatedUser }), {
-      expires: 1,
+  const updateUser = (updatedFields: Partial<UserType>) => {
+    setUser((prev) => {
+      const updated = { ...prev, ...updatedFields } as UserType;
+      Cookies.set("user", JSON.stringify(updated), { expires: 1 });
+      return updated;
     });
   };
 
@@ -79,7 +74,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   return (
     <AuthContext.Provider
       value={{
-        user: user as UserType,
+        user,
         token,
         login,
         logout,
@@ -92,7 +87,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-export const useAuth = () => {
+export const useAuth = (): AuthContextProps => {
   const context = useContext(AuthContext);
   if (!context) {
     throw new Error("useAuth deve ser usado dentro de um AuthProvider");

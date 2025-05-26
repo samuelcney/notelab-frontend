@@ -1,7 +1,7 @@
 import { useAuth } from "@/main/context/auth";
 import { authService } from "@/main/services/auth/auth-service";
 import { notify } from "@/presentation/components/toast/Toast";
-import { QueryKeysEnum } from "@/utils/Enums";
+import { pathNameEnum, QueryKeysEnum } from "@/utils/Enums";
 import { getErrorMessage } from "@/utils/Errors";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
@@ -18,7 +18,7 @@ export const useLogin = () => {
 
       queryClient.invalidateQueries({ queryKey: [QueryKeysEnum.SIGN_IN] });
       login(token, user);
-      push("/dashboard/home");
+      push(pathNameEnum.HOME);
 
       setTimeout(() => {}, 3000);
     },

@@ -1,29 +1,16 @@
 "use client";
 
-import type React from "react";
-
 import { useModal } from "@/main/context/modal";
 import { useCurrentUser } from "@/main/hooks/auth/use-current-user";
-import { useUserProfileStore } from "@/main/stores/user-profile-store";
 import { Modal } from "@/presentation/components/modal/Modal";
 import { PageRoot } from "@/presentation/layout/PageRoot";
+import { formatDateTime } from "@/utils/Functions";
 import { Camera, Mail, Pencil, Phone, User2 } from "lucide-react";
 
 export default function ProfilePage() {
   const user = useCurrentUser();
-  const { setAvatarUrl } = useUserProfileStore();
-  const { openModal, isModalOpen, closeModal } = useModal();
 
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        setAvatarUrl(e.target?.result as string);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
+  const { openModal, isModalOpen, closeModal } = useModal();
 
   const renderAvatar = () => {
     if (user?.userBio?.avatarUrl === "") {
@@ -62,15 +49,9 @@ export default function ProfilePage() {
               <label
                 htmlFor="avatar-upload"
                 className="absolute bottom-0 right-0 bg-green-600 hover:bg-green-700 text-white p-2 rounded-full cursor-pointer shadow-md transition-all duration-200"
+                onClick={() => openModal("profile")}
               >
                 <Camera size={16} />
-                <input
-                  id="avatar-upload"
-                  type="file"
-                  className="hidden"
-                  accept="image/*"
-                  onChange={handleImageUpload}
-                />
               </label>
             </div>
           </div>
@@ -135,23 +116,25 @@ export default function ProfilePage() {
               <div className="mt-6 pt-4 border-t text-right">
                 <span className="text-xs text-gray-500">
                   Última atualização:{" "}
-                  <span className="italic">{user?.createdAt}</span>
+                  <span className="italic">
+                    {user?.updatedAt && formatDateTime(user?.updatedAt)}
+                  </span>
                 </span>
               </div>
             </div>
 
             <div className="bg-foreground rounded-xl p-6 shadow-sm border border-gray-100 md:col-span-2">
-              <h2 className="text-lg font-semibold mb-4 text-green-600 border-b pb-2">
+              <h2 className="text-lg font-semibold mb-2 text-green-600 border-b pb-2">
                 Sobre
               </h2>
 
               {user?.userBio?.bio ? (
-                <p className="text-gray-600 leading-relaxed">
+                <p className="text-background leading-relaxed">
                   {user.userBio.bio}
                 </p>
               ) : (
                 <div className="flex flex-col items-center justify-center h-40 text-center">
-                  <p className="text-gray-400 mb-3">
+                  <p className="text-background mb-3">
                     Nenhuma informação disponível
                   </p>
                   <button
@@ -169,7 +152,7 @@ export default function ProfilePage() {
 
       {isModalOpen && (
         <Modal.Root isOpen={isModalOpen} onClose={closeModal}>
-          <Modal.EditProfile />
+          <Modal.EditProfile user={user!} />
         </Modal.Root>
       )}
     </PageRoot>

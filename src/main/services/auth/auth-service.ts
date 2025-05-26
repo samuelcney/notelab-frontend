@@ -12,6 +12,11 @@ export const authService = {
     return data;
   },
 
+  requestPasswordReset: async (email: string) => {
+    const { data } = await api.post("/auth/recover-password", { email });
+    return data;
+  },
+
   logout: async () => {
     return await api.post("/auth/logout");
   },
