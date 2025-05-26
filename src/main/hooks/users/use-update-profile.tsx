@@ -17,7 +17,9 @@ export const useUpdateProfile = () => {
         queryKey: [QueryKeysEnum.UPDATE_PROFILE],
       });
 
-      updateUser(updatedUser);
+      updateUser({
+        ...updatedUser,
+      });
 
       queryClient.invalidateQueries({
         queryKey: [QueryKeysEnum.CURRENT_USER],
