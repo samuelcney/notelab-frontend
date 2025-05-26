@@ -2,6 +2,7 @@
 
 import { useCurrentUser } from "@/main/hooks/auth/use-current-user";
 import { useGetCoursesByInstructorId } from "@/main/hooks/courses/use-get-instructor-courses";
+import { CourseCard } from "@/presentation/components/course-card/CourseCard";
 import { PageRoot } from "@/presentation/layout/PageRoot";
 import { Button } from "@/presentation/ui/button";
 import {
@@ -10,12 +11,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/presentation/ui/card";
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/presentation/ui/tabs";
 import { Separator } from "@radix-ui/react-dropdown-menu";
 
 import { BookOpen, Loader2, PlusCircle, Users } from "lucide-react";
@@ -24,26 +19,15 @@ import { useRouter } from "next/navigation";
 export default function InstructorDashboard() {
   const { replace } = useRouter();
   const user = useCurrentUser();
-  const { data: course, isPending } = useGetCoursesByInstructorId(user.id);
+  const { data: course, isPending } = useGetCoursesByInstructorId(user!.id);
 
   return (
     <PageRoot>
       <div className="flex flex-1 w-full h-full pt-6 px-1 flex-col">
-        <div className="mx-14 mt-4 mb-14">
-          <Tabs defaultValue="general" className="flex items-start flex-col">
-            <div className="flex flex-row mb-6 justify-between w-full">
+        <div className="mx-14 mt-1 mb-10">
+          <div className="flex items-start flex-col">
+            <div className="flex flex-row mb-2 justify-between w-full">
               <div className="flex flex-col">
-                <TabsList className="gap-7 my-1">
-                  <TabsTrigger value="general" className="text-base">
-                    Visão Geral
-                  </TabsTrigger>
-                  <TabsTrigger value="courses" className="text-base">
-                    Meus Cursos
-                  </TabsTrigger>
-                  <TabsTrigger value="students" className="text-base">
-                    Alunos
-                  </TabsTrigger>
-                </TabsList>
                 <Separator className="bg-foreground" />
               </div>
               <Button
@@ -60,7 +44,7 @@ export default function InstructorDashboard() {
               </Button>
             </div>
 
-            <TabsContent value="general" className="w-full space-y-4">
+            <div className="w-full space-y-4">
               <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
                 <Card>
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -93,8 +77,32 @@ export default function InstructorDashboard() {
                   </CardContent>
                 </Card>
               </div>
-            </TabsContent>
-          </Tabs>
+
+              <div className="flex flex-col px-6 pt-4">
+                <h1 className="text-xl font-bold">
+                  Cursos publicados por você:
+                </h1>
+                <div className="flex flex-row items-center mt-4 flex-wrap gap-6">
+                  {course?.map((c) => (
+                    <div
+                      className="flex-shrink-0 flex-grow-0 basis-full max-sm:basis-1/3 sm:basis-1/2 md:basis-1/3 lg:basis-1/3 xl:basis-1/5"
+                      key={c.id + c.instructorId}
+                    >
+                      <CourseCard
+                        key={c.id + c.instructorId}
+                        categories={c.categories}
+                        courseName={c.name}
+                        difficulty={c.difficulty}
+                        instructorName={user?.name || ""}
+                        price={c.price}
+                        id={c.id}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </PageRoot>

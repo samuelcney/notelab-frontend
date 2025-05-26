@@ -70,7 +70,8 @@ export type CourseProps = {
   updatedAt: string;
   instructor: Instructor;
   modules: Modules[];
-  categories: CategoryInCourse[];
+  categories: Category[];
+  isActive: boolean;
 };
 
 export type Instructor = {
@@ -78,12 +79,6 @@ export type Instructor = {
   name: string;
   email: string;
   role: string;
-};
-
-export type CategoryInCourse = {
-  courseId: number;
-  categoryId: number;
-  category: Category;
 };
 
 export type Category = {

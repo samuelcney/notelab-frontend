@@ -59,9 +59,7 @@ export const CarouselRoot = ({
                       id={course.id}
                       courseName={course.name}
                       price={course.price}
-                      categories={
-                        course.categories?.map(({ category }) => category) ?? []
-                      }
+                      categories={course.categories ?? []}
                       instructorName={course.instructor.name}
                       difficulty={course.difficulty}
                     />

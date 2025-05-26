@@ -8,7 +8,7 @@ export const CategoryBadge = ({ categoryName }: { categoryName: string }) => {
         backgroundColor: categoryColors[categoryName],
       }}
     >
-      {categoryName.toUpperCase()}
+      {categoryName}
     </p>
   );
 };

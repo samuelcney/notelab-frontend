@@ -26,7 +26,7 @@ export function AddCourseForm() {
   const { resetCourse, course } = useCourseStore();
   const [isCourseValid, setIsCourseValid] = useState(false);
   const { mutateAsync: createCourse, isPending } = useCreateCourse();
-  const { id: instructorId } = useCurrentUser();
+  const user = useCurrentUser();
 
   const handleSubmit = async (isDraft = false) => {
     try {
@@ -37,7 +37,7 @@ export function AddCourseForm() {
         return;
       }
 
-      const result = courseSchema.safeParse({ ...course, instructorId });
+      const result = courseSchema.safeParse({ ...course });
 
       if (!result.success) {
         const fieldErrors = result.error.flatten().fieldErrors;
@@ -55,7 +55,7 @@ export function AddCourseForm() {
 
       const data = {
         ...courseData,
-        instructorId: instructorId,
+        instructorId: user!.id,
       };
 
       await createCourse(data);
