@@ -14,7 +14,10 @@ import { useRouter } from "next/navigation";
 export default function CartPage() {
   const navigation = useRouter();
   const user = useCurrentUser();
-  const { data, isPending } = useGetUserCart(user!.id);
+
+  if (!user) return null;
+
+  const { data, isPending } = useGetUserCart(user.id);
 
   const { mutateAsync: removeItem } = useRemoveItemCart();
 

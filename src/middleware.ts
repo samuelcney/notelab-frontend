@@ -39,14 +39,11 @@ export async function middleware(req: NextRequest) {
 
   if (isPublicPath && token) {
     try {
-      const { payload } = await jwtVerify(token, secret);
+      await jwtVerify(token, secret);
       return NextResponse.redirect(new URL("/dashboard/home", req.url));
-    } catch (err) {
-      console.warn("Token inválido em rota pública. Deixando prosseguir.");
-      const res = NextResponse.next();
-      res.cookies.delete("token");
-      res.cookies.delete("user");
-      return res;
+    } catch (err: any) {
+      console.warn("Token inválido em rota pública:", err.code);
+      return NextResponse.next();
     }
   }
 
@@ -68,11 +65,13 @@ export async function middleware(req: NextRequest) {
     }
 
     return NextResponse.next();
-  } catch (error) {
-    console.error("Erro ao verificar JWT:", error);
-    const res = NextResponse.redirect(new URL("/login", req.url));
-    res.cookies.delete("token");
-    return res;
+  } catch (error: any) {
+    if (error.code === "ERR_JWT_EXPIRED") {
+      console.warn("Token expirado. Redirecionando para login.");
+    } else {
+      console.error("Erro ao verificar JWT:", error);
+    }
+    return NextResponse.redirect(new URL("/login", req.url));
   }
 }
 

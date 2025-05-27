@@ -19,7 +19,10 @@ export const HeaderContent = ({
   const navigation = useRouter();
 
   const user = useCurrentUser();
-  const { data: count } = useGetCartItemCount(user!.id);
+
+  if (!user) return null;
+
+  const { data: count } = useGetCartItemCount(user.id);
 
   return (
     <div

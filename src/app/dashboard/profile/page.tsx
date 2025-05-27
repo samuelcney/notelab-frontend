@@ -9,6 +9,8 @@ import { Camera, Mail, Pencil, Phone, User2 } from "lucide-react";
 export default function ProfilePage() {
   const user = useCurrentUser();
 
+  if (!user) return null;
+
   const { openModal, isModalOpen, closeModal } = useModal();
 
   const renderAvatar = () => {
@@ -151,7 +153,7 @@ export default function ProfilePage() {
 
       {isModalOpen && (
         <Modal.Root isOpen={isModalOpen} onClose={closeModal}>
-          <Modal.EditProfile user={user!} />
+          <Modal.EditProfile user={user} />
         </Modal.Root>
       )}
     </PageRoot>

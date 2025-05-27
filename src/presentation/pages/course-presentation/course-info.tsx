@@ -25,11 +25,14 @@ export const CourseInfo = ({ isPending, instructor, data }: Props) => {
   const { push } = useRouter();
 
   const currentUser = useCurrentUser();
+
+  if (!currentUser) return null;
+
   const { data: cart } = useGetUserCart(currentUser?.id ?? "");
   const { mutateAsync: addItem, isPending: isLoading } = useAddItemCart();
 
   const { data: courseAlreadyInCart } = useGetItemAlreadyInCart(
-    currentUser!.id,
+    currentUser.id,
     String(data.id)
   );
 
