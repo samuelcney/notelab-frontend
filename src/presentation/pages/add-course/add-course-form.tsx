@@ -27,6 +27,7 @@ export function AddCourseForm() {
   const [isCourseValid, setIsCourseValid] = useState(false);
   const { mutateAsync: createCourse, isPending } = useCreateCourse();
   const user = useCurrentUser();
+  if (!user) return null;
 
   const handleSubmit = async (isDraft = false) => {
     try {
@@ -55,7 +56,7 @@ export function AddCourseForm() {
 
       const data = {
         ...courseData,
-        instructorId: user!.id,
+        instructorId: user.id,
       };
 
       await createCourse(data);
@@ -106,7 +107,7 @@ export function AddCourseForm() {
           <Button
             onClick={() => handleSubmit(false)}
             disabled={isPending}
-            className="bg-greenApp"
+            className="bg-green-500"
           >
             {isPending ? (
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />

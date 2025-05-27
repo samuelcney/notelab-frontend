@@ -19,7 +19,10 @@ import { useRouter } from "next/navigation";
 export default function InstructorDashboard() {
   const { replace } = useRouter();
   const user = useCurrentUser();
-  const { data: course, isPending } = useGetCoursesByInstructorId(user!.id);
+
+  if (!user) return null;
+
+  const { data: course, isPending } = useGetCoursesByInstructorId(user.id);
 
   return (
     <PageRoot>

@@ -9,6 +9,8 @@ import { Camera, Mail, Pencil, Phone, User2 } from "lucide-react";
 export default function ProfilePage() {
   const user = useCurrentUser();
 
+  if (!user) return null;
+
   const { openModal, isModalOpen, closeModal } = useModal();
 
   const renderAvatar = () => {
@@ -27,7 +29,7 @@ export default function ProfilePage() {
         src={user?.userBio?.avatarUrl || "/images/default-avatar.png"}
         alt="avatar"
         className={`w-full h-full object-cover ${
-          !user?.userBio?.avatarUrl ? "bg-greenApp" : ""
+          !user?.userBio?.avatarUrl ? "bg-green-500" : ""
         }`}
         width={144}
         height={144}
@@ -151,7 +153,7 @@ export default function ProfilePage() {
 
       {isModalOpen && (
         <Modal.Root isOpen={isModalOpen} onClose={closeModal}>
-          <Modal.EditProfile user={user!} />
+          <Modal.EditProfile user={user} />
         </Modal.Root>
       )}
     </PageRoot>

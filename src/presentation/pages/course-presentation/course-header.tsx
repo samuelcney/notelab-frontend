@@ -1,3 +1,4 @@
+"use client";
 import { Badge } from "@/presentation/components/badges/Badge";
 import { CourseHeaderSkeleton } from "@/presentation/components/course-details/CourseHeaderSkeleton";
 import { CourseProps } from "@/types/types";

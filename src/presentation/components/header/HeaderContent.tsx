@@ -5,6 +5,7 @@ import { SearchInput } from "../search-input/SearchInput";
 import ThemeToggle from "../theme/ThemeToggle";
 
 import { useCurrentUser } from "@/main/hooks/auth/use-current-user";
+import { useGetCartItemCount } from "@/main/hooks/cart/use-get-item-count";
 import { pathNameEnum } from "@/utils/Enums";
 import { useRouter } from "next/navigation";
 import { NotificationDropDown } from "../notifications/NotificationDropdown";
@@ -18,6 +19,10 @@ export const HeaderContent = ({
   const navigation = useRouter();
 
   const user = useCurrentUser();
+
+  if (!user) return null;
+
+  const { data: count } = useGetCartItemCount(user.id);
 
   return (
     <div
@@ -42,14 +47,22 @@ export const HeaderContent = ({
 
         <ThemeToggle />
 
-        <Icon
-          name="ShoppingCart"
-          size={28}
-          strokeWidth={1}
-          className="cursor-pointer"
-          color="white"
-          onClick={() => navigation.replace(pathNameEnum.CART)}
-        />
+        <div className="relative">
+          {count! > 0 && (
+            <span className="absolute -top-1 -right-2 bg-red-500 text-white text-xs font-semibold rounded-full px-2">
+              {count}
+            </span>
+          )}
+          <Icon
+            name="ShoppingCart"
+            size={28}
+            strokeWidth={1}
+            className="cursor-pointer"
+            color="white"
+            onClick={() => navigation.replace(pathNameEnum.CART)}
+          />
+        </div>
+
         <NotificationDropDown />
 
         <AvatarDropDown />

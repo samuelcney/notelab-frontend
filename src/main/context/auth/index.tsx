@@ -57,15 +57,25 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const storedUser = Cookies.get("user");
 
     if (storedToken) setToken(storedToken);
-    if (storedUser) setUser(JSON.parse(storedUser));
+
+    if (storedUser) {
+      try {
+        const parsedUser = JSON.parse(storedUser);
+        setUser(parsedUser);
+      } catch (e) {
+        logout();
+      }
+    }
   }, []);
 
   useEffect(() => {
-    if (fetchedUser && !user) {
+    if (fetchedUser === null && !isLoading) {
+      logout();
+    } else if (fetchedUser && !user) {
       setUser(fetchedUser);
       Cookies.set("user", JSON.stringify(fetchedUser), { expires: 1 });
     }
-  }, [fetchedUser]);
+  }, [fetchedUser, isLoading]);
 
   if (!user && isLoading) {
     return <LoadingScreen />;

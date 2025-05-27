@@ -70,6 +70,7 @@ export default function LoginPage() {
                 register={register("email")}
                 error={errors.email}
                 placeholder="Digite seu email"
+                type="email"
               />
               <Input.Content
                 label="Senha"

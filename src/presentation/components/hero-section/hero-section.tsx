@@ -12,6 +12,8 @@ export function HeroSection() {
   const user = useCurrentUser();
   const { push } = useRouter();
 
+  if (!user) return null;
+
   const userName = user?.name;
 
   useEffect(() => {

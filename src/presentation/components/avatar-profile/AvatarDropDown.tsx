@@ -16,6 +16,7 @@ import { AvatarBallComponent } from "./AvatarBallComponent";
 export const AvatarDropDown = () => {
   const navigation = useRouter();
   const user = useCurrentUser();
+  if (!user) return null;
 
   const { mutateAsync: logout } = useLogout();
 

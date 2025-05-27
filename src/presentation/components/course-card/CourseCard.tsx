@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 import { Badge } from "../badges/Badge";
 
 interface CourseCardProps {
-  id: number;
+  id: string;
   courseName: string;
   price: number;
   difficulty: string;

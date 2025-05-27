@@ -271,7 +271,7 @@ export default function SendInstructorRequestPage() {
                   <Button
                     type="submit"
                     disabled={isSubmitting}
-                    className="bg-greenApp hover:bg-greenApp/80 text-white font-semibold"
+                    className="bg-green-500 hover:bg-green-600 text-white font-semibold"
                   >
                     {isSubmitting ? "Enviando..." : "Enviar Solicitação"}
                   </Button>
