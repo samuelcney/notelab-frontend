@@ -151,7 +151,7 @@ export const EditProfileModal = ({ user }: Props) => {
         <Button
           type="submit"
           variant="default"
-          className="w-fit bg-greenApp text-white"
+          className="w-fit bg-green-500 text-white"
           disabled={isPending}
         >
           {isPending ? "Salvando..." : "Salvar"}

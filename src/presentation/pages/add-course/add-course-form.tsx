@@ -106,7 +106,7 @@ export function AddCourseForm() {
           <Button
             onClick={() => handleSubmit(false)}
             disabled={isPending}
-            className="bg-greenApp"
+            className="bg-green-500"
           >
             {isPending ? (
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />

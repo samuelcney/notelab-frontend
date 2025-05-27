@@ -1,25 +1,35 @@
+import { useGetUserById } from "@/main/hooks/users/use-get-user-by-id";
 import { CourseProps } from "@/types/types";
+import { BACKGROUND_IMAGE_PATHS } from "@/utils/Constants";
+import { getRandomItem } from "@/utils/Functions";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Badge } from "../badges/Badge";
 
-export const CourseCatalogCard = ({ ...course }: CourseProps) => {
+export const CourseCatalogCard = ({ ...course }: Partial<CourseProps>) => {
   const navigation = useRouter();
+
+  const randomImagePath = getRandomItem(BACKGROUND_IMAGE_PATHS);
+
+  const { data: instructor } = useGetUserById(
+    course.instructorId || course.instructor?.id || ""
+  );
 
   return (
     <div
-      className="w-full h-[300px] border flex shadow-md rounded-md overflow-hidden gap-4 cursor-pointer hover:shadow-lg transition-all duration-200"
+      className="w-full h-[300px] border border-foreground flex shadow-md rounded-md overflow-hidden gap-4 cursor-pointer hover:shadow-lg transition-all duration-200"
       key={course.id}
       onClick={() => navigation.push(`course/${course.id}`)}
     >
       <div className="w-[22em] relative overflow-hidden">
-        <Badge.Level level={course.difficulty} isFromCard isLeft />
+        <Badge.Level level={course.difficulty ?? ""} isFromCard isLeft />
         <Image
-          src={"/images/background/image1.jpg"}
+          src={randomImagePath}
           alt={`Banner - ${course.name}`}
           width={1000}
           height={300}
           className="object-cover w-full h-full"
+          priority
         />
       </div>
 
@@ -28,12 +38,12 @@ export const CourseCatalogCard = ({ ...course }: CourseProps) => {
           <h1 className="text-xl font-semibold mt-2">{course.name}</h1>
 
           <p className="text-greenApp font-semibold text-xl">
-            R$ {course.price.toFixed(2)}
+            R$ {course.price?.toFixed(2)}
           </p>
         </div>
 
         <div className="flex overflow-x-auto gap-2 mt-2">
-          {course.categories.map((item) => (
+          {course.categories?.map((item) => (
             <Badge.Category categoryName={item.name} key={item.id} />
           ))}
         </div>
@@ -47,7 +57,7 @@ export const CourseCatalogCard = ({ ...course }: CourseProps) => {
 
         <div className="flex mt-8 flex-wrap gap-1">
           <p className="text-sm font-semibold">Instrutor:</p>
-          <p className="text-sm">{course.instructor.name}</p>
+          <p className="text-sm">{instructor?.name}</p>
         </div>
       </div>
     </div>

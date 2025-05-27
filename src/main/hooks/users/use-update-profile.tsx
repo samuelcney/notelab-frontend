@@ -7,14 +7,14 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export const useUpdateProfile = () => {
   const queryClient = useQueryClient();
-  const { updateUser } = useAuth();
+  const { updateUser, user } = useAuth();
 
   return useMutation({
     mutationFn: userService.updateProfile,
 
     onSuccess: (updatedUser) => {
       queryClient.invalidateQueries({
-        queryKey: [QueryKeysEnum.UPDATE_PROFILE],
+        queryKey: [QueryKeysEnum.UPDATE_PROFILE, user?.id],
       });
 
       updateUser({
@@ -22,7 +22,7 @@ export const useUpdateProfile = () => {
       });
 
       queryClient.invalidateQueries({
-        queryKey: [QueryKeysEnum.CURRENT_USER],
+        queryKey: [QueryKeysEnum.CURRENT_USER, user?.id],
       });
 
       notify("Perfil atualizado com sucesso", "success");

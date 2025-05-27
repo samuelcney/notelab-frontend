@@ -60,7 +60,7 @@ export type SupabaseUserData = {
 };
 
 export type CourseProps = {
-  id: number;
+  id: string;
   name: string;
   description: string;
   price: number;
@@ -100,4 +100,14 @@ export type Lessons = {
   title: string;
   videoUrl: string;
   duration: string;
+};
+
+export type Cart = {
+  id: string;
+  cartItems: CartItem[];
+};
+
+export type CartItem = {
+  id: string;
+  course: CourseProps;
 };

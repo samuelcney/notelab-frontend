@@ -12,11 +12,10 @@ import { pathNameEnum } from "@/utils/Enums";
 import { getRandomItem } from "@/utils/Functions";
 
 import Image from "next/image";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 
 export default function CoursePage() {
   const { courseId } = useParams();
-  const { replace } = useRouter();
 
   const { data, isPending } = useGetCourseById(String(courseId));
 
@@ -24,7 +23,7 @@ export default function CoursePage() {
 
   const randomImagePath = getRandomItem(BACKGROUND_IMAGE_PATHS);
 
-  if (!data) {
+  if (!data && !isPending) {
     return (
       <div className="flex items-center justify-center w-full h-full flex-col gap-2">
         <h1 className="text-4xl font-bold text-greenApp">

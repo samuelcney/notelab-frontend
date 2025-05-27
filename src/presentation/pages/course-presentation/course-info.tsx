@@ -1,24 +1,44 @@
+"use client";
+import { useCurrentUser } from "@/main/hooks/auth/use-current-user";
+import { useAddItemCart } from "@/main/hooks/cart/use-add-item-cart";
+import { useGetUserCart } from "@/main/hooks/cart/use-get-user-cart";
+import { useGetItemAlreadyInCart } from "@/main/hooks/cart/use-item-alreadyIn-cart";
+import { AlertBox } from "@/presentation/components/alert-dialog/AlertDialog";
 import { AvatarBallComponent } from "@/presentation/components/avatar-profile/AvatarBallComponent";
 
 import { CourseContentSkeleton } from "@/presentation/components/course-details/CourseContentSkeleton";
 import { Button } from "@/presentation/ui/button";
-import { UserType } from "@/types/types";
+import { CourseProps, UserType } from "@/types/types";
+import { pathNameEnum } from "@/utils/Enums";
 import { getInitials } from "@/utils/Functions";
+import { useRouter } from "next/navigation";
 
 interface Props {
-  data: {
-    instructor: {
-      name: string;
-      email: string;
-    };
-    description: string;
-  } | null;
+  data: CourseProps;
   isPending: boolean;
   instructor?: UserType | null;
 }
 
 export const CourseInfo = ({ isPending, instructor, data }: Props) => {
   if (isPending) return <CourseContentSkeleton />;
+
+  const { push } = useRouter();
+
+  const currentUser = useCurrentUser();
+  const { data: cart } = useGetUserCart(currentUser?.id ?? "");
+  const { mutateAsync: addItem, isPending: isLoading } = useAddItemCart();
+
+  const { data: courseAlreadyInCart } = useGetItemAlreadyInCart(
+    currentUser!.id,
+    String(data.id)
+  );
+
+  const onSubmit = () => {
+    addItem({
+      courseId: data.id,
+      cartId: cart?.id ?? "",
+    });
+  };
 
   return (
     <>
@@ -42,13 +62,35 @@ export const CourseInfo = ({ isPending, instructor, data }: Props) => {
               </p>
             </div>
 
-            <Button
-              title="ADICIONAR AO CARRINHO"
-              className="w-full h-10 bg-greenApp text-white text-xl font-bold tracking-wide"
-              variant="default"
-            >
-              ADICIONAR AO CARRINHO
-            </Button>
+            {!courseAlreadyInCart ? (
+              <AlertBox
+                title="Adicionar item ao carrinho"
+                description={`Você deseja adicionar o curso "${data.name}" ao seu carrinho?`}
+                cancelText="Cancelar"
+                actionText="Adicionar"
+                onAction={onSubmit}
+                loading={isLoading}
+              >
+                <Button
+                  title="ADICIONAR AO CARRINHO"
+                  className="w-full h-10 bg-green-500 text-white text-xl font-bold tracking-wide"
+                  variant="default"
+                  disabled={isLoading}
+                >
+                  ADICIONAR AO CARRINHO
+                </Button>
+              </AlertBox>
+            ) : (
+              <Button
+                title="ADICIONAR AO CARRINHO"
+                className="w-full h-10 bg-green-500 text-white text-xl font-bold tracking-wide"
+                variant="default"
+                disabled={isLoading}
+                onClick={() => push(pathNameEnum.CART)}
+              >
+                JÁ ADICIONADO
+              </Button>
+            )}
           </div>
         </div>
       </div>

@@ -6,7 +6,7 @@ interface HeaderItemProps {
 export const HeaderTextItem = ({ text, onclick }: HeaderItemProps) => {
   return (
     <div
-      className="flex items-center justify-center h-[35px] rounded-xl transition border-transparent border hover:bg-greenApp px-3"
+      className="flex items-center justify-center h-[35px] rounded-xl transition border-transparent border hover:bg-green-500 px-3"
       onClick={onclick}
     >
       <h1 className="text-sm font-semibold tracking-wide cursor-pointer text-white">

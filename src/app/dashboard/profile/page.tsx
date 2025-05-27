@@ -27,7 +27,7 @@ export default function ProfilePage() {
         src={user?.userBio?.avatarUrl || "/images/default-avatar.png"}
         alt="avatar"
         className={`w-full h-full object-cover ${
-          !user?.userBio?.avatarUrl ? "bg-greenApp" : ""
+          !user?.userBio?.avatarUrl ? "bg-green-500" : ""
         }`}
         width={144}
         height={144}

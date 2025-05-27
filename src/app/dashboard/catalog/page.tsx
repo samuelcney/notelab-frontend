@@ -8,6 +8,7 @@ import { Button } from "@/presentation/ui/button";
 import { Checkbox } from "@/presentation/ui/checkbox";
 import { Input } from "@/presentation/ui/input";
 import { Label } from "@/presentation/ui/label";
+import { Category } from "@/types/types";
 import { Filter, Search } from "lucide-react";
 import { useState } from "react";
 
@@ -23,7 +24,9 @@ export default function CatalogPage() {
   const filteredCourses = courses.filter((course) => {
     const matchesCategory =
       selectedCategories.length === 0 ||
-      course.categories.some((cat) => selectedCategories.includes(cat.id));
+      course.categories.some((cat: Category) =>
+        selectedCategories.includes(cat.id)
+      );
 
     const matchesSearch =
       course.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
