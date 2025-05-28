@@ -20,8 +20,6 @@ interface Props {
 }
 
 export const CourseInfo = ({ isPending, instructor, data }: Props) => {
-  if (isPending) return <CourseContentSkeleton />;
-
   const { push } = useRouter();
 
   const currentUser = useCurrentUser();
@@ -33,7 +31,7 @@ export const CourseInfo = ({ isPending, instructor, data }: Props) => {
 
   const { data: courseAlreadyInCart } = useGetItemAlreadyInCart(
     currentUser.id,
-    String(data.id)
+    String(data?.id)
   );
 
   const onSubmit = () => {
@@ -42,6 +40,8 @@ export const CourseInfo = ({ isPending, instructor, data }: Props) => {
       cartId: cart?.id ?? "",
     });
   };
+
+  if (isPending) return <CourseContentSkeleton />;
 
   return (
     <>

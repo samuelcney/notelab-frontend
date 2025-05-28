@@ -12,8 +12,6 @@ export function HeroSection() {
   const user = useCurrentUser();
   const { push } = useRouter();
 
-  if (!user) return null;
-
   const userName = user?.name;
 
   useEffect(() => {
@@ -32,21 +30,27 @@ export function HeroSection() {
       <div className="absolute inset-0  bg-cover bg-center opacity-10"></div>
       <div className="relative z-10 max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row items-start md:items-center gap-6 mb-8">
-          <AvatarBallComponent
-            abbreviation={userName || ""}
-            isBigSize
-            user={user}
-          />
-          <div className="flex flex-col">
-            <span className="text-green-400 font-medium">{greeting}</span>
-            <h1 className="text-3xl md:text-4xl font-bold text-white">
-              {`Bem vindo(a), ${userName || "Músico"}`}
-            </h1>
-            <p className="text-gray-300 mt-2 max-w-xl">
-              Descubra novos cursos, aperfeiçoe suas habilidades e mergulhe no
-              mundo da música
-            </p>
-          </div>
+          {user ? (
+            <>
+              <AvatarBallComponent
+                abbreviation={userName || ""}
+                isBigSize
+                user={user}
+              />
+              <div className="flex flex-col">
+                <span className="text-green-400 font-medium">{greeting}</span>
+                <h1 className="text-3xl md:text-4xl font-bold text-white">
+                  {`Bem vindo(a), ${userName || "Músico"}`}
+                </h1>
+                <p className="text-gray-300 mt-2 max-w-xl">
+                  Descubra novos cursos, aperfeiçoe suas habilidades e mergulhe
+                  no mundo da música
+                </p>
+              </div>
+            </>
+          ) : (
+            <div className="text-white">Carregando...</div>
+          )}
         </div>
 
         <div className="mt-8 flex flex-col sm:flex-row gap-4">

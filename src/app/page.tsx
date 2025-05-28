@@ -7,5 +7,5 @@ export default function RedirectPage() {
 
   const isLoggedIn = !!user;
 
-  redirect(isLoggedIn ? "/dashboard/home" : "/login");
+  redirect(isLoggedIn || isLoggedIn !== null ? "/dashboard/home" : "/login");
 }
