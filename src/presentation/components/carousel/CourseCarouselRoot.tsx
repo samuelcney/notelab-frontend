@@ -62,6 +62,7 @@ export const CarouselRoot = ({
                       categories={course.categories ?? []}
                       instructorName={course.instructor.name}
                       difficulty={course.difficulty}
+                      coverImage={course.coverImage}
                     />
                   </CarouselItem>
                 ))}

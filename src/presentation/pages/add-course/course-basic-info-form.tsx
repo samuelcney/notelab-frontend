@@ -30,6 +30,7 @@ import {
 } from "@/presentation/ui/select";
 import { Textarea } from "@/presentation/ui/textarea";
 import { courseLevelEnum } from "@/utils/Enums";
+import { useRef } from "react";
 import { useCourseStore } from "../../../main/stores/course-store";
 
 export function CourseBasicInfoForm() {
@@ -45,14 +46,19 @@ export function CourseBasicInfoForm() {
 
   const { data } = useGetCategories();
 
+  const imageInputRef = useRef<HTMLInputElement | null>(null);
+
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        setCoverImage(e.target?.result as string);
-      };
-      reader.readAsDataURL(file);
+      setCoverImage(file);
+    }
+  };
+
+  const handleRemoveImage = () => {
+    setCoverImage(null);
+    if (imageInputRef.current) {
+      imageInputRef.current.value = "";
     }
   };
 
@@ -67,7 +73,9 @@ export function CourseBasicInfoForm() {
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="space-y-2">
-          <Label htmlFor="titulo">Título do Curso *</Label>
+          <Label htmlFor="titulo">
+            Título do Curso <span className="text-red-600">*</span>
+          </Label>
           <Input
             id="titulo"
             placeholder="Ex: Violão para Iniciantes"
@@ -77,7 +85,9 @@ export function CourseBasicInfoForm() {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="titulo">Descrição *</Label>
+          <Label htmlFor="titulo">
+            Descrição <span className="text-red-600">*</span>
+          </Label>
           <Textarea
             id="titulo"
             placeholder=""
@@ -88,7 +98,9 @@ export function CourseBasicInfoForm() {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="categoria">Categorias *</Label>
+          <Label htmlFor="categoria">
+            Categorias <span className="text-red-600">*</span>
+          </Label>
           <Popover>
             <PopoverTrigger asChild>
               <Button
@@ -148,7 +160,9 @@ export function CourseBasicInfoForm() {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="nivel">Nível *</Label>
+          <Label htmlFor="nivel">
+            Nível <span className="text-red-600">*</span>
+          </Label>
           <Select value={course.difficulty} onValueChange={setDifficulty}>
             <SelectTrigger id="nivel">
               <SelectValue placeholder="Selecione um nível" />
@@ -173,7 +187,7 @@ export function CourseBasicInfoForm() {
                 {course.coverImage ? (
                   <div className="relative h-full w-full">
                     <Image
-                      src={course.coverImage || ""}
+                      src={URL.createObjectURL(course.coverImage)}
                       alt="Preview"
                       fill
                       className="object-cover rounded-md"
@@ -182,9 +196,9 @@ export function CourseBasicInfoForm() {
                       variant="ghost"
                       size="icon"
                       className="absolute right-2 top-2 h-6 w-6 rounded-full bg-background/80"
-                      onClick={() => setCoverImage(null)}
+                      onClick={handleRemoveImage}
                     >
-                      <X className="h-4 w-4" />
+                      <X className="h-4 w-4" color="red" />
                       <span className="sr-only">Remover imagem</span>
                     </Button>
                   </div>
@@ -204,6 +218,7 @@ export function CourseBasicInfoForm() {
                   accept="image/*"
                   className="hidden"
                   onChange={handleImageUpload}
+                  ref={imageInputRef}
                 />
                 <Button
                   variant="outline"

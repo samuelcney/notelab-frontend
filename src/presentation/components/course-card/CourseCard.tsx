@@ -4,7 +4,6 @@ import { Card, CardContent } from "@/presentation/ui/card";
 import { Category } from "@/types/types";
 import { BACKGROUND_IMAGE_PATHS } from "@/utils/Constants";
 import { getRandomItem } from "@/utils/Functions";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Badge } from "../badges/Badge";
 
@@ -14,6 +13,7 @@ interface CourseCardProps {
   price: number;
   difficulty: string;
   instructorName: string;
+  coverImage?: string;
   categories: Category[];
 }
 
@@ -24,6 +24,7 @@ export const CourseCard = ({
   difficulty,
   instructorName,
   categories,
+  coverImage,
 }: CourseCardProps) => {
   const navigation = useRouter();
 
@@ -37,8 +38,8 @@ export const CourseCard = ({
     >
       <div className="w-full relative overflow-hidden h-[60%]">
         <Badge.Level level={difficulty} isFromCard />
-        <Image
-          src={randomImagePath}
+        <img
+          src={coverImage ? coverImage : randomImagePath}
           alt={`Banner - ${courseName}`}
           width={1000}
           height={200}

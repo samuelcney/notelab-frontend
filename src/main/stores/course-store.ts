@@ -23,7 +23,7 @@ export type CourseState = {
   description: string;
   categories: number[];
   difficulty: courseLevelEnum;
-  coverImage?: string | null;
+  coverImage?: File | null;
   modules: Module[];
   typeCourse?: "free" | "paid";
   price: number;
@@ -39,7 +39,7 @@ type CourseStore = {
   addCategory: (category: number) => void;
   removeCategory: (category: number) => void;
   setDifficulty: (difficulty: CourseState["difficulty"]) => void;
-  setCoverImage: (coverImage: string | null) => void;
+  setCoverImage: (coverImage: File | null) => void;
   setInstructorId: (instructorId: string) => void;
 
   addModule: () => void;

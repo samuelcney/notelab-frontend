@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 
 import { useCurrentUser } from "@/main/hooks/auth/use-current-user";
 import { useCreateCourse } from "@/main/hooks/courses/use-create-course";
+import { api } from "@/main/http/axios/axios-instance";
 import { courseSchema } from "@/main/schemas/course.schema";
 import { notify } from "@/presentation/components/toast/Toast";
 import { Button } from "@/presentation/ui/button";
@@ -15,7 +16,8 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/presentation/ui/tabs";
-import { useEffect, useState } from "react";
+import { buildImageFormData } from "@/utils/Functions";
+import { useEffect } from "react";
 import { useCourseStore } from "../../../main/stores/course-store";
 import { CourseBasicInfoForm } from "./course-basic-info-form";
 import { CourseConfigForm } from "./course-config-form";
@@ -23,8 +25,7 @@ import { CourseContentForm } from "./course-content-form";
 
 export function AddCourseForm() {
   const router = useRouter();
-  const { resetCourse, course } = useCourseStore();
-  const [isCourseValid, setIsCourseValid] = useState(false);
+  const { resetCourse, course, setInstructorId } = useCourseStore();
   const { mutateAsync: createCourse, isPending } = useCreateCourse();
   const user = useCurrentUser();
   if (!user) return null;
@@ -52,25 +53,36 @@ export function AddCourseForm() {
         return;
       }
 
-      const courseData = result.data;
+      const courseData = { ...result.data };
+      const { coverImage, ...coursePayload } = courseData;
 
-      const data = {
-        ...courseData,
-        instructorId: user.id,
-      };
+      const createdCourse = await createCourse(coursePayload);
 
-      await createCourse(data);
+      if (coverImage && coverImage instanceof File) {
+        await api.post(
+          `/courses/${createdCourse.id}/cover`,
+          buildImageFormData(coverImage),
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+      }
+
       resetCourse();
       router.push("/instructor/dashboard");
     } catch (error) {
+      console.error("Erro ao criar curso:", error);
       notify("Erro inesperado ao criar curso", "error");
     }
   };
 
   useEffect(() => {
-    const result = courseSchema.safeParse(course);
-    setIsCourseValid(result.success);
-  }, [course]);
+    if (user) {
+      setInstructorId(user.id);
+    }
+  }, [user, setInstructorId]);
 
   return (
     <div className="w-full">

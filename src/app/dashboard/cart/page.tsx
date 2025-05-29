@@ -104,13 +104,14 @@ export default function CartPage() {
                       price={item.course.price}
                       difficulty={item.course.difficulty}
                       id={item.course.id}
+                      coverImage={item.course.coverImage}
                     />
                   </div>
                 ))}
               </div>
 
               <div className="lg:col-span-1">
-                <div className="rounded-xl shadow-sm border border-foreground border-gray-200 p-6 sticky top-8">
+                <div className="rounded-xl shadow-sm border border-foreground  p-6 sticky top-8">
                   <h3 className="text-xl font-semibold text-foreground mb-6">
                     Resumo do Pedido
                   </h3>
@@ -127,7 +128,7 @@ export default function CartPage() {
                       <span>Desconto</span>
                       <span className="text-green-600">- R$ 0,00</span>
                     </div>
-                    <hr className="border-gray-200" />
+                    <hr className="border border-foreground" />
                     <div className="flex justify-between text-lg font-semibold text-foreground">
                       <span>Total</span>
                       <span>R$ {totalPrice.toFixed(2)}</span>
@@ -151,7 +152,7 @@ export default function CartPage() {
                     </button>
                   </div>
 
-                  <div className="mt-6 pt-6 border-t border-gray-200">
+                  <div className="mt-6 pt-6 border-t  border-foreground">
                     <div className="text-sm text-gray-400 space-y-2">
                       <div className="flex items-center gap-2">
                         <div className="w-2 h-2 bg-green-500 rounded-full"></div>

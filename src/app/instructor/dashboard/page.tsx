@@ -99,6 +99,7 @@ export default function InstructorDashboard() {
                         instructorName={user?.name || ""}
                         price={c.price}
                         id={c.id}
+                        coverImage={c.coverImage || ""}
                       />
                     </div>
                   ))}

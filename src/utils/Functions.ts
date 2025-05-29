@@ -65,3 +65,9 @@ export function formatSeconds(seconds: number): string {
   const s = String(seconds % 60).padStart(2, "0");
   return `${m}:${s}`;
 }
+
+export function buildImageFormData(file: File) {
+  const formData = new FormData();
+  formData.append("file", file);
+  return formData;
+}
