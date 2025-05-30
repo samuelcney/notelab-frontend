@@ -11,7 +11,6 @@ import { BACKGROUND_IMAGE_PATHS } from "@/utils/Constants";
 import { pathNameEnum } from "@/utils/Enums";
 import { getRandomItem } from "@/utils/Functions";
 
-import Image from "next/image";
 import { useParams } from "next/navigation";
 
 export default function CoursePage() {
@@ -48,8 +47,8 @@ export default function CoursePage() {
         <div className="flex w-[70%] flex-col overflow-y-auto h-full pb-5">
           <div className="w-full">
             {!isPending ? (
-              <Image
-                src={randomImagePath}
+              <img
+                src={data?.coverImage || randomImagePath}
                 alt="Banner"
                 width={1350}
                 height={300}

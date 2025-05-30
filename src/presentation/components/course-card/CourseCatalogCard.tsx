@@ -2,7 +2,6 @@ import { useGetUserById } from "@/main/hooks/users/use-get-user-by-id";
 import { CourseProps } from "@/types/types";
 import { BACKGROUND_IMAGE_PATHS } from "@/utils/Constants";
 import { getRandomItem } from "@/utils/Functions";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Badge } from "../badges/Badge";
 
@@ -23,13 +22,13 @@ export const CourseCatalogCard = ({ ...course }: Partial<CourseProps>) => {
     >
       <div className="w-[22em] relative overflow-hidden">
         <Badge.Level level={course.difficulty ?? ""} isFromCard isLeft />
-        <Image
-          src={randomImagePath}
+        <img
+          src={course.coverImage || randomImagePath}
           alt={`Banner - ${course.name}`}
           width={1000}
           height={300}
           className="object-cover w-full h-full"
-          priority
+          loading="lazy"
         />
       </div>
 

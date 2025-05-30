@@ -53,13 +53,7 @@ export const courseSchema = z.object({
   difficulty: z.nativeEnum(courseLevelEnum, {
     errorMap: () => ({ message: "Nível de dificuldade inválido." }),
   }),
-  // coverImage: z
-  //   .string()
-  //   .url({ message: "A URL da imagem de capa é inválida." })
-  //   .nullable()
-  //   .refine((val) => val !== null, {
-  //     message: "A imagem de capa é obrigatória.",
-  //   }),
+  coverImage: z.instanceof(File).optional(),
   modules: z.array(moduleSchema).min(1, {
     message: "Adicione pelo menos um módulo.",
   }),
@@ -69,3 +63,5 @@ export const courseSchema = z.object({
     .string()
     .min(1, { message: "ID do instrutor é obrigatório." }),
 });
+
+export type CourseSchemaType = z.infer<typeof courseSchema>;
