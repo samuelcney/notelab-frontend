@@ -8,8 +8,8 @@ import {
   CarouselPrevious,
 } from "@/presentation/ui/carousel";
 import { CourseProps } from "@/types/types";
-import { CourseCard } from "../course-card/CourseCard";
-import { CourseCardSkeleton } from "../course-card/CourseCardSkeleton";
+import { CourseCard } from "../course-card/presentation/CourseCardPresentation";
+import { CourseCardSkeleton } from "../course-card/presentation/CourseCardSkeleton";
 import { CarouselTitle } from "./CarouselTitle";
 
 interface CourseCarouselProps {
@@ -63,6 +63,7 @@ export const CarouselRoot = ({
                       instructorName={course.instructor.name}
                       difficulty={course.difficulty}
                       coverImage={course.coverImage}
+                      isPresentation
                     />
                   </CarouselItem>
                 ))}

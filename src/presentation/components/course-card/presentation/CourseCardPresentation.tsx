@@ -5,7 +5,7 @@ import { Category } from "@/types/types";
 import { BACKGROUND_IMAGE_PATHS } from "@/utils/Constants";
 import { getRandomItem } from "@/utils/Functions";
 import { useRouter } from "next/navigation";
-import { Badge } from "../badges/Badge";
+import { Badge } from "../../badges/Badge";
 
 interface CourseCardProps {
   id: string;
@@ -35,7 +35,11 @@ export const CourseCard = ({
   return (
     <Card
       className="border border-light-gray w-full rounded-lg cursor-pointer flex-col overflow-hidden flex aspect-[5/7]"
-      onClick={() => navigation.push(`course/${id}`)}
+      onClick={
+        isPresentation
+          ? () => navigation.replace(`/dashboard/course/${id}/presentation`)
+          : () => navigation.replace(`/dashboard/course/${id}`)
+      }
       key={id}
     >
       <div className="w-full relative overflow-hidden h-[60%]">
@@ -62,6 +66,12 @@ export const CourseCard = ({
             {categories?.map((item) => (
               <Badge.Category key={item.id} categoryName={item.name} />
             ))}
+          </div>
+
+          <div className="mt-8">
+            <p className="text-greenApp font-semibold">
+              R$ {price?.toFixed(2)}
+            </p>
           </div>
         </div>
       </CardContent>

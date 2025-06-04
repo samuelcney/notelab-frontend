@@ -14,7 +14,7 @@ export const ChapterAccordion = ({
   isPresentation,
 }: {
   chapterList: Modules[];
-  courseId: number;
+  courseId: string;
   isPresentation?: boolean;
 }) => {
   const navigation = useRouter();

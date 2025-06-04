@@ -3,7 +3,7 @@ import { CourseProps } from "@/types/types";
 import { BACKGROUND_IMAGE_PATHS } from "@/utils/Constants";
 import { getRandomItem } from "@/utils/Functions";
 import { useRouter } from "next/navigation";
-import { Badge } from "../badges/Badge";
+import { Badge } from "../../badges/Badge";
 
 export const CourseCatalogCard = ({ ...course }: Partial<CourseProps>) => {
   const navigation = useRouter();
@@ -18,7 +18,7 @@ export const CourseCatalogCard = ({ ...course }: Partial<CourseProps>) => {
     <div
       className="w-full h-[300px] border border-foreground flex shadow-md rounded-md overflow-hidden gap-4 cursor-pointer hover:shadow-lg transition-all duration-200"
       key={course.id}
-      onClick={() => navigation.push(`course/${course.id}`)}
+      onClick={() => navigation.push(`course/${course.id}/presentation`)}
     >
       <div className="w-[22em] relative overflow-hidden">
         <Badge.Level level={course.difficulty ?? ""} isFromCard isLeft />

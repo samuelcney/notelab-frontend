@@ -3,12 +3,20 @@
 import { useCurrentUser } from "@/main/hooks/auth/use-current-user";
 import { useGetUserCart } from "@/main/hooks/cart/use-get-user-cart";
 import { useRemoveItemCart } from "@/main/hooks/cart/use-remove-item-cart";
+import { useCreateEnrollment } from "@/main/hooks/enrollments/use-create-enrollment";
 import { AlertBox } from "@/presentation/components/alert-dialog/AlertDialog";
-import { CourseCatalogCard } from "@/presentation/components/course-card/CourseCatalogCard";
+import { CourseCatalogCard } from "@/presentation/components/course-card/presentation/CourseCatalogCard";
+import { notify } from "@/presentation/components/toast/Toast";
 import { PageRoot } from "@/presentation/layout/PageRoot";
 import { EmptyCart } from "@/presentation/pages/cart/EmptyCart";
 import { pathNameEnum } from "@/utils/Enums";
-import { ArrowLeft, CreditCard, ShoppingCart, Trash2 } from "lucide-react";
+import {
+  ArrowLeft,
+  CreditCard,
+  Loader2,
+  ShoppingCart,
+  Trash2,
+} from "lucide-react";
 import { useRouter } from "next/navigation";
 
 export default function CartPage() {
@@ -20,25 +28,52 @@ export default function CartPage() {
   const { data, isPending } = useGetUserCart(user.id);
 
   const { mutateAsync: removeItem } = useRemoveItemCart();
+  const { mutateAsync: makeEnrollment, isPending: isLoadingEnrollment } =
+    useCreateEnrollment();
 
   const cartItems = data?.cartItems || [];
   const totalPrice = cartItems.reduce(
     (sum, item) => sum + item.course.price,
     0
   );
+
   const itemCount = cartItems.length;
 
   const handleRemoveItem = async (courseId: string) => {
     await removeItem({ cartId: data?.id || "", courseId });
   };
 
-  const handleCheckout = () => {};
+  const handleCheckout = async () => {
+    try {
+      const courseId =
+        cartItems.length === 1
+          ? cartItems[0].course.id
+          : cartItems.map((item) => item.course.id);
+
+      await makeEnrollment({
+        courseId,
+        userId: user.id,
+      });
+
+      if (Array.isArray(courseId)) {
+        for (const id of courseId) {
+          await removeItem({ cartId: data?.id || "", courseId: id });
+        }
+      } else {
+        await removeItem({ cartId: data?.id || "", courseId });
+      }
+    } catch (error) {
+      notify("Erro ao finalizar a compra", "error");
+    }
+  };
 
   if (isPending) {
     return (
       <PageRoot>
         <div className="flex items-center justify-center w-full min-h-screen">
-          <div className="text-2xl text-foreground">Carregando carrinho...</div>
+          <div className="text-2xl text-foreground">
+            <Loader2 className="animate-spin" />
+          </div>
         </div>
       </PageRoot>
     );
@@ -50,7 +85,7 @@ export default function CartPage() {
         <div className="mx-8 px-4 py-8 w-full">
           <div className="flex items-center gap-4 mb-8">
             <button
-              onClick={() => navigation.back()}
+              onClick={() => navigation.push(`${pathNameEnum.HOME}`)}
               className="p-2 hover:bg-green-500 rounded-full transition-colors"
             >
               <ArrowLeft className="w-5 h-5 text-foreground" />
@@ -77,7 +112,7 @@ export default function CartPage() {
                 {cartItems.map((item, index) => (
                   <div
                     key={item.course.id + index}
-                    className="rounded-xl shadow-sm border border-gray-200 p-2 relative group hover:shadow-md transition-shadow"
+                    className="rounded-xl shadow-sm border border-foreground p-2 relative group hover:shadow-md transition-shadow"
                   >
                     <button
                       className="absolute top-0 right-0 p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-full transition-colors opacity-0 group-hover:opacity-100"
@@ -136,14 +171,27 @@ export default function CartPage() {
                   </div>
 
                   <div className="space-y-3">
-                    <button
-                      onClick={handleCheckout}
-                      className="w-full bg-green-500 hover:bg-green-600 text-white py-3 px-4 rounded-lg transition-colors flex items-center justify-center gap-2 font-bold"
+                    {" "}
+                    <AlertBox
+                      title="CONCLUIR MATRÍCULA"
+                      description="Você tem certeza que deseja finalizar a matrícula?"
+                      onAction={handleCheckout}
+                      cancelText="Cancelar"
+                      actionText="Finalizar"
+                      variant="default"
                     >
-                      <CreditCard className="w-5 h-5" />
-                      Finalizar Compra
-                    </button>
-
+                      <button
+                        className="w-full bg-green-500 hover:bg-green-600 text-white py-3 px-4 rounded-lg transition-colors flex items-center justify-center gap-2 font-bold"
+                        disabled={isLoadingEnrollment}
+                      >
+                        <CreditCard className="w-5 h-5" />
+                        {isLoadingEnrollment ? (
+                          <Loader2 className="animate-spin" />
+                        ) : (
+                          "Finalizar compra"
+                        )}
+                      </button>
+                    </AlertBox>
                     <button
                       onClick={() => navigation.push(pathNameEnum.CATALOG)}
                       className="w-full bg-background hover:opacity-[80%] text-foreground font-medium py-3 px-4 rounded-lg transition-colors border border-foreground"

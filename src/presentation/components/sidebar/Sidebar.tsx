@@ -94,6 +94,24 @@ export const Sidebar = () => {
               }}
             />
 
+            <SidebarItem
+              isActive={pathname === path.MY_COURSES}
+              title="Meus Cursos"
+              isOpen={isOpen}
+              icon={
+                <Icon
+                  name="BookOpen"
+                  strokeWidth={strokeW}
+                  size={size}
+                  className="text-greenApp"
+                />
+              }
+              onclick={() => {
+                navigation.replace(path.MY_COURSES);
+                closeSideBar();
+              }}
+            />
+
             {(user?.role === "INSTRUCTOR" || user?.role === "ADMIN") && (
               <SidebarItem
                 isActive={pathname === instructorPath.INSTRUCTOR_DASHBOARD}

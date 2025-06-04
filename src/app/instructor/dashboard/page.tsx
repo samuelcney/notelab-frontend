@@ -2,7 +2,7 @@
 
 import { useCurrentUser } from "@/main/hooks/auth/use-current-user";
 import { useGetCoursesByInstructorId } from "@/main/hooks/courses/use-get-instructor-courses";
-import { CourseCard } from "@/presentation/components/course-card/CourseCard";
+import { CourseCard } from "@/presentation/components/course-card/presentation/CourseCardPresentation";
 import { PageRoot } from "@/presentation/layout/PageRoot";
 import { Button } from "@/presentation/ui/button";
 import {
@@ -85,10 +85,10 @@ export default function InstructorDashboard() {
                 <h1 className="text-xl font-bold">
                   Cursos publicados por você:
                 </h1>
-                <div className="flex flex-row items-center mt-4 flex-wrap gap-6">
+                <div className="flex flex-row items-center mt-4 flex-wrap gap-6 w-full justify-center">
                   {course?.map((c) => (
                     <div
-                      className="flex-shrink-0 flex-grow-0 basis-full max-sm:basis-1/3 sm:basis-1/2 md:basis-1/3 lg:basis-1/3 xl:basis-1/5"
+                      className="flex-shrink-0 flex-grow-0 basis-full max-sm:basis-1/3 sm:basis-1/3 md:basis-1/4 lg:basis-1/4 xl:basis-1/5"
                       key={c.id + c.instructorId}
                     >
                       <CourseCard
@@ -100,6 +100,7 @@ export default function InstructorDashboard() {
                         price={c.price}
                         id={c.id}
                         coverImage={c.coverImage || ""}
+                        isPresentation
                       />
                     </div>
                   ))}

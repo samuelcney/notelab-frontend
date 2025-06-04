@@ -111,3 +111,10 @@ export type CartItem = {
   id: string;
   course: CourseProps;
 };
+
+export type EnrollmentData = {
+  id: string;
+  courseId: string;
+  createdAt: Date;
+  isActive: boolean;
+};

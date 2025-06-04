@@ -5,13 +5,19 @@ export const enrollmentService = {
     courseId,
     userId,
   }: {
-    courseId: string;
+    courseId: string[] | string;
     userId: string;
   }) => {
-    const { data } = await api.post(`/enrollments`, {
+    const { data } = await api.post(`/enrollment`, {
       courseId,
       userId,
     });
+
+    return data;
+  },
+
+  getEnrollments: async (id: string) => {
+    const { data } = await api.get(`/enrollment/user/${id}`);
 
     return data;
   },

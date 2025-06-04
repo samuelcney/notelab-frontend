@@ -13,7 +13,11 @@ export const useCreateEnrollment = () => {
     mutationFn: enrollmentService.createEnrollment,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: [QueryKeysEnum.CREATE_COURSE, context?.id],
+        queryKey: [QueryKeysEnum.CREATE_ENROLLMENT, context?.id],
+      });
+
+      queryClient.invalidateQueries({
+        queryKey: [QueryKeysEnum.GET_ENROLLMENT, context?.id],
       });
 
       notify("Matrícula feita com sucesso!", "success");

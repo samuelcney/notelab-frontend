@@ -13,8 +13,8 @@ export default function LessonPage() {
 
   const navigation = useRouter();
 
-  const { data: lessons } = useGetLessonsByModuleId(Number(moduleId));
-  const { data: module } = useGetModuleById(Number(moduleId));
+  const { data: lessons } = useGetLessonsByModuleId(moduleId || "");
+  const { data: module } = useGetModuleById(moduleId || "");
 
   const currentLesson = lessons?.find(
     (lesson) => lesson.id.toString() === lessonId

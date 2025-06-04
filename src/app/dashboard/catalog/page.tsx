@@ -1,8 +1,8 @@
 "use client";
 
 import { useGetCategories, useGetCourses } from "@/main/hooks";
-import { CourseCatalogCard } from "@/presentation/components/course-card/CourseCatalogCard";
-import { CourseCatalogCardSkeleton } from "@/presentation/components/course-card/CourseCatalogCardSkeleton";
+import { CourseCatalogCard } from "@/presentation/components/course-card/presentation/CourseCatalogCard";
+import { CourseCatalogCardSkeleton } from "@/presentation/components/course-card/presentation/CourseCatalogCardSkeleton";
 import { PageRoot } from "@/presentation/layout/PageRoot";
 import { Button } from "@/presentation/ui/button";
 import { Checkbox } from "@/presentation/ui/checkbox";
@@ -50,8 +50,8 @@ export default function CatalogPage() {
 
   return (
     <PageRoot>
-      <div className="flex flex-1 w-full h-full pt-6 px-1 flex-col">
-        <div className="md:ml-24 mt-6 mb-8 md:mb-14 px-4 md:px-0">
+      <div className="flex flex-col pt-6 w-full px-1 h-screen">
+        <div className="md:ml-24 mt-6 mb-8 md:mb-14 px-4 md:px-0 ">
           <h1 className="text-3xl md:text-4xl font-semibold tracking-wide">
             Catálogo
           </h1>
@@ -125,7 +125,7 @@ export default function CatalogPage() {
         </div>
 
         <div className="w-full items-start justify-center flex flex-1 gap-5 pb-12 max-sm:flex-col px-4 md:px-0">
-          <div className="hidden md:flex h-full w-[20%] border border-foreground rounded-md flex-col gap-4 p-4 sticky top-24">
+          <div className="hidden md:flex pb-20 w-[20%] border border-foreground rounded-md flex-col gap-4 p-4 sticky top-24">
             <div className="flex justify-between items-center">
               <h2 className="text-xl font-semibold">Filtros</h2>
               {selectedCategories.length > 0 ? (
@@ -186,7 +186,7 @@ export default function CatalogPage() {
           </div>
 
           <div className="w-full md:w-[70%] h-full flex flex-col gap-8">
-            <div className="w-full md:ml-9">
+            <div className="w-full md:ml-9 shrink-0">
               <h2 className="text-2xl md:text-3xl font-semibold">
                 {selectedCategories.length > 0
                   ? `Filtros Ativos (${filteredCourses.length})`
@@ -194,7 +194,7 @@ export default function CatalogPage() {
               </h2>
             </div>
 
-            <div className="flex flex-col gap-6">
+            <div className="flex flex-col flex-1 gap-6 overflow-y-auto pr-2">
               {isLoadingCourses ? (
                 Array.from({ length: 6 }).map((_, index) => (
                   <CourseCatalogCardSkeleton key={index} />

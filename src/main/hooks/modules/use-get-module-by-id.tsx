@@ -3,7 +3,7 @@ import { Modules } from "@/types/types";
 import { QueryKeysEnum } from "@/utils/Enums";
 import { useQuery } from "@tanstack/react-query";
 
-export const useGetModuleById = (id: number) => {
+export const useGetModuleById = (id: string) => {
   return useQuery<Modules>({
     queryKey: [QueryKeysEnum.GET_MODULE_BY_ID, id],
     queryFn: () => moduleService.getModuleById(id),

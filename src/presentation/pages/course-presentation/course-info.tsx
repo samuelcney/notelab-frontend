@@ -3,6 +3,7 @@ import { useCurrentUser } from "@/main/hooks/auth/use-current-user";
 import { useAddItemCart } from "@/main/hooks/cart/use-add-item-cart";
 import { useGetUserCart } from "@/main/hooks/cart/use-get-user-cart";
 import { useGetItemAlreadyInCart } from "@/main/hooks/cart/use-item-alreadyIn-cart";
+import { useGetEnrollments } from "@/main/hooks/enrollments/use-get-enrollments";
 import { AlertBox } from "@/presentation/components/alert-dialog/AlertDialog";
 import { AvatarBallComponent } from "@/presentation/components/avatar-profile/AvatarBallComponent";
 
@@ -21,10 +22,14 @@ interface Props {
 
 export const CourseInfo = ({ isPending, instructor, data }: Props) => {
   const { push } = useRouter();
-
   const currentUser = useCurrentUser();
-
   if (!currentUser) return null;
+
+  const { data: enrollments } = useGetEnrollments(currentUser?.id ?? "");
+
+  const alreadyHasEnrollment = enrollments?.some(
+    (enrollment) => enrollment.courseId === data?.id
+  );
 
   const { data: cart } = useGetUserCart(currentUser?.id ?? "");
   const { mutateAsync: addItem, isPending: isLoading } = useAddItemCart();
@@ -66,26 +71,35 @@ export const CourseInfo = ({ isPending, instructor, data }: Props) => {
             </div>
 
             {!courseAlreadyInCart ? (
-              <AlertBox
-                title="Adicionar item ao carrinho"
-                description={`Você deseja adicionar o curso "${data.name}" ao seu carrinho?`}
-                cancelText="Cancelar"
-                actionText="Adicionar"
-                onAction={onSubmit}
-                loading={isLoading}
-              >
+              alreadyHasEnrollment ? (
                 <Button
-                  title="ADICIONAR AO CARRINHO"
                   className="w-full h-10 bg-green-500 text-white text-xl font-bold tracking-wide"
                   variant="default"
                   disabled={isLoading}
+                  onClick={() => push(pathNameEnum.MY_COURSES)}
                 >
-                  ADICIONAR AO CARRINHO
+                  VOCÊ JÁ POSSUI ESTE CURSO
                 </Button>
-              </AlertBox>
+              ) : (
+                <AlertBox
+                  title="Adicionar item ao carrinho"
+                  description={`Você deseja adicionar o curso "${data.name}" ao seu carrinho?`}
+                  cancelText="Cancelar"
+                  actionText="Adicionar"
+                  onAction={onSubmit}
+                  loading={isLoading}
+                >
+                  <Button
+                    className="w-full h-10 bg-green-500 text-white text-xl font-bold tracking-wide"
+                    variant="default"
+                    disabled={isLoading}
+                  >
+                    ADICIONAR AO CARRINHO
+                  </Button>
+                </AlertBox>
+              )
             ) : (
               <Button
-                title="ADICIONAR AO CARRINHO"
                 className="w-full h-10 bg-green-500 text-white text-xl font-bold tracking-wide"
                 variant="default"
                 disabled={isLoading}

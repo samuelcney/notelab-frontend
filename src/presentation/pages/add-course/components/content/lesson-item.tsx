@@ -4,7 +4,7 @@ import { useCourseStore } from "@/main/stores/course-store";
 import { Button } from "@/presentation/ui/button";
 import { Input } from "@/presentation/ui/input";
 import { lessonTypeEnum } from "@/utils/Enums";
-import { Clock, Trash2 } from "lucide-react";
+import { Trash2 } from "lucide-react";
 import { LessonContent } from "./lesson-content";
 import { LessonTypeSelector } from "./lesson-type-selector";
 
@@ -37,23 +37,6 @@ export function LessonItem({
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <div className="flex items-center text-foreground text-lg">
-            <Clock className="h-3 w-3 mr-1" />
-            <Input
-              type="number"
-              value={lesson.duration ?? 0}
-              onChange={(e) => {
-                const raw = e.target.value;
-                const parsed = raw === "" ? 0 : Number(raw);
-                updateLesson(moduleId, lesson.id, "duration", parsed);
-              }}
-              min={0}
-              max={300}
-              placeholder="00"
-              className="w-16 h-6 text-xs"
-              onClick={(e) => e.stopPropagation()}
-            />
-          </div>
           <Button
             variant="ghost"
             size="icon"
@@ -71,7 +54,7 @@ export function LessonItem({
 
       <div className="p-3 border-t">
         <div className="space-y-3">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
             <div>
               <label className="text-sm font-medium text-foreground">
                 Título da Aula
@@ -91,6 +74,25 @@ export function LessonItem({
                 updateLesson(moduleId, lesson.id, "type", value)
               }
             />
+            <div>
+              <label className="text-sm font-medium text-foreground">
+                Duração da aula
+              </label>
+
+              <Input
+                type="number"
+                value={lesson.duration ?? ""}
+                onChange={(e) => {
+                  const raw = e.target.value;
+                  const parsed = raw === "" ? 0 : Number(raw);
+                  updateLesson(moduleId, lesson.id, "duration", parsed);
+                }}
+                max={300}
+                placeholder="00"
+                className=""
+                onClick={(e) => e.stopPropagation()}
+              />
+            </div>
           </div>
 
           <LessonContent lesson={lesson} moduleId={moduleId} />
