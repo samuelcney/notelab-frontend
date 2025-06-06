@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 
 import { useCurrentUser } from "@/main/hooks/auth/use-current-user";
 import { useCreateCourse } from "@/main/hooks/courses/use-create-course";
-import { api } from "@/main/http/axios/axios-instance";
+import { http } from "@/main/http/axios/axios-instance";
 import { courseSchema } from "@/main/schemas/course.schema";
 import { notify } from "@/presentation/components/toast/Toast";
 import { Button } from "@/presentation/ui/button";
@@ -59,7 +59,7 @@ export function AddCourseForm() {
       const createdCourse = await createCourse(coursePayload);
 
       if (coverImage && coverImage instanceof File) {
-        await api.post(
+        await http.post(
           `/courses/${createdCourse.id}/cover`,
           buildImageFormData(coverImage),
           {

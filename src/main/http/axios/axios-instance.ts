@@ -22,4 +22,4 @@ axiosInstance.interceptors.request.use(
   }
 );
 
-export { axiosInstance as api };
+export { axiosInstance as http };

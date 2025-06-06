@@ -1,4 +1,4 @@
-import { api } from "@/main/http/axios/axios-instance";
+import { http } from "@/main/http/axios/axios-instance";
 
 export const enrollmentService = {
   createEnrollment: async ({
@@ -8,7 +8,7 @@ export const enrollmentService = {
     courseId: string[] | string;
     userId: string;
   }) => {
-    const { data } = await api.post(`/enrollment`, {
+    const { data } = await http.post(`/enrollment`, {
       courseId,
       userId,
     });
@@ -17,7 +17,7 @@ export const enrollmentService = {
   },
 
   getEnrollments: async (id: string) => {
-    const { data } = await api.get(`/enrollment/user/${id}`);
+    const { data } = await http.get(`/enrollment/user/${id}`);
 
     return data;
   },

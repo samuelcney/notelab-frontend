@@ -15,6 +15,7 @@ import {
 import { Input } from "@/presentation/ui/input";
 import { Separator } from "@/presentation/ui/separator";
 import { Textarea } from "@/presentation/ui/textarea";
+import { cpf } from "cpf-cnpj-validator";
 
 import {
   Select,
@@ -24,10 +25,11 @@ import {
   SelectValue,
 } from "@/presentation/ui/select";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CheckCircle, Music } from "lucide-react";
+import { CheckCircle, Music, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Label } from "presentation/ui/label";
 
+import { useSendInstructorRequest } from "@/main/hooks/requests/use-send-request";
 import { instructorRequestSchema } from "@/main/schemas/send-request.schema";
 import { pathNameEnum } from "@/utils/Enums";
 import { useState } from "react";
@@ -39,31 +41,44 @@ type FormData = z.infer<typeof instructorRequestSchema>;
 export default function SendInstructorRequestPage() {
   const router = useRouter();
   const [showSuccess, setShowSuccess] = useState(false);
+  const [documents, setDocuments] = useState<File | null>(null);
+  const { mutateAsync, isPending } = useSendInstructorRequest();
 
   const {
     register,
     handleSubmit,
     setValue,
+    getValues,
+    reset,
     formState: { errors, isSubmitting },
   } = useForm<FormData>({
     resolver: zodResolver(instructorRequestSchema),
   });
 
   const onSubmit = async (data: FormData) => {
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      setShowSuccess(true);
-      notify("Solicitação enviada com sucesso!", "success");
-    } catch (error) {
-      console.error(error);
+    const cpfValue = getValues("cpf");
+    const isValidCPF = cpf.isValid(cpfValue.replace(/\D/g, ""));
+    if (!isValidCPF) {
+      notify("CPF inválido", "error");
+      return;
     }
+
+    if (!documents) {
+      notify("Por favor, envie um arquivo de documento.", "error");
+      return;
+    }
+
+    await mutateAsync(data);
+    reset();
+    setDocuments(null);
+    setShowSuccess(true);
   };
 
   return (
     <PageRoot>
       <div className="flex flex-1 w-full h-full pt-6 px-1 flex-col">
         <div className="">
-          {showSuccess ? (
+          {isPending ? (
             <Alert className="bg-green-50 border-green-200 max-w-3xl mx-auto">
               <CheckCircle className="h-5 w-5 text-green-600" />
               <AlertTitle className="text-green-800">
@@ -109,6 +124,17 @@ export default function SendInstructorRequestPage() {
                       <Input
                         {...register("cpf")}
                         placeholder="000.000.000-00"
+                        onInput={(e) => {
+                          const value = e.currentTarget.value.replace(
+                            /\D/g,
+                            ""
+                          );
+                          e.currentTarget.value = value
+                            .replace(/(\d{3})(\d)/, "$1.$2")
+                            .replace(/(\d{3})(\d)/, "$1.$2")
+                            .replace(/(\d{3})(\d{2})/, "$1-$2");
+                        }}
+                        maxLength={14}
                       />
                       {errors.cpf && (
                         <p className="text-red-500 text-sm">
@@ -144,7 +170,7 @@ export default function SendInstructorRequestPage() {
                     </div>
                   </div>
 
-                  <Separator />
+                  <Separator className="bg-foreground" />
 
                   <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <div className="space-y-2">
@@ -238,7 +264,7 @@ export default function SendInstructorRequestPage() {
                     )}
                   </div>
 
-                  <Separator />
+                  <Separator className="bg-foreground" />
 
                   <div className="space-y-2">
                     <Label>Documentos</Label>
@@ -246,9 +272,9 @@ export default function SendInstructorRequestPage() {
                       type="file"
                       accept=".pdf,.jpg,.jpeg,.png"
                       onChange={(e) => {
-                        if (e.target.files?.[0]) {
-                          setValue("documents", e.target.files[0]);
-                        }
+                        const file = e.target.files?.[0] ?? null;
+                        setDocuments(file);
+                        setValue("documents", file!);
                       }}
                     />
                     {errors.documents && (
@@ -257,6 +283,25 @@ export default function SendInstructorRequestPage() {
                       </p>
                     )}
                   </div>
+                  {documents && (
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm text-gray-500">
+                        - {documents.name} ({(documents.size / 1024).toFixed(2)}{" "}
+                        KB)
+                      </span>
+                      <Button
+                        type="button"
+                        variant={"ghost"}
+                        size="icon"
+                        onClick={() => {
+                          setDocuments(null);
+                          setValue("documents", undefined);
+                        }}
+                      >
+                        <X className="text-red-600" />
+                      </Button>
+                    </div>
+                  )}
                 </CardContent>
 
                 <CardFooter className="flex justify-between">

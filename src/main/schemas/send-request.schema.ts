@@ -41,5 +41,6 @@ export const instructorRequestSchema = z.object({
       (file) =>
         ["application/pdf", "image/jpeg", "image/png"].includes(file.type),
       { message: "Formato de arquivo inválido." }
-    ),
+    )
+    .optional(),
 });

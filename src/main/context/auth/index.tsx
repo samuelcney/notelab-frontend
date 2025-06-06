@@ -17,6 +17,7 @@ interface AuthContextProps {
   user: UserType | null;
   token: string | null;
   login: (token: string, user: UserType) => void;
+  refreshToken: (token: string) => void;
   logout: () => void;
   signed: boolean;
   updateUser: (user: Partial<UserType>) => void;
@@ -35,6 +36,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     Cookies.set("user", JSON.stringify(newUser), { expires: 1 });
     setToken(newToken);
     setUser(newUser);
+  };
+
+  const refreshToken = (newToken: string) => {
+    Cookies.set("token", newToken, { expires: 1 });
+    setToken(newToken);
   };
 
   const logout = () => {
@@ -90,6 +96,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         logout,
         signed: !!user,
         updateUser,
+        refreshToken,
       }}
     >
       {children}

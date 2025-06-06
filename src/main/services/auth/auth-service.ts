@@ -1,23 +1,31 @@
 import { CreateUserDTO, LoginDTO } from "@/types/types";
-import { api } from "../../http/axios/axios-instance";
+import { http } from "../../http/axios/axios-instance";
 
 export const authService = {
   signIn: async (userData: LoginDTO) => {
-    const { data } = await api.post("/auth/login", userData);
+    const { data } = await http.post("/auth/login", userData);
     return data;
   },
 
   signUp: async (userData: CreateUserDTO) => {
-    const { data } = await api.post("/auth/register", userData);
+    const { data } = await http.post("/auth/register", userData);
+    return data;
+  },
+
+  changePassword: async (currentPassword: string, newPassword: string) => {
+    const { data } = await http.post("/auth/change-password", {
+      currentPassword,
+      newPassword,
+    });
     return data;
   },
 
   requestPasswordReset: async (email: string) => {
-    const { data } = await api.post("/auth/recover-password", { email });
+    const { data } = await http.post("/auth/recover-password", { email });
     return data;
   },
 
   logout: async () => {
-    return await api.post("/auth/logout");
+    return await http.post("/auth/logout");
   },
 };

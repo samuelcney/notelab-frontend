@@ -1,7 +1,7 @@
 "use client";
 
 import { PageRoot } from "@/presentation/layout/PageRoot";
-import { Button } from "@/presentation/ui/button";
+import { ChangePasswordTab } from "@/presentation/pages/configuration/change-password.tab";
 import {
   Card,
   CardContent,
@@ -9,8 +9,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/presentation/ui/card";
-import { Input } from "@/presentation/ui/input";
-import { Label } from "@/presentation/ui/label";
 
 import {
   Tabs,
@@ -18,14 +16,9 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/presentation/ui/tabs";
-import { Lock, Settings2 } from "lucide-react";
-import { useState } from "react";
+import { Lock } from "lucide-react";
 
 export default function ConfigPage() {
-  const [name, setName] = useState("João Silva");
-  const [email, setEmail] = useState("joao.silva@exemplo.com");
-  const [language, setLanguage] = useState("pt-BR");
-
   return (
     <PageRoot>
       <div className="flex flex-1 w-full h-full pt-6 px-1 flex-col">
@@ -39,12 +32,8 @@ export default function ConfigPage() {
         </div>
 
         <div className="px-24 pb-16">
-          <Tabs defaultValue="perfil" className="w-full">
+          <Tabs defaultValue="perfil" className="w-full" value="safety">
             <TabsList className="grid grid-cols-5 w-full max-w-3xl mb-8">
-              <TabsTrigger value="perfil" className="flex items-center gap-2">
-                <Settings2 className="h-4 w-4" />
-                <span>Geral</span>
-              </TabsTrigger>
               <TabsTrigger value="safety" className="flex items-center gap-2">
                 <Lock className="h-4 w-4" />
                 <span>Segurança</span>
@@ -61,30 +50,7 @@ export default function ConfigPage() {
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-6">
-                    <div className="space-y-4">
-                      <h3 className="text-sm font-medium text-foreground">
-                        Alterar senha:
-                      </h3>
-                      <div className="grid gap-4">
-                        <div className="space-y-2">
-                          <Label htmlFor="current-password">Senha atual</Label>
-                          <Input id="current-password" type="password" />
-                        </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="new-password">Nova senha</Label>
-                          <Input id="new-password" type="password" />
-                        </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="confirm-password">
-                            Confirmar nova senha
-                          </Label>
-                          <Input id="confirm-password" type="password" />
-                        </div>
-                        <Button className="w-fit bg-foreground text-background">
-                          Atualizar senha
-                        </Button>
-                      </div>
-                    </div>
+                    <ChangePasswordTab />
                   </CardContent>
                 </Card>
               </div>

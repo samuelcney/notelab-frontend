@@ -1,8 +1,8 @@
-import { api } from "../../http/axios/axios-instance";
+import { http } from "../../http/axios/axios-instance";
 
 export const categoryService = {
   getAllCategories: async () => {
-    const { data } = await api.get("/categories");
+    const { data } = await http.get("/categories");
     return data;
   },
 };
