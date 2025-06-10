@@ -153,6 +153,24 @@ export const Sidebar = () => {
             )}
 
             <SidebarItem
+              isActive={pathname === path.STUDY_GUIDE}
+              title="Guia de Estudos"
+              isOpen={isOpen}
+              icon={
+                <Icon
+                  name="Book"
+                  strokeWidth={strokeW}
+                  size={size}
+                  className="text-greenApp"
+                />
+              }
+              onclick={() => {
+                navigation.replace(path.STUDY_GUIDE);
+                closeSideBar();
+              }}
+            />
+
+            <SidebarItem
               isActive={pathname === path.CONFIGURATION}
               title="Configurações"
               isOpen={isOpen}
@@ -171,7 +189,6 @@ export const Sidebar = () => {
             />
           </div>
           <div className="flex items-center w-full justify-center pr-5">
-            {/* <Music className="h-6 w-6 text-green-500" /> */}
             <Image
               src={"/images/logo.png"}
               alt="Notelab Logo"

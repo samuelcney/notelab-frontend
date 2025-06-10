@@ -12,6 +12,7 @@ interface CourseCardProps {
   courseName: string;
   price?: number;
   difficulty: string;
+  description?: string;
   instructorName: string;
   coverImage?: string;
   categories: Category[];
@@ -26,6 +27,7 @@ export const CourseCard = ({
   instructorName,
   categories,
   coverImage,
+  description,
   isPresentation = false,
 }: CourseCardProps) => {
   const navigation = useRouter();
@@ -63,6 +65,12 @@ export const CourseCard = ({
               <Badge.Category key={item.id} categoryName={item.name} />
             ))}
           </div>
+
+          {description && (
+            <p className="text-sm text-foreground line-clamp-3 mt-4">
+              - {description}
+            </p>
+          )}
         </div>
       </CardContent>
     </Card>

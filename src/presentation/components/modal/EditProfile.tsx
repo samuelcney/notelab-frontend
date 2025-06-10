@@ -86,9 +86,9 @@ export const EditProfileModal = ({ user }: Props) => {
         <span className="w-full h-[1px] bg-light-gray mb-2" />
 
         <div className="w-full flex items-center justify-center">
-          <div className="w-44 h-44 rounded-full overflow-hidden border-4 border-white shadow-lg">
+          <div className="w-44 h-44 rounded-full overflow-hidden border-4 border-white shadow-lg bg-green-600">
             <img
-              src={avatarUrl}
+              src={avatarUrl || "/images/default-avatar.png"}
               alt="avatar"
               className="w-full h-full object-cover"
             />

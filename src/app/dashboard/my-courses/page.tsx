@@ -113,6 +113,7 @@ export default function MyCoursesPage() {
                     instructorName={user?.name || ""}
                     id={c.id}
                     coverImage={c.coverImage || ""}
+                    description={c.description || ""}
                   />
                 </div>
               ))

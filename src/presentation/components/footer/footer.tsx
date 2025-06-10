@@ -1,11 +1,9 @@
-import { useGetCategories } from "@/main/hooks";
 import { Button } from "@/presentation/ui/button";
-import { Input } from "@/presentation/ui/input";
 import { Facebook, Instagram, Twitter, Youtube } from "lucide-react";
 import { Logo } from "../Logo";
 
 export function Footer() {
-  const { data: categories } = useGetCategories();
+  // const { data: categories } = useGetCategories();
   return (
     <footer className="bg-black border-t border-gray-800 py-12 px-6 md:px-12">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
@@ -47,7 +45,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div>
+        {/* <div>
           <h3 className="font-bold text-white mb-4">Cursos</h3>
           <ul className="space-y-2">
             {categories?.map((item) => (
@@ -61,9 +59,9 @@ export function Footer() {
               </li>
             ))}
           </ul>
-        </div>
+        </div> */}
 
-        <div>
+        {/* <div>
           <h3 className="font-bold text-white mb-4">Links Úteis</h3>
           <ul className="space-y-2">
             {["Sobre Nós", "Contato", "FAQ"].map((item) => (
@@ -77,9 +75,9 @@ export function Footer() {
               </li>
             ))}
           </ul>
-        </div>
+        </div> */}
 
-        <div>
+        {/* <div>
           <h3 className="font-bold text-white mb-4">Newsletter</h3>
           <p className="text-gray-400 mb-4">
             Receba novidades e dicas exclusivas
@@ -93,7 +91,7 @@ export function Footer() {
               Inscrever-se
             </Button>
           </div>
-        </div>
+        </div> */}
       </div>
 
       <div className="max-w-7xl mx-auto mt-12 pt-6 border-t border-gray-800 text-center text-gray-500 text-sm">

@@ -9,6 +9,7 @@ import { AvatarBallComponent } from "@/presentation/components/avatar-profile/Av
 
 import { CourseContentSkeleton } from "@/presentation/components/course-details/CourseContentSkeleton";
 import { Button } from "@/presentation/ui/button";
+import { Separator } from "@/presentation/ui/separator";
 import { CourseProps, UserType } from "@/types/types";
 import { pathNameEnum } from "@/utils/Enums";
 import { getInitials } from "@/utils/Functions";
@@ -51,7 +52,7 @@ export const CourseInfo = ({ isPending, instructor, data }: Props) => {
   return (
     <>
       <div className="flex mt-8 w-full justify-center px-8">
-        <div className="flex w-full justify-between gap-20 overflow-hidden">
+        <div className="flex w-full justify-between gap-16 overflow-hidden">
           <div className="flex flex-col gap-2">
             <h1 className="text-lg font-semibold">Instrutor:</h1>
             <AvatarBallComponent
@@ -62,6 +63,8 @@ export const CourseInfo = ({ isPending, instructor, data }: Props) => {
             <p className="text-sm">{data?.instructor?.name}</p>
             <p className="text-sm">{data?.instructor?.email}</p>
           </div>
+
+          <Separator className="w-[1px] h-full bg-foreground" />
 
           <div className="flex flex-col gap-6 flex-1 overflow-hidden">
             <div className=" flex flex-col gap-2 break-words ">

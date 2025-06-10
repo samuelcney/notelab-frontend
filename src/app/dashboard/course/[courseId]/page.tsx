@@ -9,6 +9,7 @@ import { Badge } from "@/presentation/components/badges/Badge";
 import { AccordionChapter } from "@/presentation/components/chapters/AccordionChapter";
 import { ChapterAccordionSkeleton } from "@/presentation/components/chapters/ChapterAccordionSkeleton";
 import { PageRoot } from "@/presentation/layout/PageRoot";
+import { Separator } from "@/presentation/ui/separator";
 import { Skeleton } from "@/presentation/ui/skeleton";
 import type { UserType } from "@/types/types";
 import { pathNameEnum } from "@/utils/Enums";
@@ -179,17 +180,17 @@ export default function CoursePage() {
 
                 <div className="w-full bg-dark-gray p-4">
                   <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-4 text-white">
                       <button
                         onClick={navigateToPreviousLesson}
-                        className="p-2 hover:bg-gray-600 rounded-full transition-colors"
+                        className="p-2 hover:bg-green-800 rounded-full transition-colors"
                         title="Aula anterior"
                       >
                         <ArrowLeft className="w-5 h-5" />
                       </button>
                       <button
                         onClick={navigateToNextLesson}
-                        className="p-2 hover:bg-gray-600 rounded-full transition-colors"
+                        className="p-2 hover:bg-green-800 rounded-full transition-colors"
                         title="Próxima aula"
                       >
                         <ArrowRight className="w-5 h-5" />
@@ -199,7 +200,7 @@ export default function CoursePage() {
                     <div className="flex items-center gap-2">
                       <button
                         onClick={() => setShowDescription(!showDescription)}
-                        className="flex items-center gap-1 text-sm hover:bg-gray-600 px-3 py-1 rounded transition-colors"
+                        className="flex items-center gap-1 text-sm hover:bg-green-800 px-3 py-1 rounded transition-colors text-white"
                       >
                         <Info className="w-4 h-4" />
                         {showDescription
@@ -214,7 +215,7 @@ export default function CoursePage() {
                     </div>
                   </div>
 
-                  <h2 className="text-xl font-semibold mt-2">
+                  <h2 className="text-xl font-semibold mt-3 ml-2 text-white">
                     {currentLesson.title}
                   </h2>
                 </div>
@@ -263,6 +264,8 @@ export default function CoursePage() {
                       <p className="text-sm">{instructor?.userBio.phone}</p>
                     )}
                   </div>
+
+                  <Separator className="w-[1px] h-full bg-foreground" />
 
                   <div className="flex flex-col gap-6 flex-1 overflow-hidden">
                     <div className="flex flex-col gap-2 break-words">

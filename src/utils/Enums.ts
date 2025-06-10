@@ -6,6 +6,7 @@ export enum pathNameEnum {
   PROFILE = "/dashboard/profile",
   MY_COURSES = "/dashboard/my-courses",
   SEND_REQUEST = "/dashboard/send-request",
+  STUDY_GUIDE = "/dashboard/study-guide",
 }
 
 export enum adminPathNameEnum {

@@ -54,7 +54,7 @@ export function AccordionChapter({
 
       <Accordion
         type="multiple"
-        className="w-full"
+        className="w-full no-underline"
         defaultValue={currentModuleId ? [currentModuleId] : []}
       >
         {chapterList.map((module) => (
@@ -63,10 +63,10 @@ export function AccordionChapter({
             value={module.id.toString()}
             className="border-b"
           >
-            <AccordionTrigger className="px-4 py-3  transition-colors">
+            <AccordionTrigger className="px-4 py-3 transition-colors bg-green-600">
               <div className="flex items-center gap-2 text-left">
-                <span className="font-medium">{module.name}</span>
-                <span className="text-xs text-gray-500">
+                <span className="font-medium text-white">{module.name}</span>
+                <span className="text-xs text-gray-300">
                   ({module.lessons.length} aulas)
                 </span>
               </div>
@@ -82,9 +82,9 @@ export function AccordionChapter({
                         lesson.id.toString()
                       )
                     }
-                    className={`flex items-center gap-3 p-3 text-left hover: transition-colors ${
+                    className={`flex items-center gap-3 p-3 text-left hover: transition-colors hover:bg-gray-300 ${
                       currentLessonId === lesson.id.toString()
-                        ? " border-l-4 border-green-500"
+                        ? "border-l-4 border-green-500"
                         : ""
                     }`}
                   >
