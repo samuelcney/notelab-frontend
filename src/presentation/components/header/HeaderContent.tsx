@@ -8,7 +8,6 @@ import { useCurrentUser } from "@/main/hooks/auth/use-current-user";
 import { useGetCartItemCount } from "@/main/hooks/cart/use-get-item-count";
 import { pathNameEnum } from "@/utils/Enums";
 import { useRouter } from "next/navigation";
-import { NotificationDropDown } from "../notifications/NotificationDropdown";
 import { HeaderTextItem } from "./HeaderTextItem";
 
 export const HeaderContent = ({
@@ -33,13 +32,6 @@ export const HeaderContent = ({
       {haveSearchBar && <SearchInput />}
 
       <div className="flex h-full items-center gap-7 pr-2">
-        {user?.role !== "INSTRUCTOR" && (
-          <HeaderTextItem
-            text="Ensine na NoteLab.io"
-            onclick={() => navigation.replace(pathNameEnum.SEND_REQUEST)}
-          />
-        )}
-
         <HeaderTextItem
           text="Meus cursos"
           onclick={() => navigation.replace(pathNameEnum.MY_COURSES)}
@@ -62,8 +54,6 @@ export const HeaderContent = ({
             onClick={() => navigation.replace(pathNameEnum.CART)}
           />
         </div>
-
-        <NotificationDropDown />
 
         <AvatarDropDown />
       </div>

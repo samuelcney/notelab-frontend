@@ -17,11 +17,6 @@ export const CarouselContainer = () => {
       transform: (list: CourseProps[]) => [...list].reverse(),
       isFreeCourses: true,
     },
-    {
-      title: "Cursos gratuitos para você aproveitar!",
-      transform: (list: CourseProps[]) => list,
-      isFreeCourses: true,
-    },
   ];
 
   return (

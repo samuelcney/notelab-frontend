@@ -2,7 +2,7 @@
 
 import { useGetCourseById, useGetLessonsByModuleId } from "@/main/hooks";
 import { useCurrentUser } from "@/main/hooks/auth/use-current-user";
-import { useGetEnrollments } from "@/main/hooks/enrollments/use-get-enrollments";
+import { useGetEnrollmentsByUserId } from "@/main/hooks/enrollments/use-get-enrollments";
 import { useGetUserById } from "@/main/hooks/users/use-get-user-by-id";
 import { AvatarBallComponent } from "@/presentation/components/avatar-profile/AvatarBallComponent";
 import { Badge } from "@/presentation/components/badges/Badge";
@@ -34,7 +34,7 @@ export default function CoursePage() {
 
   const { data, isPending } = useGetCourseById(String(courseId));
   const { data: instructor } = useGetUserById(data?.instructorId ?? "");
-  const { data: enrollments } = useGetEnrollments(user?.id ?? "");
+  const { data: enrollments } = useGetEnrollmentsByUserId(user?.id ?? "");
 
   const [currentModuleId, setCurrentModuleId] = useState<string | null>("");
   const [currentLessonId, setCurrentLessonId] = useState<string | null>("");

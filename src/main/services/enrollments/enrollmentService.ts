@@ -16,7 +16,15 @@ export const enrollmentService = {
     return data;
   },
 
-  getEnrollments: async (id: string) => {
+  getCountEnrollments: async (id: string) => {
+    const { data } = await http.get(
+      `/enrollment/instructor/${id}/enrollment-count`
+    );
+
+    return data;
+  },
+
+  getEnrollmentsByUserId: async (id: string) => {
     const { data } = await http.get(`/enrollment/user/${id}`);
 
     return data;

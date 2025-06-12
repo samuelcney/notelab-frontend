@@ -14,7 +14,7 @@ export interface UserType {
   email: string;
   name: string;
   role: string;
-  isActiveUser: boolean;
+  isActive: boolean;
   createdAt: string;
   updatedAt: string;
   userBio: UserInfo;

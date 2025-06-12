@@ -36,22 +36,23 @@ export const CourseCard = ({
 
   return (
     <Card
-      className="border border-light-gray w-full rounded-lg cursor-pointer flex-col overflow-hidden flex aspect-[5/7]"
+      className="border border-light-gray w-full rounded-lg cursor-pointer flex-col overflow-hidden flex aspect-[7/9] sm:aspect-[6/8] md:aspect-[5/7]"
       onClick={() => navigation.push(`course/${id}`)}
       key={id}
     >
-      <div className="w-full relative overflow-hidden h-[60%]">
+      <div className="w-full relative overflow-hidden flex-[0.5]">
         <Badge.Level level={difficulty} isFromCard />
         <img
           src={coverImage ? coverImage : randomImagePath}
-          alt={`Banner - ${courseName}`}
-          width={1000}
+          alt={`Capa do curso ${courseName}`}
+          width={200}
           height={200}
+          loading="lazy"
           className="object-cover w-full h-full transition-transform duration-300 hover:scale-105"
         />
       </div>
 
-      <CardContent className="pt-4">
+      <CardContent className="pt-4 flex-[0.5] flex flex-col justify-between">
         <div className="w-full flex flex-col justify-around flex-1 p-1">
           <div className="flex flex-col">
             <p className="text-lg font-semibold line-clamp-2 min-h-[3rem] text-foreground">

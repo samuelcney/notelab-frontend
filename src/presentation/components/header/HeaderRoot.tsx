@@ -19,7 +19,7 @@ export const HeaderRoot = ({ children }: HeaderRootProps) => {
       <button>
         <Icon
           name="Menu"
-          className="text-white cursor-pointer ml-6"
+          className="text-white cursor-pointer "
           strokeWidth={1}
           size={32}
           onClick={(event) => {

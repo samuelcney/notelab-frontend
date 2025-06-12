@@ -3,7 +3,7 @@ import { useCurrentUser } from "@/main/hooks/auth/use-current-user";
 import { useAddItemCart } from "@/main/hooks/cart/use-add-item-cart";
 import { useGetUserCart } from "@/main/hooks/cart/use-get-user-cart";
 import { useGetItemAlreadyInCart } from "@/main/hooks/cart/use-item-alreadyIn-cart";
-import { useGetEnrollments } from "@/main/hooks/enrollments/use-get-enrollments";
+import { useGetEnrollmentsByUserId } from "@/main/hooks/enrollments/use-get-enrollments";
 import { AlertBox } from "@/presentation/components/alert-dialog/AlertDialog";
 import { AvatarBallComponent } from "@/presentation/components/avatar-profile/AvatarBallComponent";
 
@@ -26,7 +26,9 @@ export const CourseInfo = ({ isPending, instructor, data }: Props) => {
   const currentUser = useCurrentUser();
   if (!currentUser) return null;
 
-  const { data: enrollments } = useGetEnrollments(currentUser?.id ?? "");
+  const { data: enrollments } = useGetEnrollmentsByUserId(
+    currentUser?.id ?? ""
+  );
 
   const alreadyHasEnrollment = enrollments?.some(
     (enrollment) => enrollment.courseId === data?.id

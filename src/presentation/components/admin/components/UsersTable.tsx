@@ -17,6 +17,7 @@ import { UserEditDropdown } from "./UserEditDropdown";
 
 export function UsersTable() {
   const { data: users, isPending } = useGetUsers();
+
   return (
     <Table className="mt-14">
       <TableHeader>
@@ -24,9 +25,9 @@ export function UsersTable() {
           <TableHead className="w-[80px]">Cargo</TableHead>
           <TableHead>Nome</TableHead>
           <TableHead>Email</TableHead>
-          <TableHead className="w-[70px] text-center">Ativo</TableHead>
-          <TableHead className="text-right">Data de Criação</TableHead>
-          <TableHead className="text-right">Data de Atualização</TableHead>
+          <TableHead className="w-[70px] text-center">Status</TableHead>
+          <TableHead className="text-right">Data de Cadastro</TableHead>
+          <TableHead className="text-right">Última Atualização</TableHead>
           <TableHead></TableHead>
         </TableRow>
       </TableHeader>
@@ -40,12 +41,12 @@ export function UsersTable() {
                 <TableCell>{user.name}</TableCell>
                 <TableCell>{user.email}</TableCell>
                 <TableCell>
-                  <Badge.Status status={user.isActiveUser} />
+                  <Badge.Status status={user.isActive} />
                 </TableCell>
                 <TableCell className="text-right">{user.createdAt}</TableCell>
                 <TableCell className="text-right">{user.updatedAt}</TableCell>
                 <TableCell className="w-full flex justify-center items-center">
-                  <UserEditDropdown />
+                  <UserEditDropdown {...user} />
                 </TableCell>
               </TableRow>
             ))
@@ -70,7 +71,7 @@ export function UsersTable() {
             ))}
       </TableBody>
       <TableFooter>
-        <TableRow className="h-12">
+        <TableRow className="h-12 bg-gray-400 hover:bg-gray-400/90">
           <TableCell colSpan={7} className="text-right">
             Total de Usuários: {users?.length}
           </TableCell>
