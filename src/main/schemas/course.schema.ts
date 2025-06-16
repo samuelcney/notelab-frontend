@@ -7,6 +7,7 @@ const lessonSchema = z.object({
   type: z.nativeEnum(lessonTypeEnum, {
     errorMap: () => ({ message: "Tipo de aula inválido." }),
   }),
+  description: z.string().optional(),
   videoUrl: z
     .string({
       required_error: "O campo de URL das aulas não pode estar vazio.",
@@ -24,12 +25,6 @@ const lessonSchema = z.object({
         message: "A URL do vídeo deve ser um link válido do YouTube ou Vimeo.",
       }
     ),
-  duration: z
-    .number({
-      required_error: "A duração é obrigatória.",
-      invalid_type_error: "A duração deve ser um número.",
-    })
-    .min(0, { message: "A duração deve ser maior ou igual a 0." }),
 });
 
 const moduleSchema = z
@@ -58,7 +53,6 @@ export const courseSchema = z.object({
     message: "Adicione pelo menos um módulo.",
   }),
   price: z.number().min(0, { message: "O preço deve ser maior ou igual a 0." }),
-  issueCertificate: z.boolean(),
   instructorId: z
     .string()
     .min(1, { message: "ID do instrutor é obrigatório." }),

@@ -34,7 +34,7 @@ export const CourseCard = ({
 
   return (
     <Card
-      className="border border-light-gray w-full rounded-lg cursor-pointer flex-col overflow-hidden flex aspect-[5/7]"
+      className="border border-light-gray w-full rounded-lg cursor-pointer flex-col overflow-hidden flex aspect-[7/9] sm:aspect-[6/8] md:aspect-[5/7]"
       onClick={
         isPresentation
           ? () => navigation.replace(`/dashboard/course/${id}/presentation`)
@@ -47,7 +47,7 @@ export const CourseCard = ({
         <img
           src={coverImage ? coverImage : randomImagePath}
           alt={`Banner - ${courseName}`}
-          width={1000}
+          width={200}
           height={200}
           loading="lazy"
           className="object-cover w-full h-full transition-transform duration-300 hover:scale-105"

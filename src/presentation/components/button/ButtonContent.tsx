@@ -23,7 +23,7 @@ export const ButtonContent = ({
       <button
         className={[
           `w-full bg-green-500 rounded-xl flex items-center justify-center font-bold text-lg tracking-wide transition-transform duration-300 hover:scale-[1.02] focus:ring-2 focus:ring-[--highlight] disabled:opacity-60 disabled:cursor-not-allowed ${
-            isSmallHeight ? "h-8" : "h-12"
+            isSmallHeight ? "h-8" : "h-12 max-sm:h-10"
           }`,
           className,
         ].join(" ")}

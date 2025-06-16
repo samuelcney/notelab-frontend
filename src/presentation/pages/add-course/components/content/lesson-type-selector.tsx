@@ -33,12 +33,6 @@ export function LessonTypeSelector({
         </SelectTrigger>
         <SelectContent>
           <SelectItem value={lessonTypeEnum.VIDEO_URL}>Vídeo (URL)</SelectItem>
-          <SelectItem
-            value={lessonTypeEnum.VIDEO}
-            className="hover:bg-gray-400"
-          >
-            Vídeo (Arquivo)
-          </SelectItem>
         </SelectContent>
       </Select>
     </div>

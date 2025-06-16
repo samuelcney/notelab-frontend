@@ -26,21 +26,20 @@ export function LessonItem({
   return (
     <div className="border rounded-md overflow-hidden border-foreground">
       <div
-        className="flex items-center justify-between p-3 bg-gray-500 cursor-pointer"
+        className="flex items-center justify-between p-3 bg-green-700 cursor-pointer"
         onClick={onToggleExpand}
       >
         <div className="flex items-center gap-2 flex-1">
-          <div className="font-medium ml-3">{lesson.title}</div>
+          <div className="font-medium ml-3 text-white">{lesson.title}</div>
           <div className="text-xs px-2 py-0.5 rounded-full bg-muted">
             {lesson.type === lessonTypeEnum.VIDEO_URL && "URL de Vídeo"}
-            {lesson.type === lessonTypeEnum.VIDEO && "Vídeo"}
           </div>
         </div>
         <div className="flex items-center gap-2">
           <Button
             variant="ghost"
             size="icon"
-            className="h-7 w-7 text-destructive"
+            className="h-7 w-7 text-destructive hover:bg-white rounded-full"
             onClick={(e) => {
               e.stopPropagation();
               removeLesson(moduleId, lesson.id);
@@ -54,7 +53,7 @@ export function LessonItem({
 
       <div className="p-3 border-t">
         <div className="space-y-3">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="text-sm font-medium text-foreground">
                 Título da Aula
@@ -74,25 +73,6 @@ export function LessonItem({
                 updateLesson(moduleId, lesson.id, "type", value)
               }
             />
-            <div>
-              <label className="text-sm font-medium text-foreground">
-                Duração da aula
-              </label>
-
-              <Input
-                type="number"
-                value={lesson.duration ?? ""}
-                onChange={(e) => {
-                  const raw = e.target.value;
-                  const parsed = raw === "" ? 0 : Number(raw);
-                  updateLesson(moduleId, lesson.id, "duration", parsed);
-                }}
-                max={300}
-                placeholder="00"
-                className=""
-                onClick={(e) => e.stopPropagation()}
-              />
-            </div>
           </div>
 
           <LessonContent lesson={lesson} moduleId={moduleId} />

@@ -11,9 +11,16 @@ import { ChapterAccordionSkeleton } from "@/presentation/components/chapters/Cha
 import { PageRoot } from "@/presentation/layout/PageRoot";
 import { Separator } from "@/presentation/ui/separator";
 import { Skeleton } from "@/presentation/ui/skeleton";
+import { Tabs, TabsList, TabsTrigger } from "@/presentation/ui/tabs";
 import type { UserType } from "@/types/types";
 import { pathNameEnum } from "@/utils/Enums";
-import { convertToEmbedUrl, getInitials } from "@/utils/Functions";
+import {
+  convertToEmbedUrl,
+  getEmailLink,
+  getInitials,
+  getWhatsappLink,
+} from "@/utils/Functions";
+import { TabsContent } from "@radix-ui/react-tabs";
 import {
   ArrowLeft,
   ArrowRight,
@@ -22,18 +29,23 @@ import {
   Info,
   Play,
 } from "lucide-react";
-import { useParams, useRouter, useSearchParams } from "next/navigation";
+import { useTheme } from "next-themes";
+import dynamic from "next/dynamic";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
+const MDEditor = dynamic(() => import("@uiw/react-md-editor"), { ssr: false });
+
 export default function CoursePage() {
+  const { resolvedTheme } = useTheme();
+  const currentTheme = resolvedTheme || "light";
   const { push } = useRouter();
   const { courseId } = useParams();
-  const searchParams = useSearchParams();
 
   const user = useCurrentUser();
 
-  const { data, isPending } = useGetCourseById(String(courseId));
-  const { data: instructor } = useGetUserById(data?.instructorId ?? "");
+  const { data: course, isPending } = useGetCourseById(String(courseId));
+  const { data: instructor } = useGetUserById(course?.instructorId ?? "");
   const { data: enrollments } = useGetEnrollmentsByUserId(user?.id ?? "");
 
   const [currentModuleId, setCurrentModuleId] = useState<string | null>("");
@@ -47,10 +59,13 @@ export default function CoursePage() {
     (lesson) => lesson.id.toString() === currentLessonId
   );
 
+  const phone = instructor?.userBio?.phone || "";
+  const email = instructor?.email || "";
+
   useEffect(() => {
-    if (!isPending && data?.modules && data.modules.length > 0) {
+    if (!isPending && course?.modules && course.modules.length > 0) {
       if (!currentModuleId) {
-        const firstModule = data.modules[0];
+        const firstModule = course.modules[0];
         setCurrentModuleId(firstModule.id.toString());
 
         if (
@@ -62,7 +77,7 @@ export default function CoursePage() {
         }
       }
     }
-  }, [isPending, data, currentModuleId, currentLessonId]);
+  }, [isPending, course, currentModuleId, currentLessonId]);
 
   useEffect(() => {
     if (enrollments && enrollments.length > 0) {
@@ -83,12 +98,12 @@ export default function CoursePage() {
     );
     if (currentIndex < currentModuleLessons.length - 1) {
       setCurrentLessonId(currentModuleLessons[currentIndex + 1].id.toString());
-    } else if (data?.modules) {
-      const currentModuleIndex = data.modules.findIndex(
+    } else if (course?.modules) {
+      const currentModuleIndex = course.modules.findIndex(
         (module) => module.id.toString() === currentModuleId
       );
-      if (currentModuleIndex < data.modules.length - 1) {
-        const nextModule = data.modules[currentModuleIndex + 1];
+      if (currentModuleIndex < course.modules.length - 1) {
+        const nextModule = course.modules[currentModuleIndex + 1];
         setCurrentModuleId(nextModule.id.toString());
         if (nextModule.lessons && nextModule.lessons.length > 0) {
           setCurrentLessonId(nextModule.lessons[0].id.toString());
@@ -105,12 +120,12 @@ export default function CoursePage() {
     );
     if (currentIndex > 0) {
       setCurrentLessonId(currentModuleLessons[currentIndex - 1].id.toString());
-    } else if (data?.modules && currentModuleId) {
-      const currentModuleIndex = data.modules.findIndex(
+    } else if (course?.modules && currentModuleId) {
+      const currentModuleIndex = course.modules.findIndex(
         (module) => module.id.toString() === currentModuleId
       );
       if (currentModuleIndex > 0) {
-        const prevModule = data.modules[currentModuleIndex - 1];
+        const prevModule = course.modules[currentModuleIndex - 1];
         setCurrentModuleId(prevModule.id.toString());
         if (prevModule.lessons && prevModule.lessons.length > 0) {
           setCurrentLessonId(
@@ -130,7 +145,7 @@ export default function CoursePage() {
     ? convertToEmbedUrl(currentLesson.videoUrl)
     : "";
 
-  if (!data && !isPending) {
+  if (!course && !isPending) {
     return (
       <div className="flex items-center justify-center w-full h-full flex-col gap-2">
         <h1 className="text-4xl font-bold text-greenApp">
@@ -152,7 +167,7 @@ export default function CoursePage() {
   return (
     <PageRoot isOverflowHidden>
       <div className="flex flex-1 w-full items-center h-full overflow-hidden">
-        <div className="flex w-[70%] flex-col overflow-y-auto h-full pb-5">
+        <div className="flex w-full lg:w-[70%] flex-col overflow-y-auto h-full pb-5">
           <div className="w-full relative bg-black">
             {!isPending && currentLesson ? (
               <>
@@ -165,6 +180,7 @@ export default function CoursePage() {
                       frameBorder="0"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
+                      loading="lazy"
                     ></iframe>
                   ) : (
                     <div className="w-full h-full flex items-center justify-center bg-gray-900">
@@ -225,54 +241,105 @@ export default function CoursePage() {
             )}
           </div>
 
+          <div className="flex items-center gap-4 p-2 min-h-[100px]">
+            <div className="flex flex-row gap-6 w-full justify-between">
+              <div className="flex flex-col gap-1">
+                <h1 className="font-semibold text-3xl leading-tight">
+                  {course?.name}
+                </h1>
+              </div>
+
+              <div className="flex flex-row h-6 gap-2 mt-2">
+                <div className="flex gap-2">
+                  {course?.categories.map((item) => (
+                    <Badge.Category key={item.id} categoryName={item.name} />
+                  ))}
+                </div>
+                <span className="w-[1px] h-full bg-foreground" />
+                <Badge.Level level={course?.difficulty ?? ""} />
+              </div>
+            </div>
+          </div>
           {showDescription && (
             <div className="p-3 w-full">
-              <div className="flex items-center gap-4 p-2 min-h-[100px]">
-                <div className="flex flex-row gap-6 w-full justify-between">
-                  <div className="flex flex-col gap-1">
-                    <h1 className="font-semibold text-3xl leading-tight">
-                      {data?.name}
-                    </h1>
-                  </div>
-
-                  <div className="flex flex-row h-6 gap-2 mt-2">
-                    <div className="flex gap-2">
-                      {data?.categories.map((item) => (
-                        <Badge.Category
-                          key={item.id}
-                          categoryName={item.name}
-                        />
-                      ))}
-                    </div>
-                    <span className="w-[1px] h-full bg-foreground" />
-                    <Badge.Level level={data?.difficulty ?? ""} />
-                  </div>
-                </div>
-              </div>
               <div className="flex mt-8 w-full justify-center px-8">
                 <div className="flex w-full justify-between gap-20 overflow-hidden">
                   <div className="flex flex-col gap-2">
                     <h1 className="text-lg font-semibold">Instrutor:</h1>
                     <AvatarBallComponent
-                      abbreviation={getInitials(data?.instructor?.name ?? "")}
+                      abbreviation={getInitials(course?.instructor?.name ?? "")}
                       isBigSize
                       user={instructor ?? ({} as UserType)}
                     />
                     <p className="text-sm">{instructor?.name}</p>
-                    <p className="text-sm">{instructor?.email}</p>
-                    {instructor?.userBio?.phone && (
-                      <p className="text-sm">{instructor?.userBio.phone}</p>
+                    {email && (
+                      <a
+                        href={getEmailLink(email)}
+                        className="text-sm text-blue-600 underline hover:text-blue-700"
+                      >
+                        {email}
+                      </a>
+                    )}
+                    {phone && (
+                      <a
+                        href={getWhatsappLink(
+                          phone,
+                          `Olá, ${instructor?.name}! Gostaria de tirar algumas dúvidas sobre as aulas do curso *${course?.name}*. Podemos conversar?`
+                        )}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-sm text-green-600 underline hover:text-green-700"
+                      >
+                        {phone}
+                      </a>
                     )}
                   </div>
 
                   <Separator className="w-[1px] h-full bg-foreground" />
 
-                  <div className="flex flex-col gap-6 flex-1 overflow-hidden">
-                    <div className="flex flex-col gap-2 break-words">
-                      <p className="flex-1 text-justify text-sm tracking-wide break-words">
-                        {data?.description}
-                      </p>
-                    </div>
+                  <div className="flex flex-col gap-6 flex-1 overflow-hidden ">
+                    <Tabs defaultValue="course-description" className="w-full">
+                      <TabsList className="mb-2">
+                        <TabsTrigger
+                          value="course-description"
+                          className="text-sm font-semibold"
+                        >
+                          Descrição do Curso
+                        </TabsTrigger>
+                        {currentLesson?.description && (
+                          <TabsTrigger
+                            value="lesson-description"
+                            className="text-sm font-semibold"
+                          >
+                            Descrição da Aula
+                          </TabsTrigger>
+                        )}
+                      </TabsList>
+
+                      <TabsContent value="course-description">
+                        <MDEditor
+                          value={course?.description ?? ""}
+                          preview="preview"
+                          hideToolbar
+                          className="w-full min-h-[650px] bg-background overflow-y-auto rounded-lg p-4"
+                          data-color-mode={
+                            currentTheme === "dark" ? "dark" : "light"
+                          }
+                        />
+                      </TabsContent>
+
+                      <TabsContent value="lesson-description">
+                        <MDEditor
+                          value={currentLesson?.description ?? ""}
+                          preview="preview"
+                          hideToolbar
+                          className="w-full min-h-[650px] bg-background overflow-y-auto rounded-lg p-4"
+                          data-color-mode={
+                            currentTheme === "dark" ? "dark" : "light"
+                          }
+                        />
+                      </TabsContent>
+                    </Tabs>
                   </div>
                 </div>
               </div>
@@ -282,12 +349,12 @@ export default function CoursePage() {
 
         <span className="h-full w-[1px] bg-light-gray" />
 
-        <div className="flex w-[30%] flex-col px-2 h-full">
+        <div className="hidden lg:flex w-[30%] flex-col px-2 h-full">
           {isPending ? (
             <ChapterAccordionSkeleton />
           ) : (
             <AccordionChapter
-              chapterList={data?.modules ?? []}
+              chapterList={course?.modules ?? []}
               courseId={String(courseId)}
               onLessonSelect={selectLesson}
               currentLessonId={currentLessonId}

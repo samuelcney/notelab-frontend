@@ -116,7 +116,7 @@ export default function InstructorDashboard() {
                   Cursos publicados por você:
                 </h1>
 
-                <div className="grid gap-6 w-full grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
+                <div className="grid gap-6 w-full grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5">
                   {filteredCourses && filteredCourses.length > 0 ? (
                     filteredCourses.map((c) => (
                       <div

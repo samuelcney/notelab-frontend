@@ -53,7 +53,7 @@ export const CarouselRoot = ({
               : courses.map((course) => (
                   <CarouselItem
                     key={course.id}
-                    className="flex-shrink-0 flex-grow-0 basis-full max-sm:basis-1/3 sm:basis-1/2 md:basis-1/3 lg:basis-1/3 xl:basis-1/5"
+                    className="flex-shrink-0 flex-grow-0 basis-full max-sm:basis-2/3 sm:basis-1/2 md:basis-1/3 lg:basis-1/3 xl:basis-1/5"
                   >
                     <CourseCard
                       id={course.id}

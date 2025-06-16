@@ -2,6 +2,7 @@ export type CreateUserDTO = {
   name: string;
   email: string;
   password: string;
+  role: string;
 };
 
 export type LoginDTO = {
@@ -73,7 +74,6 @@ export type CourseProps = {
   categories: Category[];
   isActiveCourse: boolean;
   coverImage?: string;
-  issueCertificate: boolean;
 };
 
 export type Instructor = {
@@ -99,7 +99,7 @@ export type Lessons = {
   id: number;
   title: string;
   videoUrl: string;
-  duration: string;
+  description: string;
 };
 
 export type Cart = {

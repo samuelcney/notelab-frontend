@@ -34,7 +34,7 @@ export const HeaderRoot = ({ children }: HeaderRootProps) => {
         onClick={() => push(pathNameEnum.HOME)}
         style={{ cursor: "pointer" }}
       >
-        <Logo />
+        <Logo isMobile />
       </div>
 
       {children}

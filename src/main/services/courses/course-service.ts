@@ -28,7 +28,6 @@ export const courseService = {
       modules: courseData.modules,
       typeCourse: courseData.typeCourse,
       price: courseData.price,
-      issueCertificate: courseData.issueCertificate,
     });
     return data;
   },

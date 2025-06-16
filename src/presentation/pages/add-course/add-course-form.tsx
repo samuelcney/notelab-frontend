@@ -30,15 +30,9 @@ export function AddCourseForm() {
   const user = useCurrentUser();
   if (!user) return null;
 
-  const handleSubmit = async (isDraft = false) => {
+  const handleSubmit = async () => {
     try {
       await new Promise((resolve) => setTimeout(resolve, 1500));
-
-      if (isDraft) {
-        console.log(course);
-        return;
-      }
-
       const result = courseSchema.safeParse({ ...course });
 
       if (!result.success) {
@@ -106,18 +100,7 @@ export function AddCourseForm() {
 
         <div className="flex items-center gap-2">
           <Button
-            onClick={() => handleSubmit(true)}
-            disabled={isPending}
-            variant="outline"
-            className="border-foreground"
-          >
-            {isPending ? (
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-            ) : null}
-            Salvar Rascunho
-          </Button>
-          <Button
-            onClick={() => handleSubmit(false)}
+            onClick={() => handleSubmit()}
             disabled={isPending}
             className="bg-green-500"
           >
@@ -129,7 +112,7 @@ export function AddCourseForm() {
         </div>
       </div>
 
-      <Separator className="mb-2" />
+      <Separator className="mb-2 bg-foreground" />
 
       <Tabs defaultValue="infos" className="w-full">
         <TabsList className="grid w-full grid-cols-3 justify-center items-center">

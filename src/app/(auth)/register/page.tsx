@@ -5,12 +5,14 @@ import { useRegister } from "@/main/hooks";
 import { registerSchema } from "@/main/schemas/register.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
 
 import Icon from "@/presentation/components/Icon";
 import { Button } from "@/presentation/components/button";
 import { Input } from "@/presentation/components/input";
+import { Label } from "@/presentation/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/presentation/ui/radio-group";
 import { useRouter } from "next/navigation";
 
 type RegisterData = z.infer<typeof registerSchema>;
@@ -24,13 +26,14 @@ export default function RegisterPage() {
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors },
   } = useForm<RegisterData>({
     resolver: zodResolver(registerSchema),
   });
 
   return (
-    <div className="w-[90%] h-[90%] flex flex-col justify-center items-center font-semibold">
+    <div className="w-full h-full flex flex-col justify-center items-center font-semibold">
       <AnimatePresence>
         <motion.div
           initial={{ x: "-100%", opacity: 0 }}
@@ -71,6 +74,7 @@ export default function RegisterPage() {
                 error={errors.email}
                 placeholder="Digite seu email"
               />
+
               <Input.Content
                 label="Senha"
                 type={hidePassword ? "password" : "text"}
@@ -97,13 +101,38 @@ export default function RegisterPage() {
                 error={errors.passwordConfirmation}
                 placeholder="Repita sua senha"
               />
+
+              <Controller
+                control={control}
+                name="role"
+                defaultValue="STUDENT"
+                render={({ field }) => (
+                  <RadioGroup
+                    value={field.value}
+                    onValueChange={field.onChange}
+                    className="w-full flex flex-row"
+                  >
+                    <Label className="text-sm font-semibold text-foreground mr-2">
+                      Você é:
+                    </Label>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="STUDENT" id="STUDENT" />
+                      <Label htmlFor="STUDENT">Estudante</Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="INSTRUCTOR" id="INSTRUCTOR" />
+                      <Label htmlFor="INSTRUCTOR">Professor</Label>
+                    </div>
+                  </RadioGroup>
+                )}
+              />
             </Input.Root>
 
             <Button.Root>
               <Button.Content title="Cadastrar" isLoading={loading} />
 
               <p
-                className="text-xs underline mr-1 mt-3 text-foreground font-normal tracking-widest cursor-pointer"
+                className="text-xs underline mr-1 mt-3 text-foreground font-normal tracking-widest cursor-pointer text-center"
                 onClick={() => replace("/login")}
               >
                 Já possui uma conta? Clique aqui para fazer o login!

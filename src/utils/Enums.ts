@@ -66,5 +66,4 @@ export enum courseLevelEnum {
 
 export enum lessonTypeEnum {
   VIDEO_URL = "VIDEO_URL",
-  VIDEO = "VIDEO",
 }

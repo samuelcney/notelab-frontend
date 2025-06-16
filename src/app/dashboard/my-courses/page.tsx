@@ -103,21 +103,18 @@ export default function MyCoursesPage() {
             </div>
           </div>
 
-          <div className="grid gap-6 w-full mt-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
+          <div className="grid gap-6 w-full mt-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5">
             {searchFilteredCourses.length > 0 ? (
               searchFilteredCourses.map((course) => (
-                <div key={course.id + course.instructorId}>
-                  <CourseCard
-                    key={course.id + course.instructorId}
-                    categories={course.categories}
-                    courseName={course.name}
-                    difficulty={course.difficulty}
-                    instructorName={user?.name || ""}
-                    id={course.id}
-                    coverImage={course.coverImage || ""}
-                    description={course.description || ""}
-                  />
-                </div>
+                <CourseCard
+                  key={course.id + course.instructorId}
+                  categories={course.categories}
+                  courseName={course.name}
+                  difficulty={course.difficulty}
+                  instructorName={user?.name || ""}
+                  id={course.id}
+                  coverImage={course.coverImage || ""}
+                />
               ))
             ) : (
               <div className="col-span-full flex flex-col items-center justify-center text-center text-muted-foreground">

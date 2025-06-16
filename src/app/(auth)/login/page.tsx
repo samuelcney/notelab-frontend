@@ -37,7 +37,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="w-[90%] h-[90%] flex flex-col justify-center items-center font-semibold">
+    <div className="w-full h-full flex flex-col justify-center items-center font-semibold overflow-y-auto overflow-x-hidden">
       <AnimatePresence>
         <motion.div
           initial={{ x: "100%", opacity: 0 }}
@@ -104,7 +104,7 @@ export default function LoginPage() {
               />
 
               <p
-                className="text-xs underline mr-1 mt-3 text-foreground font-normal tracking-widest cursor-pointer"
+                className="text-xs underline mr-1 mt-3 text-foreground font-normal tracking-widest cursor-pointer text-center"
                 onClick={() => navigation.replace("/register")}
               >
                 Ainda não possui uma conta? Clique aqui!

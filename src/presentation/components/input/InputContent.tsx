@@ -40,7 +40,7 @@ export const InputContent = ({
 
       <div
         className={`w-full border rounded-xl p-1 flex items-center ${
-          isSmallHeight ? "h-9" : "h-12"
+          isSmallHeight ? "h-9" : "h-11"
         } ${invert ? "invert" : ""} ${
           error ? "border-red-600" : "border-gray-400"
         }`}

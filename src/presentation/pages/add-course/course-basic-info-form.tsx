@@ -28,12 +28,17 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/presentation/ui/select";
-import { Textarea } from "@/presentation/ui/textarea";
 import { courseLevelEnum } from "@/utils/Enums";
+import { useTheme } from "next-themes";
+import dynamic from "next/dynamic";
 import { useRef } from "react";
 import { useCourseStore } from "../../../main/stores/course-store";
 
+const MDEditor = dynamic(() => import("@uiw/react-md-editor"), { ssr: false });
+
 export function CourseBasicInfoForm() {
+  const { resolvedTheme } = useTheme();
+  const currentTheme = resolvedTheme || "light";
   const {
     course,
     setName,
@@ -88,95 +93,105 @@ export function CourseBasicInfoForm() {
           <Label htmlFor="titulo">
             Descrição <span className="text-red-600">*</span>
           </Label>
-          <Textarea
+
+          <MDEditor
             id="titulo"
-            placeholder=""
             value={course.description}
-            onChange={(e) => setDescription(e.target.value)}
-            rows={16}
+            onChange={(e) => setDescription(e || "")}
+            preview="edit"
+            height={200}
+            visibleDragbar={false}
+            className="border border-foreground rounded-md"
+            data-color-mode={currentTheme === "dark" ? "dark" : "light"}
           />
         </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="categoria">
-            Categorias <span className="text-red-600">*</span>
-          </Label>
-          <Popover>
-            <PopoverTrigger asChild>
-              <Button
-                variant="outline"
-                className="w-full justify-between text-foreground"
-              >
-                {course.categories.length > 0
-                  ? `${course.categories.length} categoria(s) selecionada(s)`
-                  : "Selecionar categorias"}
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className="w-full max-w-sm">
-              <div className="grid gap-2">
-                {data?.map((category) => (
-                  <label
-                    key={category.id}
-                    className="flex items-center gap-2 cursor-pointer"
-                  >
-                    <Checkbox
-                      checked={course.categories.includes(category.id)}
-                      onCheckedChange={(checked) => {
-                        if (checked) {
-                          addCategory(category.id);
-                        } else {
-                          removeCategory(category.id);
-                        }
-                      }}
-                    />
-                    <span className="text-sm">{category.name}</span>
-                  </label>
-                ))}
-              </div>
-            </PopoverContent>
-          </Popover>
-
-          <div className="flex flex-wrap gap-2 mt-2">
-            {course.categories.map((catId) => {
-              const category = data?.find((c) => c.id === catId);
-              if (!category) return null;
-              return (
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <Label htmlFor="categoria">
+              Categorias <span className="text-red-600">*</span>
+            </Label>
+            <Popover>
+              <PopoverTrigger asChild>
                 <Button
-                  key={catId}
-                  variant="secondary"
-                  className="flex items-center gap-1 justify-between"
+                  variant="outline"
+                  className="w-full justify-between text-foreground border-foreground"
                 >
-                  {category.name}
-                  <span
-                    onClick={() => removeCategory(catId)}
-                    className="ml-1 text-xs"
-                  >
-                    <X className="w-3 h-3" />
-                  </span>
+                  {course.categories.length > 0
+                    ? `${course.categories.length} categoria(s) selecionada(s)`
+                    : "Selecionar categorias"}
                 </Button>
-              );
-            })}
-          </div>
-        </div>
+              </PopoverTrigger>
+              <PopoverContent className="w-full max-w-sm border border-foreground">
+                <div className="grid gap-2">
+                  {data?.map((category) => (
+                    <label
+                      key={category.id}
+                      className="flex items-center gap-2 cursor-pointer p-2 rounded-md"
+                    >
+                      <Checkbox
+                        type="button"
+                        className="text-foreground"
+                        checked={course.categories.includes(category.id)}
+                        onCheckedChange={(checked) => {
+                          if (checked) {
+                            addCategory(category.id);
+                          } else {
+                            removeCategory(category.id);
+                          }
+                        }}
+                      />
+                      <span className="text-sm">{category.name}</span>
+                    </label>
+                  ))}
+                </div>
+              </PopoverContent>
+            </Popover>
 
-        <div className="space-y-2">
-          <Label htmlFor="nivel">
-            Nível <span className="text-red-600">*</span>
-          </Label>
-          <Select value={course.difficulty} onValueChange={setDifficulty}>
-            <SelectTrigger id="nivel">
-              <SelectValue placeholder="Selecione um nível" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value={courseLevelEnum.BEGINNER}>
-                Iniciante
-              </SelectItem>
-              <SelectItem value={courseLevelEnum.INTERMEDIATE}>
-                Intermediário
-              </SelectItem>
-              <SelectItem value={courseLevelEnum.ADVANCED}>Avançado</SelectItem>
-            </SelectContent>
-          </Select>
+            <div className="flex flex-wrap gap-2 mt-2">
+              {course.categories.map((catId) => {
+                const category = data?.find((c) => c.id === catId);
+                if (!category) return null;
+                return (
+                  <Button
+                    key={catId}
+                    variant="secondary"
+                    className="flex items-center gap-1 justify-between bg-foreground text-background"
+                  >
+                    {category.name}
+                    <span
+                      onClick={() => removeCategory(catId)}
+                      className="ml-1 text-xs"
+                    >
+                      <X className="w-3 h-3" />
+                    </span>
+                  </Button>
+                );
+              })}
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="nivel">
+              Nível <span className="text-red-600">*</span>
+            </Label>
+            <Select value={course.difficulty} onValueChange={setDifficulty}>
+              <SelectTrigger id="nivel">
+                <SelectValue placeholder="Selecione um nível" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value={courseLevelEnum.BEGINNER}>
+                  Iniciante
+                </SelectItem>
+                <SelectItem value={courseLevelEnum.INTERMEDIATE}>
+                  Intermediário
+                </SelectItem>
+                <SelectItem value={courseLevelEnum.ADVANCED}>
+                  Avançado
+                </SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
         </div>
 
         <div className="space-y-2">
@@ -222,7 +237,7 @@ export function CourseBasicInfoForm() {
                 />
                 <Button
                   variant="outline"
-                  className="w-full text-foreground"
+                  className="w-full text-foreground border-foreground"
                   onClick={() => document.getElementById("image")?.click()}
                 >
                   <Upload className="mr-2 h-4 w-4" />

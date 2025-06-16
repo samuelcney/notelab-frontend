@@ -71,3 +71,29 @@ export function buildImageFormData(file: File) {
   formData.append("file", file);
   return formData;
 }
+
+export function getWhatsappLink(phone: string, customMessage?: string): string {
+  const cleaned = phone.replace(/\D/g, "");
+  const fullNumber = `55${cleaned}`;
+
+  const defaultMessage =
+    "Olá ! Gostaria de tirar algumas dúvidas sobre as aulas. Podemos conversar?";
+  const finalMessage = customMessage || defaultMessage;
+
+  return `https://wa.me/${fullNumber}?text=${encodeURIComponent(finalMessage)}`;
+}
+
+export function getEmailLink(
+  email: string,
+  subject?: string,
+  body?: string
+): string {
+  const defaultSubject = "Dúvidas sobre as aulas";
+  const defaultBody =
+    "Olá professor(a),\n\nGostaria de tirar algumas dúvidas sobre as aulas. Poderia me ajudar?\n\nObrigado!";
+
+  const finalSubject = encodeURIComponent(subject || defaultSubject);
+  const finalBody = encodeURIComponent(body || defaultBody);
+
+  return `mailto:${email}?subject=${finalSubject}&body=${finalBody}`;
+}

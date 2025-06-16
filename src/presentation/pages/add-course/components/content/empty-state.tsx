@@ -9,7 +9,7 @@ interface EmptyStateProps {
 
 export function EmptyState({ onAddModule }: EmptyStateProps) {
   return (
-    <div className="flex h-40 items-center justify-center rounded-md border border-dashed">
+    <div className="flex h-40 items-center justify-center rounded-md border border-dashed border-foreground">
       <div className="flex flex-col items-center gap-2 text-center">
         <FileText className="h-8 w-8 text-muted-foreground" />
         <p className="text-sm text-muted-foreground">

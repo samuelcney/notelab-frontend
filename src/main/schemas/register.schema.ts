@@ -10,6 +10,7 @@ const registerSchema = z
       .string()
       .nonempty({ message: "Esse campo deve ser preenchido" })
       .email({ message: "Email inválido" }),
+    role: z.string().nonempty({ message: "Esse campo deve ser preenchido" }),
     password: z
       .string()
       .nonempty({ message: "Esse campo deve ser preenchido" })

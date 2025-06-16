@@ -7,9 +7,9 @@ import { create } from "zustand";
 export type Lesson = {
   id: string;
   title: string;
-  duration?: number;
+  description?: string;
   type: lessonTypeEnum;
-  videoUrl?: string | File | null;
+  videoUrl?: string;
 };
 
 export type Module = {
@@ -27,7 +27,6 @@ export type CourseState = {
   modules: Module[];
   typeCourse?: "free" | "paid";
   price: number;
-  issueCertificate: boolean;
   instructorId: string;
 };
 
@@ -57,13 +56,13 @@ type CourseStore = {
   addContentToLesson: (
     moduleId: string,
     lessonId: string,
-    content: string | File | null
+    url: string,
+    description?: string
   ) => void;
   removeContentFromLesson: (lessonId: string) => void;
 
   setTypeCourse: (typeCourse: "free" | "paid") => void;
   setPrice: (price: number) => void;
-  setIssueCertificate: (issueCertificate: boolean) => void;
   resetCourse: () => void;
   setCourse: (course: CourseState) => void;
 };
@@ -77,7 +76,6 @@ const initialState: CourseState = {
   modules: [],
   typeCourse: "free",
   price: 0,
-  issueCertificate: false,
   instructorId: "",
 };
 
@@ -160,8 +158,8 @@ export const useCourseStore = create<CourseStore>((set) => ({
       const newLesson: Lesson = {
         id: nanoid(),
         title: `Aula ${state.course.modules[moduleIndex].lessons.length + 1}`,
-        duration: 0,
-        type: lessonTypeEnum.VIDEO,
+        description: "",
+        type: lessonTypeEnum.VIDEO_URL,
       };
 
       const updatedModules = [...state.course.modules];
@@ -178,7 +176,7 @@ export const useCourseStore = create<CourseStore>((set) => ({
       };
     }),
 
-  addContentToLesson: (moduleId, lessonId, videoUrl) =>
+  addContentToLesson: (moduleId, lessonId, videoUrl, description) =>
     set((state) => {
       const course = { ...state.course };
       const moduleIndex = course.modules.findIndex((m) => m.id === moduleId);
@@ -191,7 +189,11 @@ export const useCourseStore = create<CourseStore>((set) => ({
 
       const updatedModules = [...course.modules];
       const updatedLessons = [...updatedModules[moduleIndex].lessons];
-      const updatedLesson = { ...updatedLessons[lessonIndex], videoUrl };
+      const updatedLesson = {
+        ...updatedLessons[lessonIndex],
+        videoUrl: videoUrl,
+        description: description ?? updatedLessons[lessonIndex].description,
+      };
 
       updatedLessons[lessonIndex] = updatedLesson;
       updatedModules[moduleIndex] = {
@@ -212,7 +214,7 @@ export const useCourseStore = create<CourseStore>((set) => ({
       const modules = state.course.modules.map((module) => {
         const lessons = module.lessons.map((lesson) => {
           if (lesson.id === lessonId) {
-            return { ...lesson, videoUrl: null };
+            return { ...lesson, videoUrl: undefined };
           }
           return lesson;
         });
@@ -282,9 +284,6 @@ export const useCourseStore = create<CourseStore>((set) => ({
         price: price < 0 ? 0 : price,
       },
     })),
-
-  setIssueCertificate: (issueCertificate) =>
-    set((state) => ({ course: { ...state.course, issueCertificate } })),
 
   resetCourse: () => set({ course: initialState }),
 

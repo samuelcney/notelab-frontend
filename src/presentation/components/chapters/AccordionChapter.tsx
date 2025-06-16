@@ -82,7 +82,7 @@ export function AccordionChapter({
                         lesson.id.toString()
                       )
                     }
-                    className={`flex items-center gap-3 p-3 text-left hover: transition-colors hover:bg-gray-300 ${
+                    className={`flex items-center gap-3 p-3 text-left hover:transition-colors hover:bg-green-300/35 text-foreground ${
                       currentLessonId === lesson.id.toString()
                         ? "border-l-4 border-green-500"
                         : ""

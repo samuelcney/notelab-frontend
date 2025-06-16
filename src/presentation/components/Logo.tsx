@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-export function Logo() {
+export function Logo({ isMobile }: { isMobile: boolean }) {
   return (
     <div className="flex items-center">
       <Image
@@ -9,7 +9,11 @@ export function Logo() {
         width={52}
         height={52}
       />
-      <span className="text-xl font-bold text-white max-sm:hidden">
+      <span
+        className={`text-xl font-bold text-white ${
+          isMobile && "max-sm:hidden"
+        }`}
+      >
         Notelab<span className="text-green-500">.io</span>
       </span>
     </div>

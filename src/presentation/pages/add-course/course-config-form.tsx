@@ -8,23 +8,20 @@ import {
   CardHeader,
   CardTitle,
 } from "@/presentation/ui/card";
-import { Checkbox } from "@/presentation/ui/checkbox";
 import { Input } from "@/presentation/ui/input";
 import { Label } from "@/presentation/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/presentation/ui/radio-group";
 import { Separator } from "@/presentation/ui/separator";
 
 export function CourseConfigForm() {
-  const { course, setPrice, setIssueCertificate, setTypeCourse } =
-    useCourseStore();
+  const { course, setPrice, setTypeCourse } = useCourseStore();
 
   return (
     <Card className="mt-4 shadow-none">
       <CardHeader>
         <CardTitle>Configurações do Curso</CardTitle>
         <CardDescription>
-          Configure as opções de disponibilidade, preço e certificação do seu
-          curso.
+          Configure as opções de preço do seu curso.
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
@@ -32,7 +29,7 @@ export function CourseConfigForm() {
           <h3 className="text-lg font-medium text-foreground">
             Preço e Pagamento
           </h3>
-          <Separator />
+          <Separator className="bg-foreground" />
 
           <div className="flex items-center justify-between">
             <div className="space-y-0.5">
@@ -72,27 +69,6 @@ export function CourseConfigForm() {
                 }}
                 disabled={course.typeCourse === "free"}
               />
-            </div>
-          </div>
-        </div>
-
-        <div className="space-y-4">
-          <h3 className="text-lg font-medium text-foreground">Certificação</h3>
-          <Separator />
-
-          <div className="flex items-center space-x-2">
-            <Checkbox
-              id="certificate"
-              checked={course.issueCertificate}
-              onCheckedChange={(checked) =>
-                setIssueCertificate(checked as boolean)
-              }
-            />
-            <div className="grid gap-1.5">
-              <Label htmlFor="certificate">Emitir Certificado</Label>
-              <p className="text-sm text-muted-foreground">
-                Os alunos receberão um certificado ao concluir o curso.
-              </p>
             </div>
           </div>
         </div>

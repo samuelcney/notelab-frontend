@@ -13,14 +13,14 @@ export default function AuthLayout({
 
   return (
     <div
-      className={`w-full flex ${
+      className={`w-full flex max-md:flex-col max-sm:justify-center ${
         isRegisterPath ? "flex-row-reverse" : "flex-row"
       } h-screen relative`}
     >
-      <div className="flex flex-1 relative">
+      <div className="flex flex-[0.5] relative max-md:max-h-[30%] max-sm:hidden">
         <ImageSlideshow />
       </div>
-      <div className="flex-1 h-full bg-background flex items-center justify-center">
+      <div className="flex-[0.5] h-full bg-background flex items-center justify-center">
         {children}
       </div>
     </div>

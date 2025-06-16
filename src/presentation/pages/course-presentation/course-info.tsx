@@ -13,6 +13,8 @@ import { Separator } from "@/presentation/ui/separator";
 import { CourseProps, UserType } from "@/types/types";
 import { pathNameEnum } from "@/utils/Enums";
 import { getInitials } from "@/utils/Functions";
+import { useTheme } from "next-themes";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 
 interface Props {
@@ -21,7 +23,11 @@ interface Props {
   instructor?: UserType | null;
 }
 
+const MDEditor = dynamic(() => import("@uiw/react-md-editor"), { ssr: false });
+
 export const CourseInfo = ({ isPending, instructor, data }: Props) => {
+  const { resolvedTheme } = useTheme();
+  const currentTheme = resolvedTheme || "light";
   const { push } = useRouter();
   const currentUser = useCurrentUser();
   if (!currentUser) return null;
@@ -69,11 +75,13 @@ export const CourseInfo = ({ isPending, instructor, data }: Props) => {
           <Separator className="w-[1px] h-full bg-foreground" />
 
           <div className="flex flex-col gap-6 flex-1 overflow-hidden">
-            <div className=" flex flex-col gap-2 break-words ">
-              <p className="flex-1 text-justify text-sm tracking-wide break-words">
-                {data?.description}
-              </p>
-            </div>
+            <MDEditor
+              value={data?.description ?? ""}
+              preview="preview"
+              hideToolbar
+              className="w-full min-h-[400px] bg-background overflow-y-auto rounded-lg p-4"
+              data-color-mode={currentTheme === "dark" ? "dark" : "light"}
+            />
 
             {!courseAlreadyInCart ? (
               alreadyHasEnrollment ? (

@@ -82,7 +82,7 @@ export default function CartPage() {
   return (
     <PageRoot>
       <div className="flex flex-1 w-full min-h-screen ">
-        <div className="mx-8 px-4 py-8 w-full">
+        <div className="mx-8 lg:px-4 py-8 w-full">
           <div className="flex items-center gap-4 mb-8">
             <button
               onClick={() => navigation.push(`${pathNameEnum.HOME}`)}
