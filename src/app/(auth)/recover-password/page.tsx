@@ -1,39 +1,14 @@
 "use client";
 import { AnimatePresence, motion } from "framer-motion";
 
-import { useSendRecoverPassword } from "@/main/hooks/auth/use-request-password-reset";
-import { Button } from "@/presentation/components/button";
-import Icon from "@/presentation/components/Icon";
-import { Input } from "@/presentation/components/input";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-
-const recoverPasswordSchema = z.object({
-  email: z
-    .string()
-    .nonempty({ message: "Email é obrigatório" })
-    .email({ message: "Email inválido" }),
-});
-
-type recoverData = z.infer<typeof recoverPasswordSchema>;
+import { ResetPasswordForm } from "@/presentation/pages/recover-password/steps/reset-password.form";
+import { SendEmailForm } from "@/presentation/pages/recover-password/steps/send-email.form";
+import { ValidateTokenForm } from "@/presentation/pages/recover-password/steps/validate-token.form";
+import { Step } from "@/utils/Enums";
+import { useState } from "react";
 
 export default function RecoverPasswordPage() {
-  const navigation = useRouter();
-  const { mutateAsync } = useSendRecoverPassword();
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<recoverData>({
-    resolver: zodResolver(recoverPasswordSchema),
-  });
-
-  const handleRecoverPassword = async (data: recoverData) => {
-    await mutateAsync(data.email);
-  };
+  const [step, setStep] = useState<Step>(Step.SendEmail);
 
   return (
     <div className="w-[90%] h-[90%] flex flex-col justify-center items-center font-semibold">
@@ -45,35 +20,13 @@ export default function RecoverPasswordPage() {
           transition={{ type: "tween", duration: 0.5 }}
           className="w-[65%] flex flex-col gap-5"
         >
-          <form
-            className="flex w-full h-full flex-col items-center justify-center gap-2"
-            onSubmit={handleSubmit(handleRecoverPassword)}
-          >
-            <Input.Root isFullWidth>
-              <div className="w-full">
-                <h1 className="text-2xl tracking-wide text-foreground flex flex-wrap gap-2">
-                  Para recuperar a sua senha, digite seu email abaixo:
-                </h1>
-              </div>
-
-              <Input.Content
-                label="Email"
-                icon={<Icon name="AtSign" />}
-                register={register("email")}
-                error={errors.email}
-                placeholder="Digite seu email"
-              />
-            </Input.Root>
-
-            <Button.Content title="Enviar" type="submit" className="mt-5" />
-
-            <p
-              className="text-xs underline mr-1 mt-3 text-foreground font-normal tracking-widest cursor-pointer"
-              onClick={() => navigation.replace("/login")}
-            >
-              Clique aqui para voltar à tela de login
-            </p>
-          </form>
+          {step === Step.SendEmail && (
+            <SendEmailForm onSuccess={() => setStep(Step.ValidateToken)} />
+          )}
+          {step === Step.ValidateToken && (
+            <ValidateTokenForm onSuccess={() => setStep(Step.ResetPassword)} />
+          )}
+          {step === Step.ResetPassword && <ResetPasswordForm />}
         </motion.div>
       </AnimatePresence>
     </div>

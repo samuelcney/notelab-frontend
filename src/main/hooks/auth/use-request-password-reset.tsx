@@ -9,7 +9,7 @@ export const useSendRecoverPassword = () => {
   return useMutation({
     mutationFn: authService.requestPasswordReset,
     onSuccess: (data) => {
-      notify(data, "success");
+      notify(data.message, "success");
     },
 
     onError: (error: any) => {

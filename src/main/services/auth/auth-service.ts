@@ -21,8 +21,27 @@ export const authService = {
   },
 
   requestPasswordReset: async (email: string) => {
-    const { data } = await http.post("/auth/recover-password", { email });
+    const { data } = await http.post("/recovery-password/email", {
+      email,
+    });
     return data;
+  },
+
+  validateToken: async (token: string, email: string) => {
+    const { data } = await http.post("/recovery-password/validate-token", {
+      email,
+      token,
+    });
+    return data;
+  },
+
+  resetPassword: async (data: { email: string; newPassword: string }) => {
+    const { email, newPassword } = data;
+    const response = await http.post("/recovery-password/reset", {
+      email,
+      newPassword,
+    });
+    return response.data;
   },
 
   logout: async () => {
