@@ -11,7 +11,7 @@ export default function RecoverPasswordPage() {
   const [step, setStep] = useState<Step>(Step.SendEmail);
 
   return (
-    <div className="w-[90%] h-[90%] flex flex-col justify-center items-center font-semibold">
+    <div className="w-full h-full flex flex-col justify-center items-center font-semibold">
       <AnimatePresence>
         <motion.div
           initial={{ x: "100%", opacity: 0 }}

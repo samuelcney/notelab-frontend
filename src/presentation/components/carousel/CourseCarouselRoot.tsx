@@ -33,7 +33,10 @@ export const CarouselRoot = ({
     <div className="flex flex-1 flex-col gap-2 px-8 w-full">
       <CarouselTitle title={title} />
       {!loading && courses.length === 0 ? (
-        <div className="pl-4 text-lg text-gray-500 w-full h-[100px]">
+        <div
+          aria-live="polite"
+          className="pl-4 text-lg text-gray-500 w-full h-[100px]"
+        >
           No momento não há cursos disponíveis.
         </div>
       ) : (
@@ -53,7 +56,7 @@ export const CarouselRoot = ({
               : courses.map((course) => (
                   <CarouselItem
                     key={course.id}
-                    className="flex-shrink-0 flex-grow-0 basis-full max-sm:basis-2/3 sm:basis-1/2 md:basis-1/3 lg:basis-1/3 xl:basis-1/5"
+                    className=" flex-shrink-0 flex-grow-0basis-[85%] xs:basis-[70%] sm:basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/5 snap-start"
                   >
                     <CourseCard
                       id={course.id}

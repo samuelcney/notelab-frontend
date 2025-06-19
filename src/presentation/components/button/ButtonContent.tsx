@@ -35,7 +35,7 @@ export const ButtonContent = ({
           <Icon name="LoaderCircle" className="animate-spin" size={20} />
         ) : (
           <span>
-            <h1 className="tracking-widest font-extrabold text-xl text-white">
+            <h1 className="tracking-widest font-extrabold text-xl text-white max-md:text-base">
               {title}
             </h1>
           </span>

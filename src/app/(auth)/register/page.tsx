@@ -48,7 +48,7 @@ export default function RegisterPage() {
           >
             <Input.Root isFullWidth>
               <div className="w-full">
-                <h1 className="text-2xl tracking-wide text-foreground flex flex-wrap gap-2">
+                <h1 className="text-2xl tracking-wide text-foreground flex flex-wrap gap-2 pt-10">
                   Eai, vamos começar?
                 </h1>
                 <h2 className="text-xl tracking-wide text-foreground font-normal ml-1">

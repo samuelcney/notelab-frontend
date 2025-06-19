@@ -36,10 +36,11 @@ export function HeroSection() {
                 abbreviation={userName || ""}
                 isBigSize
                 user={user}
+                className="max-md:hidden"
               />
               <div className="flex flex-col">
                 <span className="text-green-400 font-medium">{greeting}</span>
-                <h1 className="text-3xl md:text-4xl font-bold text-white">
+                <h1 className="text-3xl max-md:text-2xl font-bold text-white">
                   {`Bem vindo(a), ${userName || "Músico"}`}
                 </h1>
                 <p className="text-gray-300 mt-2 max-w-xl">

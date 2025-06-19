@@ -22,7 +22,6 @@ export const EmptyCart = () => {
           <Button.Content
             title="EXPLORAR CATÁLOGO"
             onclick={() => navigation.push(pathNameEnum.CATALOG)}
-            className="text-sm"
           />
         </Button.Root>
       </div>

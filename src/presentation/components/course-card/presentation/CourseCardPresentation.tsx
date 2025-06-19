@@ -57,7 +57,7 @@ export const CourseCard = ({
       <CardContent className="pt-4">
         <div className="w-full flex flex-col justify-around flex-1 p-1">
           <div className="flex flex-col">
-            <p className="text-lg font-semibold line-clamp-2 min-h-[3rem] text-foreground">
+            <p className="text-sm sm:text-base font-semibold line-clamp-2 min-h-[2.5rem] sm:min-h-[3.5rem] text-foreground">
               {courseName}
             </p>
             <p className="text-xs text-gray-500">{instructorName || "---"}</p>
