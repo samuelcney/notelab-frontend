@@ -48,14 +48,16 @@ export function AccordionChapter({
     }
   };
 
+  const allModuleIds = chapterList.map((m) => m.id.toString());
+
   return (
-    <div className="flex flex-col h-full overflow-y-auto">
+    <div className="flex flex-col h-full overflow-y-auto px-2">
       <h2 className="text-xl font-semibold p-4 border-b">Conteúdo do Curso</h2>
 
       <Accordion
         type="multiple"
         className="w-full no-underline"
-        defaultValue={currentModuleId ? [currentModuleId] : []}
+        defaultValue={allModuleIds}
       >
         {chapterList.map((module) => (
           <AccordionItem
@@ -95,11 +97,13 @@ export function AccordionChapter({
                           : "bg-gray-100 text-gray-600"
                       }`}
                     >
-                      {currentLessonId === lesson.id.toString() ? (
-                        <Play className="w-4 h-4 fill-current" />
-                      ) : (
-                        <Play className="w-4 h-4" />
-                      )}
+                      <Play
+                        className={`w-4 h-4 ${
+                          currentLessonId === lesson.id.toString()
+                            ? "fill-current"
+                            : ""
+                        }`}
+                      />
                     </div>
                     <span
                       className={`flex-1 ${

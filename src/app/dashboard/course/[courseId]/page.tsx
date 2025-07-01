@@ -52,8 +52,9 @@ export default function CoursePage() {
   const [currentLessonId, setCurrentLessonId] = useState<string | null>("");
   const [showDescription, setShowDescription] = useState(true);
 
-  const { data: currentModuleLessons, isPending: isLessonsPending } =
-    useGetLessonsByModuleId(currentModuleId ?? "");
+  const { data: currentModuleLessons } = useGetLessonsByModuleId(
+    currentModuleId ?? ""
+  );
 
   const currentLesson = currentModuleLessons?.find(
     (lesson) => lesson.id.toString() === currentLessonId
@@ -90,52 +91,6 @@ export default function CoursePage() {
     }
   }, [enrollments, courseId, push]);
 
-  const navigateToNextLesson = () => {
-    if (!currentModuleLessons || !currentLessonId) return;
-
-    const currentIndex = currentModuleLessons.findIndex(
-      (lesson) => lesson.id.toString() === currentLessonId
-    );
-    if (currentIndex < currentModuleLessons.length - 1) {
-      setCurrentLessonId(currentModuleLessons[currentIndex + 1].id.toString());
-    } else if (course?.modules) {
-      const currentModuleIndex = course.modules.findIndex(
-        (module) => module.id.toString() === currentModuleId
-      );
-      if (currentModuleIndex < course.modules.length - 1) {
-        const nextModule = course.modules[currentModuleIndex + 1];
-        setCurrentModuleId(nextModule.id.toString());
-        if (nextModule.lessons && nextModule.lessons.length > 0) {
-          setCurrentLessonId(nextModule.lessons[0].id.toString());
-        }
-      }
-    }
-  };
-
-  const navigateToPreviousLesson = () => {
-    if (!currentModuleLessons || !currentLessonId) return;
-
-    const currentIndex = currentModuleLessons.findIndex(
-      (lesson) => lesson.id.toString() === currentLessonId
-    );
-    if (currentIndex > 0) {
-      setCurrentLessonId(currentModuleLessons[currentIndex - 1].id.toString());
-    } else if (course?.modules && currentModuleId) {
-      const currentModuleIndex = course.modules.findIndex(
-        (module) => module.id.toString() === currentModuleId
-      );
-      if (currentModuleIndex > 0) {
-        const prevModule = course.modules[currentModuleIndex - 1];
-        setCurrentModuleId(prevModule.id.toString());
-        if (prevModule.lessons && prevModule.lessons.length > 0) {
-          setCurrentLessonId(
-            prevModule.lessons[prevModule.lessons.length - 1].id.toString()
-          );
-        }
-      }
-    }
-  };
-
   const selectLesson = (moduleId: string, lessonId: string) => {
     setCurrentModuleId(moduleId);
     setCurrentLessonId(lessonId);
@@ -166,7 +121,7 @@ export default function CoursePage() {
 
   return (
     <PageRoot isOverflowHidden>
-      <div className="flex flex-1 w-full items-center h-full overflow-hidden">
+      <div className="flex flex-col lg:flex-row w-full h-full overflow-hidden">
         <div className="flex w-full lg:w-[70%] flex-col overflow-y-auto h-full pb-5">
           <div className="w-full relative bg-black">
             {!isPending && currentLesson ? (
@@ -198,14 +153,36 @@ export default function CoursePage() {
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-4 text-white">
                       <button
-                        onClick={navigateToPreviousLesson}
+                        onClick={() => {
+                          const idx = currentModuleLessons?.findIndex(
+                            (lesson) => lesson.id.toString() === currentLessonId
+                          );
+                          if (idx !== undefined && idx > 0) {
+                            setCurrentLessonId(
+                              currentModuleLessons![idx - 1].id.toString()
+                            );
+                          }
+                        }}
                         className="p-2 hover:bg-green-800 rounded-full transition-colors"
                         title="Aula anterior"
                       >
                         <ArrowLeft className="w-5 h-5" />
                       </button>
                       <button
-                        onClick={navigateToNextLesson}
+                        onClick={() => {
+                          const idx = currentModuleLessons?.findIndex(
+                            (lesson) => lesson.id.toString() === currentLessonId
+                          );
+                          if (
+                            idx !== undefined &&
+                            currentModuleLessons &&
+                            idx < currentModuleLessons.length - 1
+                          ) {
+                            setCurrentLessonId(
+                              currentModuleLessons[idx + 1].id.toString()
+                            );
+                          }
+                        }}
                         className="p-2 hover:bg-green-800 rounded-full transition-colors"
                         title="Próxima aula"
                       >
@@ -244,7 +221,7 @@ export default function CoursePage() {
           <div className="flex items-center gap-4 p-2 min-h-[100px]">
             <div className="flex flex-row gap-6 w-full justify-between">
               <div className="flex flex-col gap-1">
-                <h1 className="font-semibold text-3xl leading-tight">
+                <h1 className="font-semibold text-3xl leading-tight max-sm:text-xl">
                   {course?.name}
                 </h1>
               </div>
@@ -260,96 +237,109 @@ export default function CoursePage() {
               </div>
             </div>
           </div>
+
           {showDescription && (
             <div className="p-3 w-full">
-              <div className="flex mt-8 w-full justify-center px-8">
-                <div className="flex w-full justify-between gap-20 overflow-hidden">
-                  <div className="flex flex-col gap-2">
-                    <h1 className="text-lg font-semibold">Instrutor:</h1>
-                    <AvatarBallComponent
-                      abbreviation={getInitials(course?.instructor?.name ?? "")}
-                      isBigSize
-                      user={instructor ?? ({} as UserType)}
-                    />
-                    <p className="text-sm">{instructor?.name}</p>
-                    {email && (
-                      <a
-                        href={getEmailLink(email)}
-                        className="text-sm text-blue-600 underline hover:text-blue-700"
-                      >
-                        {email}
-                      </a>
-                    )}
-                    {phone && (
-                      <a
-                        href={getWhatsappLink(
-                          phone,
-                          `Olá, ${instructor?.name}! Gostaria de tirar algumas dúvidas sobre as aulas do curso *${course?.name}*. Podemos conversar?`
-                        )}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-sm text-green-600 underline hover:text-green-700"
-                      >
-                        {phone}
-                      </a>
-                    )}
-                  </div>
+              <div className="flex mt-8 w-full justify-center px-8 flex-col lg:flex-row gap-10">
+                <div className="flex flex-col gap-2">
+                  <h1 className="text-lg font-semibold">Instrutor:</h1>
+                  <AvatarBallComponent
+                    abbreviation={getInitials(course?.instructor?.name ?? "")}
+                    isBigSize
+                    user={instructor ?? ({} as UserType)}
+                  />
+                  <p className="text-sm">{instructor?.name}</p>
+                  {email && (
+                    <a
+                      href={getEmailLink(email)}
+                      className="text-sm text-blue-600 underline hover:text-blue-700"
+                    >
+                      {email}
+                    </a>
+                  )}
+                  {phone && (
+                    <a
+                      href={getWhatsappLink(
+                        phone,
+                        `Olá, ${instructor?.name}! Gostaria de tirar algumas dúvidas sobre as aulas do curso *${course?.name}*. Podemos conversar?`
+                      )}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm text-green-600 underline hover:text-green-700"
+                    >
+                      {phone}
+                    </a>
+                  )}
+                </div>
 
-                  <Separator className="w-[1px] h-full bg-foreground" />
+                <Separator className="hidden lg:block w-[1px] h-full bg-foreground" />
 
-                  <div className="flex flex-col gap-6 flex-1 overflow-hidden ">
-                    <Tabs defaultValue="course-description" className="w-full">
-                      <TabsList className="mb-2">
+                <div className="flex flex-col gap-6 flex-1 overflow-hidden">
+                  <Tabs defaultValue="course-description" className="w-full">
+                    <TabsList className="mb-2">
+                      <TabsTrigger
+                        value="course-description"
+                        className="text-sm font-semibold"
+                      >
+                        Descrição do Curso
+                      </TabsTrigger>
+                      {currentLesson?.description && (
                         <TabsTrigger
-                          value="course-description"
+                          value="lesson-description"
                           className="text-sm font-semibold"
                         >
-                          Descrição do Curso
+                          Descrição da Aula
                         </TabsTrigger>
-                        {currentLesson?.description && (
-                          <TabsTrigger
-                            value="lesson-description"
-                            className="text-sm font-semibold"
-                          >
-                            Descrição da Aula
-                          </TabsTrigger>
-                        )}
-                      </TabsList>
+                      )}
+                    </TabsList>
 
-                      <TabsContent value="course-description">
-                        <MDEditor
-                          value={course?.description ?? ""}
-                          preview="preview"
-                          hideToolbar
-                          className="w-full min-h-[650px] bg-background overflow-y-auto rounded-lg p-4"
-                          data-color-mode={
-                            currentTheme === "dark" ? "dark" : "light"
-                          }
-                        />
-                      </TabsContent>
+                    <TabsContent value="course-description" className="w-full">
+                      <MDEditor
+                        value={course?.description ?? ""}
+                        preview="preview"
+                        hideToolbar
+                        className="w-full min-h-[400px] bg-background overflow-y-auto rounded-lg p-4"
+                        data-color-mode={
+                          currentTheme === "dark" ? "dark" : "light"
+                        }
+                      />
+                    </TabsContent>
 
-                      <TabsContent value="lesson-description">
-                        <MDEditor
-                          value={currentLesson?.description ?? ""}
-                          preview="preview"
-                          hideToolbar
-                          className="w-full min-h-[650px] bg-background overflow-y-auto rounded-lg p-4"
-                          data-color-mode={
-                            currentTheme === "dark" ? "dark" : "light"
-                          }
-                        />
-                      </TabsContent>
-                    </Tabs>
-                  </div>
+                    <TabsContent value="lesson-description">
+                      <MDEditor
+                        value={currentLesson?.description ?? ""}
+                        preview="preview"
+                        hideToolbar
+                        className="w-full min-h-[400px] bg-background overflow-y-auto rounded-lg p-4"
+                        data-color-mode={
+                          currentTheme === "dark" ? "dark" : "light"
+                        }
+                      />
+                    </TabsContent>
+                  </Tabs>
                 </div>
               </div>
             </div>
           )}
         </div>
 
-        <span className="h-full w-[1px] bg-light-gray" />
+        <span className="hidden lg:block h-full w-[1px] bg-light-gray" />
 
         <div className="hidden lg:flex w-[30%] flex-col px-2 h-full">
+          {isPending ? (
+            <ChapterAccordionSkeleton />
+          ) : (
+            <AccordionChapter
+              chapterList={course?.modules ?? []}
+              courseId={String(courseId)}
+              onLessonSelect={selectLesson}
+              currentLessonId={currentLessonId}
+              currentModuleId={currentModuleId}
+            />
+          )}
+        </div>
+
+        <div className="block lg:hidden px-4 mt-6 max-lg:border-t border-foreground max-lg:mb-4">
           {isPending ? (
             <ChapterAccordionSkeleton />
           ) : (

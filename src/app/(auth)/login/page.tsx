@@ -52,15 +52,15 @@ export default function LoginPage() {
           >
             <Input.Root isFullWidth>
               <div className="w-full">
-                <h1 className="text-2xl tracking-wide text-foreground flex flex-wrap gap-2">
+                <h1 className="text-2xl tracking-wide text-foreground flex flex-wrap gap-2 max-sm:text-xl">
                   Olá, bem vindo à plataforma{" "}
                   <span className="text-greenApp tracking-widest font-extrabold">
                     Notelab.io
                     <span className="text-foreground tracking-widest">!</span>
                   </span>
                 </h1>
-                <h2 className="text-xl tracking-wide text-foreground font-normal ml-1">
-                  Faça seu login para entrar
+                <h2 className="text-xl tracking-wide text-foreground font-normal sm:ml-1 max-sm:text-lg">
+                  Faça seu login para entrar:
                 </h2>
               </div>
 
@@ -71,6 +71,7 @@ export default function LoginPage() {
                 error={errors.email}
                 placeholder="Digite seu email"
                 type="email"
+                isSmallHeight
               />
               <Input.Content
                 label="Senha"
@@ -84,6 +85,7 @@ export default function LoginPage() {
                 register={register("password")}
                 error={errors.password}
                 placeholder="Digite sua senha"
+                isSmallHeight
               />
 
               <div className="w-full flex justify-end">

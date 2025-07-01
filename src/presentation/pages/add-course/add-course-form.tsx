@@ -115,7 +115,7 @@ export function AddCourseForm() {
       <Separator className="mb-2 bg-foreground" />
 
       <Tabs defaultValue="infos" className="w-full">
-        <TabsList className="grid w-full grid-cols-3 justify-center items-center">
+        <TabsList className="grid w-full grid-cols-3 justify-center items-center max-sm:grid-cols-1 h-auto max-sm:gap-2">
           <TabsTrigger value="infos">Informações Básicas</TabsTrigger>
           <TabsTrigger value="content">Conteúdo</TabsTrigger>
           <TabsTrigger value="configs">Configurações</TabsTrigger>

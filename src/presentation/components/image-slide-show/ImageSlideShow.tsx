@@ -40,7 +40,7 @@ export default function ImageSlideshow() {
             key={shuffledImages[index]}
             src={shuffledImages[index]}
             alt="Slideshow"
-            className="absolute inset-0 w-full h-full object-cover bg-background aspect-squares"
+            className="absolute inset-0 w-full h-full object-cover bg-background aspect-square"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}

@@ -32,12 +32,13 @@ export function HeroSection() {
         <div className="flex flex-col md:flex-row items-start md:items-center gap-6 mb-8">
           {user ? (
             <>
-              <AvatarBallComponent
-                abbreviation={userName || ""}
-                isBigSize
-                user={user}
-                className="max-md:hidden"
-              />
+              <span className="max-sm:hidden">
+                <AvatarBallComponent
+                  abbreviation={userName || ""}
+                  isBigSize
+                  user={user}
+                />
+              </span>
               <div className="flex flex-col">
                 <span className="text-green-400 font-medium">{greeting}</span>
                 <h1 className="text-3xl max-md:text-2xl font-bold text-white">

@@ -21,9 +21,9 @@ import { Lock } from "lucide-react";
 export default function ConfigPage() {
   return (
     <PageRoot>
-      <div className="flex flex-1 w-full h-full pt-6 px-1 flex-col">
-        <div className="ml-24 mt-6 mb-8">
-          <h1 className="text-4xl font-semibold tracking-wide">
+      <div className="flex flex-1 w-full h-full pt-6 px-2 flex-col">
+        <div className="sm:ml-24 mt-6 mb-8">
+          <h1 className="text-4xl font-semibold tracking-wide max-sm:text-2xl">
             Configurações
           </h1>
           <p className="text-muted-foreground mt-2">
@@ -31,12 +31,12 @@ export default function ConfigPage() {
           </p>
         </div>
 
-        <div className="px-24 pb-16">
+        <div className="sm:px-24 pb-16">
           <Tabs defaultValue="perfil" className="w-full" value="safety">
             <TabsList className="grid grid-cols-5 w-full max-w-3xl mb-8">
               <TabsTrigger value="safety" className="flex items-center gap-2">
                 <Lock className="h-4 w-4" />
-                <span>Segurança</span>
+                <span className="max-sm:hidden">Segurança</span>
               </TabsTrigger>
             </TabsList>
 

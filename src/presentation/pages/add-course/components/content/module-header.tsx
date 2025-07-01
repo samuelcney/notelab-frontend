@@ -15,13 +15,13 @@ export function ModuleHeader({ module, onModuleRemoved }: ModuleHeaderProps) {
   const { updateModuleName, addLesson, removeModule } = useCourseStore();
 
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex items-center justify-between max-sm:flex-col  max-sm:gap-2">
       <div className="flex-1 mr-4">
         <Input
           value={module.title}
           onChange={(e) => updateModuleName(module.id, e.target.value)}
           placeholder="Nome do módulo"
-          className="font-medium text-lg"
+          className="font-medium text-lg max-sm:w-full"
         />
       </div>
       <div className="flex gap-2">

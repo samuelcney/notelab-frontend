@@ -48,10 +48,10 @@ export default function RegisterPage() {
           >
             <Input.Root isFullWidth>
               <div className="w-full">
-                <h1 className="text-2xl tracking-wide text-foreground flex flex-wrap gap-2 pt-10">
+                <h1 className="text-2xl tracking-wide text-foreground flex flex-wrap gap-2 pt-10 max-sm:text-xl">
                   Eai, vamos começar?
                 </h1>
-                <h2 className="text-xl tracking-wide text-foreground font-normal ml-1">
+                <h2 className="text-xl tracking-wide text-foreground font-normal sm:ml-1">
                   Cadastre-se agora e faça parte da{" "}
                   <span className="text-greenApp tracking-widest font-extrabold">
                     Notelab.io
@@ -65,6 +65,7 @@ export default function RegisterPage() {
                 register={register("name")}
                 error={errors.name}
                 placeholder="Digite seu nome completo"
+                isSmallHeight
               />
 
               <Input.Content
@@ -73,6 +74,7 @@ export default function RegisterPage() {
                 register={register("email")}
                 error={errors.email}
                 placeholder="Digite seu email"
+                isSmallHeight
               />
 
               <Input.Content
@@ -87,6 +89,7 @@ export default function RegisterPage() {
                 register={register("password")}
                 error={errors.password}
                 placeholder="Crie uma senha segura"
+                isSmallHeight
               />
               <Input.Content
                 label="Confirmar Senha"
@@ -100,6 +103,7 @@ export default function RegisterPage() {
                 register={register("passwordConfirmation")}
                 error={errors.passwordConfirmation}
                 placeholder="Repita sua senha"
+                isSmallHeight
               />
 
               <Controller

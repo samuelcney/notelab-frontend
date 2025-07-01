@@ -38,14 +38,17 @@ export function CourseContentForm() {
 
   return (
     <Card className="mt-4 shadow-none">
-      <CardHeader className="flex flex-row items-center justify-between">
+      <CardHeader className="flex flex-row items-center justify-between max-[448px]:flex-col">
         <div>
           <CardTitle>Conteúdo do Curso</CardTitle>
           <CardDescription>
             Organize seu curso em módulos e aulas.
           </CardDescription>
         </div>
-        <Button onClick={handleAddModule} className="border-foreground border">
+        <Button
+          onClick={handleAddModule}
+          className="border-foreground border max-[448px]:w-full max-[448px]:mt-2"
+        >
           <Plus className="mr-2 h-4 w-4" />
           Adicionar Módulo
         </Button>

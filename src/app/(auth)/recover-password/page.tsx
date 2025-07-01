@@ -18,7 +18,7 @@ export default function RecoverPasswordPage() {
           animate={{ x: 0, opacity: 1 }}
           exit={{ x: "100%", opacity: 0 }}
           transition={{ type: "tween", duration: 0.5 }}
-          className="w-[65%] flex flex-col gap-5"
+          className="w-[80%] flex flex-col gap-5"
         >
           {step === Step.SendEmail && (
             <SendEmailForm onSuccess={() => setStep(Step.ValidateToken)} />

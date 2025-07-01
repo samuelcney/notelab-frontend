@@ -49,7 +49,7 @@ export const InputContent = ({
           {...register}
           type={type}
           placeholder={placeholder}
-          className={`w-full h-full bg-transparent px-2 py-3 text-base focus:outline-none text-foreground font-normal rounded-lg ${
+          className={`w-full h-full bg-transparent px-2 py-3 text-base focus:outline-none text-foreground font-normal rounded-lg max-lg:text-sm ${
             isDisabled && "text-gray-400"
           }`}
           disabled={isDisabled}

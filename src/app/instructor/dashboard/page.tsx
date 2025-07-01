@@ -48,7 +48,7 @@ export default function InstructorDashboard() {
               >
                 <PlusCircle className="mr-2 h-4 w-4 text-background" />
                 <p className="text-background font-semibold text-base">
-                  Criar Novo Curso
+                  Publicar Novo Curso
                 </p>
               </Button>
             </div>

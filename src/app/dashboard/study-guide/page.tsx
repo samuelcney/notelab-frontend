@@ -67,14 +67,14 @@ export default function StudyGuidePage() {
 
             <Tabs defaultValue={tabs[0].value} className="w-full">
               <TabsList
-                className="grid w-full grid-cols-2 md:grid-cols-3 h-auto p-1 bg-gray-300 backdrop-blur-sm"
+                className="grid w-full grid-cols-2 md:grid-cols-3 h-auto p-1 bg-gray-300 backdrop-blur-sm max-md:grid-cols-3"
                 defaultValue={tabs[0].value}
               >
                 {tabs.map((tab) => (
                   <TabsTrigger
                     value={tab.value}
                     key={tab.value}
-                    className="flex flex-col gap-1 p-3 data-[state=active]:bg-green-600 data-[state=active]:text-white "
+                    className="flex flex-col gap-1 p-3 data-[state=active]:bg-green-600 data-[state=active]:text-white"
                   >
                     {tab.icon}
                     <span className="text-xs tracking-wide">{tab.label}</span>
