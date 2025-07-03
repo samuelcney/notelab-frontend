@@ -77,10 +77,15 @@ export function getWhatsappLink(phone: string, customMessage?: string): string {
   const fullNumber = `55${cleaned}`;
 
   const defaultMessage =
-    "Olá ! Gostaria de tirar algumas dúvidas sobre as aulas. Podemos conversar?";
-  const finalMessage = customMessage || defaultMessage;
+    "Olá! Gostaria de tirar algumas dúvidas sobre as aulas. Podemos conversar?";
+  const finalMessage = encodeURIComponent(customMessage || defaultMessage);
 
-  return `https://wa.me/${fullNumber}?text=${encodeURIComponent(finalMessage)}`;
+  const isMobile = /iPhone|Android/i.test(navigator.userAgent);
+  const baseUrl = isMobile
+    ? "https://api.whatsapp.com"
+    : "https://web.whatsapp.com";
+
+  return `${baseUrl}/send?phone=${fullNumber}&text=${finalMessage}`;
 }
 
 export function getEmailLink(

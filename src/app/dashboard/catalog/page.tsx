@@ -9,6 +9,7 @@ import { Checkbox } from "@/presentation/ui/checkbox";
 import { Input } from "@/presentation/ui/input";
 import { Label } from "@/presentation/ui/label";
 import { Category } from "@/types/types";
+import { translateDifficulty } from "@/utils/Translations";
 import { Filter, Search } from "lucide-react";
 import { useState } from "react";
 
@@ -18,6 +19,7 @@ export default function CatalogPage() {
     useGetCategories();
 
   const [selectedCategories, setSelectedCategories] = useState<number[]>([]);
+  const [selectedDifficulty, setSelectedDifficulty] = useState<string[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [showFilters, setShowFilters] = useState(false);
 
@@ -28,11 +30,15 @@ export default function CatalogPage() {
         selectedCategories.includes(cat.id)
       );
 
+    const matchesDifficulty =
+      selectedDifficulty.length === 0 ||
+      selectedDifficulty.includes(course.difficulty);
+
     const matchesSearch =
       course.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       course.description?.toLowerCase().includes(searchTerm.toLowerCase());
 
-    return matchesCategory && matchesSearch;
+    return matchesCategory && matchesSearch && matchesDifficulty;
   });
 
   const handleCategoryChange = (categoryId: number) => {
@@ -43,8 +49,15 @@ export default function CatalogPage() {
     );
   };
 
+  const handleDifficultyChange = (level: string) => {
+    setSelectedDifficulty((prev) =>
+      prev.includes(level) ? prev.filter((l) => l !== level) : [...prev, level]
+    );
+  };
+
   const clearFilters = () => {
     setSelectedCategories([]);
+    setSelectedDifficulty([]);
     setSearchTerm("");
   };
 
@@ -78,47 +91,76 @@ export default function CatalogPage() {
           </Button>
 
           {showFilters && (
-            <div className="border border-foreground rounded-md p-4 mt-2">
-              <div className="flex justify-between items-center mb-3">
-                <h2 className="text-lg font-semibold">Categorias</h2>
-                {selectedCategories.length > 0 && (
-                  <Button variant="ghost" size="sm" onClick={clearFilters}>
-                    Limpar
-                  </Button>
-                )}
+            <div className="border border-foreground rounded-md p-4 mt-2 flex gap-4">
+              <div className="flex flex-col">
+                <h2 className="font-medium mb-3 text-lg">Dificuldade</h2>
+                <div className="space-y-5">
+                  {["BEGINNER", "INTERMEDIATE", "ADVANCED"].map((level) => {
+                    const translatedLevel = translateDifficulty(level);
+                    return (
+                      <div className="flex items-center space-x-2">
+                        <Checkbox
+                          id={`${level}`}
+                          className="ml-2"
+                          checked={selectedDifficulty.includes(level)}
+                          onCheckedChange={() => {
+                            handleDifficultyChange(level);
+                          }}
+                        />
+                        <Label htmlFor={`${level}`} className="cursor-pointer">
+                          {translatedLevel.name[0].toUpperCase() +
+                            translatedLevel.name.slice(1).toLowerCase()}
+                        </Label>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
-              <div className="space-y-2">
-                {isLoadingCategories ? (
-                  <div className="space-y-2">
-                    {[1, 2, 3].map((i) => (
-                      <div
-                        key={i}
-                        className="h-5 bg-muted rounded animate-pulse"
-                      />
-                    ))}
-                  </div>
-                ) : (
-                  categories.map((category) => (
-                    <div
-                      key={category.id}
-                      className="flex items-center space-x-2"
-                    >
-                      <Checkbox
-                        id={`instrument-${category.id}`}
-                        checked={selectedCategories.includes(category.id)}
-                        onCheckedChange={() =>
-                          handleCategoryChange(category.id)
-                        }
-                      />
-                      <Label
-                        htmlFor={`instrument-${category.id}`}
-                        className="cursor-pointer"
-                      >
-                        {category.name}
-                      </Label>
+
+              <div className="flex flex-col">
+                <div className="flex items-center">
+                  <h2 className="text-lg font-semibold mb-3">Instrumentos</h2>
+                  {selectedCategories.length > 0 && (
+                    <Button variant="ghost" size="sm" onClick={clearFilters}>
+                      Limpar
+                    </Button>
+                  )}
+                </div>
+                <div className="grid grid-cols-2 gap-3">
+                  {isLoadingCategories ? (
+                    <div className="space-y-3">
+                      {[1, 2, 3, 4, 5].map((i) => (
+                        <div
+                          key={i}
+                          className="h-5 bg-muted rounded animate-pulse"
+                        />
+                      ))}
                     </div>
-                  ))
-                )}
+                  ) : (
+                    categories.map((category) => (
+                      <div
+                        key={category.id}
+                        className="flex items-center space-x-2"
+                      >
+                        <Checkbox
+                          id={`instrument-${category.id}`}
+                          checked={selectedCategories.includes(category.id)}
+                          onCheckedChange={() =>
+                            handleCategoryChange(category.id)
+                          }
+                          className="ml-2"
+                        />
+                        <Label
+                          htmlFor={`instrument-${category.id}`}
+                          className="cursor-pointer"
+                        >
+                          {category.name[0].toUpperCase() +
+                            category.name.slice(1).toLowerCase()}
+                        </Label>
+                      </div>
+                    ))
+                  )}
+                </div>
               </div>
             </div>
           )}
@@ -148,8 +190,31 @@ export default function CatalogPage() {
             </div>
 
             <div className="border-t pt-4 border-foreground">
+              <h3 className="font-medium mb-3">Nível de dificuldade</h3>
+              <div className="space-y-5 mb-5">
+                {["BEGINNER", "INTERMEDIATE", "ADVANCED"].map((level) => {
+                  const translatedLevel = translateDifficulty(level);
+                  return (
+                    <div className="flex items-center space-x-2">
+                      <Checkbox
+                        id={`${level}`}
+                        className="ml-2"
+                        checked={selectedDifficulty.includes(level)}
+                        onCheckedChange={() => {
+                          handleDifficultyChange(level);
+                        }}
+                      />
+                      <Label htmlFor={`${level}`} className="cursor-pointer">
+                        {translatedLevel.name[0].toUpperCase() +
+                          translatedLevel.name.slice(1).toLowerCase()}
+                      </Label>
+                    </div>
+                  );
+                })}
+              </div>
+
               <h3 className="font-medium mb-4">Categorias de Instrumentos</h3>
-              <div className="space-y-6">
+              <div className="space-y-5">
                 {isLoadingCategories ? (
                   <div className="space-y-2">
                     {[1, 2, 3, 4, 5].map((i) => (
@@ -168,6 +233,7 @@ export default function CatalogPage() {
                       <Checkbox
                         id={`category-${category.id}`}
                         checked={selectedCategories.includes(category.id)}
+                        className="ml-2"
                         onCheckedChange={() =>
                           handleCategoryChange(category.id)
                         }
@@ -176,7 +242,8 @@ export default function CatalogPage() {
                         htmlFor={`category-${category.id}`}
                         className="cursor-pointer"
                       >
-                        {category.name}
+                        {category.name[0].toUpperCase() +
+                          category.name.slice(1).toLowerCase()}
                       </Label>
                     </div>
                   ))

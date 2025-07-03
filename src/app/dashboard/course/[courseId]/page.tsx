@@ -8,6 +8,7 @@ import { AvatarBallComponent } from "@/presentation/components/avatar-profile/Av
 import { Badge } from "@/presentation/components/badges/Badge";
 import { AccordionChapter } from "@/presentation/components/chapters/AccordionChapter";
 import { ChapterAccordionSkeleton } from "@/presentation/components/chapters/ChapterAccordionSkeleton";
+import { notify } from "@/presentation/components/toast/Toast";
 import { PageRoot } from "@/presentation/layout/PageRoot";
 import { Separator } from "@/presentation/ui/separator";
 import { Skeleton } from "@/presentation/ui/skeleton";
@@ -26,7 +27,9 @@ import {
   ArrowRight,
   ChevronDown,
   ChevronUp,
+  Copy,
   Info,
+  MessageCircleIcon,
   Play,
 } from "lucide-react";
 import { useTheme } from "next-themes";
@@ -250,25 +253,37 @@ export default function CoursePage() {
                   />
                   <p className="text-sm">{instructor?.name}</p>
                   {email && (
-                    <a
-                      href={getEmailLink(email)}
-                      className="text-sm text-blue-600 underline hover:text-blue-700"
-                    >
-                      {email}
-                    </a>
+                    <div className="flex items-center gap-2">
+                      <a
+                        href={getEmailLink(email)}
+                        className="text-sm text-blue-600 underline hover:text-blue-700"
+                      >
+                        {email}
+                      </a>
+                      <Copy
+                        onClick={() => {
+                          navigator.clipboard.writeText(email);
+                          notify("E-mail copiado com sucesso!", "success");
+                        }}
+                        className="w-4 h-4 text-gray-500 cursor-pointer hover:text-gray-700"
+                      />
+                    </div>
                   )}
                   {phone && (
-                    <a
-                      href={getWhatsappLink(
-                        phone,
-                        `Olá, ${instructor?.name}! Gostaria de tirar algumas dúvidas sobre as aulas do curso *${course?.name}*. Podemos conversar?`
-                      )}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-sm text-green-600 underline hover:text-green-700"
-                    >
-                      {phone}
-                    </a>
+                    <div className="flex items-center gap-2">
+                      <a
+                        href={getWhatsappLink(
+                          phone,
+                          `Olá, ${instructor?.name}! Gostaria de tirar algumas dúvidas sobre as aulas do curso *${course?.name}*. Podemos conversar?`
+                        )}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-sm text-green-600 underline hover:text-green-700"
+                      >
+                        {phone}
+                      </a>
+                      <MessageCircleIcon className="w-4 h-4 text-gray-500" />
+                    </div>
                   )}
                 </div>
 

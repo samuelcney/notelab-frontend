@@ -6,7 +6,7 @@ export const categoryColors: Record<string, string> = {
   teclado: "#D64E07",
   jazz: "#6A0DAD",
   violão: "#8B4513",
-  canto: "#FF1493",
+  vocal: "#FF1493",
   rock: "#721121",
   blues: "#0000CD",
 };
