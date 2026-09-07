@@ -1,20 +1,29 @@
 import { jwtVerify } from "jose";
 import { NextRequest, NextResponse } from "next/server";
 
-interface SupabaseUserPayload {
-  user_metadata?: {
-    name?: string;
-  };
-  app_metadata?: {
-    role?: string;
-  };
+/**
+ * Formato do access token emitido pelo backend (NestJS `AuthService`):
+ * `jwtService.signAsync({ sub, email, role }, { secret: JWT_SECRET })`.
+ * O `role` é uma claim plana ("STUDENT" | "INSTRUCTOR" | "ADMIN").
+ */
+interface AccessTokenPayload {
+  sub?: string;
+  email?: string;
+  role?: string;
 }
 
 const PUBLIC_PATHS = ["/login", "/register", "/recover-password"];
 
-const secret = new TextEncoder().encode(
-  process.env.NEXT_PUBLIC_SUPABASE_JWT_SECRET
-);
+/**
+ * Deve ser o MESMO valor de `JWT_SECRET` do backend, senão toda verificação
+ * falha e o usuário autenticado é jogado para /login. Resolvido a cada request
+ * (e não no import) para não quebrar o Edge runtime quando a env não existe.
+ */
+function getSecret(): Uint8Array | null {
+  const secret = process.env.JWT_SECRET;
+  if (!secret) return null;
+  return new TextEncoder().encode(secret);
+}
 
 function hasAccess(path: string, role: string): boolean {
   const accessMap: Record<string, string[]> = {
@@ -36,19 +45,27 @@ export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
   const token = req.cookies.get("token")?.value;
   const isPublicPath = PUBLIC_PATHS.some((path) => pathname.startsWith(path));
+  const secret = getSecret();
 
-  if (isPublicPath && token) {
+  if (!secret) {
+    console.error("JWT_SECRET ausente no frontend; não é possível validar sessão.");
+    if (isPublicPath) return NextResponse.next();
+    return NextResponse.redirect(new URL("/login", req.url));
+  }
+
+  if (isPublicPath) {
+    if (!token) return NextResponse.next();
     try {
       await jwtVerify(token, secret);
       return NextResponse.redirect(new URL("/dashboard/home", req.url));
-    } catch (err: any) {
-      console.warn("Token inválido em rota pública:", err.code);
-      return NextResponse.next();
+    } catch {
+      // Token presente mas inválido (secret trocado, assinado por outro
+      // backend, corrompido): limpa para não ficar preso num loop silencioso.
+      const res = NextResponse.next();
+      res.cookies.delete("token");
+      res.cookies.delete("user");
+      return res;
     }
-  }
-
-  if (isPublicPath && !token) {
-    return NextResponse.next();
   }
 
   if (!token) {
@@ -57,21 +74,34 @@ export async function middleware(req: NextRequest) {
 
   try {
     const { payload } = await jwtVerify(token, secret);
-    const userPayload = payload as SupabaseUserPayload;
-    const role = userPayload.app_metadata?.role;
+    const { role } = payload as AccessTokenPayload;
 
     if (!role || !hasAccess(pathname, role)) {
       return NextResponse.redirect(new URL("/unauthorized", req.url));
     }
 
     return NextResponse.next();
-  } catch (error: any) {
-    if (error.code === "ERR_JWT_EXPIRED") {
-      console.warn("Token expirado. Redirecionando para login.");
-    } else {
-      console.error("Erro ao verificar JWT:", error);
-    }
-    return NextResponse.redirect(new URL("/login", req.url));
+  } catch (error) {
+    const code =
+      error && typeof error === "object" && "code" in error
+        ? (error as { code?: string }).code
+        : undefined;
+
+    const reason =
+      code === "ERR_JWT_EXPIRED" ? "expired" : "invalid";
+    console.warn(
+      `[middleware] JWT rejeitado (${reason}). Se você acabou de trocar o ` +
+        `JWT_SECRET, reinicie o backend e o next dev e refaça o login.`,
+    );
+
+    // Redireciona para /login já limpando o cookie inválido, senão o próximo
+    // request cai aqui de novo (loop "silencioso").
+    const res = NextResponse.redirect(
+      new URL(`/login?session=${reason}`, req.url),
+    );
+    res.cookies.delete("token");
+    res.cookies.delete("user");
+    return res;
   }
 }
 

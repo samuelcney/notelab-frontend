@@ -40,7 +40,7 @@ type FormData = z.infer<typeof instructorRequestSchema>;
 
 export default function SendInstructorRequestPage() {
   const router = useRouter();
-  const [showSuccess, setShowSuccess] = useState(false);
+  const [, setShowSuccess] = useState(false);
   const [documents, setDocuments] = useState<File | null>(null);
   const { mutateAsync, isPending } = useSendInstructorRequest();
 
@@ -309,7 +309,7 @@ export default function SendInstructorRequestPage() {
                     variant="outline"
                     type="button"
                     onClick={() => router.push(pathNameEnum.HOME)}
-                    className="border border-foreground text-foreground hover:bg-foreground/10"
+                    className="border border-border text-foreground hover:bg-foreground/10"
                   >
                     Cancelar
                   </Button>

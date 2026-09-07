@@ -118,7 +118,7 @@ export function LessonContent({ lesson, moduleId }: LessonContentProps) {
 
   return (
     <div className="grid grid-cols-2 gap-6 max-md:grid-cols-1">
-      <div className="mt-4 space-y-4 rounded-md p-4 border border-foreground bg-background">
+      <div className="mt-4 space-y-4 rounded-md p-4 border border-border bg-background">
         {lesson.type === lessonTypeEnum.VIDEO_URL && (
           <div className="space-y-2">
             <Label className="text-sm font-medium text-foreground">
@@ -148,7 +148,7 @@ export function LessonContent({ lesson, moduleId }: LessonContentProps) {
               height={200}
               visibleDragbar={false}
               textareaProps={{ disabled: !isEditing }}
-              className="border border-foreground rounded-md"
+              className="border border-border rounded-md"
             />
           </div>
         </div>
@@ -169,7 +169,7 @@ export function LessonContent({ lesson, moduleId }: LessonContentProps) {
                 variant="default"
                 size="sm"
                 onClick={saveContent}
-                className="text-foreground border border-foreground bg-background"
+                className="text-foreground border border-border bg-background"
               >
                 <Save className="mr-2 h-3 w-3" />
                 Salvar
@@ -180,7 +180,7 @@ export function LessonContent({ lesson, moduleId }: LessonContentProps) {
               variant="default"
               size="sm"
               onClick={startEditing}
-              className="text-foreground border border-foreground bg-background"
+              className="text-foreground border border-border bg-background"
             >
               <Edit className="mr-2 h-3 w-3" />
               Editar Conteúdo

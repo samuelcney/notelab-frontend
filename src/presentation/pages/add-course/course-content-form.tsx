@@ -47,7 +47,7 @@ export function CourseContentForm() {
         </div>
         <Button
           onClick={handleAddModule}
-          className="border-foreground border max-[448px]:w-full max-[448px]:mt-2"
+          className="border-border border max-[448px]:w-full max-[448px]:mt-2"
         >
           <Plus className="mr-2 h-4 w-4" />
           Adicionar Módulo
@@ -68,7 +68,7 @@ export function CourseContentForm() {
                   <TabsTrigger
                     key={module.id}
                     value={module.id}
-                    className="flex-shrink-0 border border-foreground w-28"
+                    className="flex-shrink-0 border border-border w-28"
                   >
                     {module.title}
                   </TabsTrigger>

@@ -32,7 +32,7 @@ export const useUpdateUserStatus = () => {
       );
     },
 
-    onError: (error: any) => {
+    onError: (error: unknown) => {
       const message = getErrorMessage(error);
       console.error("Erro ao atualizar status do usuário:", message);
       notify(message, "error");

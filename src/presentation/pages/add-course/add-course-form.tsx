@@ -28,7 +28,6 @@ export function AddCourseForm() {
   const { resetCourse, course, setInstructorId } = useCourseStore();
   const { mutateAsync: createCourse, isPending } = useCreateCourse();
   const user = useCurrentUser();
-  if (!user) return null;
 
   const handleSubmit = async () => {
     try {
@@ -38,7 +37,7 @@ export function AddCourseForm() {
       if (!result.success) {
         const fieldErrors = result.error.flatten().fieldErrors;
 
-        for (const [field, messages] of Object.entries(fieldErrors)) {
+        for (const messages of Object.values(fieldErrors)) {
           if (messages && messages.length > 0) {
             notify(messages[0], "error");
           }
@@ -77,6 +76,8 @@ export function AddCourseForm() {
       setInstructorId(user.id);
     }
   }, [user, setInstructorId]);
+
+  if (!user) return null;
 
   return (
     <div className="w-full">

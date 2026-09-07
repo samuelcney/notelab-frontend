@@ -5,12 +5,12 @@ const lessonSchema = z.object({
   id: z.string(),
   title: z.string().min(1, { message: "O título da aula é obrigatório." }),
   type: z.nativeEnum(lessonTypeEnum, {
-    errorMap: () => ({ message: "Tipo de aula inválido." }),
+    error: "Tipo de aula inválido.",
   }),
   description: z.string().optional(),
   videoUrl: z
     .string({
-      required_error: "O campo de URL das aulas não pode estar vazio.",
+      error: "O campo de URL das aulas não pode estar vazio.",
     })
     .nonempty({
       message: "A URL do vídeo é obrigatória.",
@@ -46,7 +46,7 @@ export const courseSchema = z.object({
     message: "Selecione pelo menos uma categoria.",
   }),
   difficulty: z.nativeEnum(courseLevelEnum, {
-    errorMap: () => ({ message: "Nível de dificuldade inválido." }),
+    error: "Nível de dificuldade inválido.",
   }),
   coverImage: z.instanceof(File).optional(),
   modules: z.array(moduleSchema).min(1, {

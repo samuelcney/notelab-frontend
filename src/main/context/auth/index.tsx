@@ -16,7 +16,7 @@ import { UserType } from "@/types/types";
 interface AuthContextProps {
   user: UserType | null;
   token: string | null;
-  login: (token: string, user: UserType) => void;
+  login: (token: string, user?: UserType | null) => void;
   refreshToken: (token: string) => void;
   logout: () => void;
   signed: boolean;
@@ -31,11 +31,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const { data: fetchedUser, isLoading } = useMe(token, !user && !!token);
 
-  const login = (newToken: string, newUser: UserType) => {
+  const login = (newToken: string, newUser?: UserType | null) => {
     Cookies.set("token", newToken, { expires: 1 });
-    Cookies.set("user", JSON.stringify(newUser), { expires: 1 });
     setToken(newToken);
-    setUser(newUser);
+
+    if (newUser) {
+      Cookies.set("user", JSON.stringify(newUser), { expires: 1 });
+      setUser(newUser);
+    }
   };
 
   const refreshToken = (newToken: string) => {
@@ -64,12 +67,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     if (storedToken) setToken(storedToken);
 
-    if (storedUser) {
+    // Cookies antigos podem conter a string "undefined"/"null" (bug corrigido).
+    if (storedUser && storedUser !== "undefined" && storedUser !== "null") {
       try {
-        const parsedUser = JSON.parse(storedUser);
-        setUser(parsedUser);
-      } catch (e) {
-        logout();
+        setUser(JSON.parse(storedUser));
+      } catch {
+        Cookies.remove("user");
       }
     }
   }, []);
@@ -81,7 +84,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setUser(fetchedUser);
       Cookies.set("user", JSON.stringify(fetchedUser), { expires: 1 });
     }
-  }, [fetchedUser, isLoading]);
+  }, [fetchedUser, isLoading, user]);
 
   if (!user && isLoading) {
     return <LoadingScreen />;

@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function NotFoundPage() {
   return (
-    <main className="min-h-screen flex items-center justify-center">
+    <main className="min-h-dvh flex items-center justify-center">
       <div className="text-center space-y-4">
         <Image
           src={"/images/not-found.png"}

@@ -198,7 +198,7 @@ const CarouselPrevious = React.forwardRef<
   HTMLButtonElement,
   React.ComponentProps<typeof Button>
 >(({ className, variant = "ghost", size = "lg", ...props }, ref) => {
-  const { orientation, scrollPrev, canScrollPrev } = useCarousel();
+  const { scrollPrev, canScrollPrev } = useCarousel();
 
   return (
     <div className="absolute left-0 top-0 h-full w-10 flex items-center justify-center bg-gradient-to-r from-black/10 to-transparent">
@@ -226,7 +226,7 @@ const CarouselNext = React.forwardRef<
   HTMLButtonElement,
   React.ComponentProps<typeof Button>
 >(({ className, variant = "ghost", size = "lg", ...props }, ref) => {
-  const { orientation, scrollNext, canScrollNext } = useCarousel();
+  const { scrollNext, canScrollNext } = useCarousel();
 
   return (
     <div className="absolute right-0 top-0 h-full w-8 flex items-center justify-center bg-gradient-to-l from-black/10 to-transparent">

@@ -33,7 +33,7 @@ export const useChangePassword = () => {
       notify(message, "success");
     },
 
-    onError: (error: any) => {
+    onError: (error: unknown) => {
       const errorMessage = getErrorMessage(error);
       notify(errorMessage, "error");
     },

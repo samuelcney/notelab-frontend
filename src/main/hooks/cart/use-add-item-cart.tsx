@@ -26,7 +26,7 @@ export const useAddItemCart = () => {
       });
       notify("Curso adicionado ao carrinho", "success");
     },
-    onError: (error: any) => {
+    onError: (error: unknown) => {
       const errorMessage = getErrorMessage(error);
       console.error("Error:", errorMessage);
       notify(errorMessage, "error");

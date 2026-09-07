@@ -14,9 +14,9 @@ export function ValidateTokenForm({ onSuccess }: { onSuccess: () => void }) {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm<{ token: string }>();
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: { token: string }) => {
     const email = localStorage.getItem("recoverPasswordEmail");
     if (!email) {
       notify(

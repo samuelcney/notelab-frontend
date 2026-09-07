@@ -20,10 +20,8 @@ export default function MyCoursesPage() {
   const user = useCurrentUser();
   const [searchTerm, setSearchTerm] = useState("");
 
-  if (!user) return null;
-
   const { data: enrollments, isLoading: loadingEnrollments } =
-    useGetEnrollmentsByUserId(user.id);
+    useGetEnrollmentsByUserId(user?.id ?? "");
   const { data: courses, isLoading: loadingCourses } = useGetCourses();
 
   const isLoading = loadingCourses || loadingEnrollments;
@@ -46,10 +44,12 @@ export default function MyCoursesPage() {
     );
   }, [enrolledCourses, searchLower]);
 
+  if (!user) return null;
+
   if (isLoading) {
     return (
       <PageRoot>
-        <div className="flex flex-1 w-full min-h-screen items-center justify-center">
+        <div className="flex flex-1 w-full min-h-full items-center justify-center">
           <Loader2 className="animate-spin text-foreground" size={32} />
         </div>
       </PageRoot>
@@ -58,7 +58,7 @@ export default function MyCoursesPage() {
 
   return (
     <PageRoot>
-      <div className="flex flex-1 w-full min-h-screen">
+      <div className="flex flex-1 w-full min-h-full">
         <div className="mx-14 mt-8 mb-10 w-full">
           <div className="mb-8">
             <h1 className="text-4xl font-bold text-foreground mb-2">
@@ -68,7 +68,7 @@ export default function MyCoursesPage() {
           </div>
 
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-2">
-            <Card className="border border-foreground">
+            <Card className="border border-border">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="font-medium">Total de Cursos</CardTitle>
                 <BookOpen className="h-6 w-6 text-green-500" />

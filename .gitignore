@@ -32,6 +32,8 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+# ...menos o exemplo: ele documenta as variáveis necessárias e não tem segredo.
+!.env.example
 
 # vercel
 .vercel
@@ -39,3 +41,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# ferramental de agente (local, reinstalável, específico da máquina)
+# .claude/skills carrega um binário linux-x64 de 16 MB — nada disso pertence ao repo.
+.claude/
+.agents/
+.impeccable/
+skills-lock.json

@@ -23,13 +23,13 @@ export default function CartPage() {
   const navigation = useRouter();
   const user = useCurrentUser();
 
-  if (!user) return null;
-
-  const { data, isPending } = useGetUserCart(user.id);
+  const { data, isPending } = useGetUserCart(user?.id ?? "");
 
   const { mutateAsync: removeItem } = useRemoveItemCart();
   const { mutateAsync: makeEnrollment, isPending: isLoadingEnrollment } =
     useCreateEnrollment();
+
+  if (!user) return null;
 
   const cartItems = data?.cartItems || [];
   const totalPrice = cartItems.reduce(
@@ -62,7 +62,7 @@ export default function CartPage() {
       } else {
         await removeItem({ cartId: data?.id || "", courseId });
       }
-    } catch (error) {
+    } catch {
       notify("Erro ao finalizar a compra", "error");
     }
   };
@@ -70,7 +70,7 @@ export default function CartPage() {
   if (isPending) {
     return (
       <PageRoot>
-        <div className="flex items-center justify-center w-full min-h-screen">
+        <div className="flex items-center justify-center w-full min-h-full">
           <div className="text-2xl text-foreground">
             <Loader2 className="animate-spin" />
           </div>
@@ -81,7 +81,7 @@ export default function CartPage() {
 
   return (
     <PageRoot>
-      <div className="flex flex-1 w-full min-h-screen ">
+      <div className="flex flex-1 w-full min-h-full ">
         <div className="mx-8 lg:px-4 py-8 w-full">
           <div className="flex items-center gap-4 mb-8">
             <button
@@ -112,7 +112,7 @@ export default function CartPage() {
                 {cartItems.map((item, index) => (
                   <div
                     key={item.course.id + index}
-                    className="rounded-xl shadow-sm border border-foreground p-2 relative group hover:shadow-md transition-shadow"
+                    className="rounded-xl shadow-sm border border-border p-2 relative group hover:shadow-md transition-shadow"
                   >
                     <button
                       className="absolute top-0 right-0 p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-full transition-colors opacity-0 group-hover:opacity-100"
@@ -146,7 +146,7 @@ export default function CartPage() {
               </div>
 
               <div className="lg:col-span-1">
-                <div className="rounded-xl shadow-sm border border-foreground  p-6 sticky top-8">
+                <div className="rounded-xl shadow-sm border border-border  p-6 sticky top-8">
                   <h3 className="text-xl font-semibold text-foreground mb-6">
                     Resumo do Pedido
                   </h3>
@@ -163,7 +163,7 @@ export default function CartPage() {
                       <span>Desconto</span>
                       <span className="text-green-600">- R$ 0,00</span>
                     </div>
-                    <hr className="border border-foreground" />
+                    <hr className="border border-border" />
                     <div className="flex justify-between text-lg font-semibold text-foreground">
                       <span>Total</span>
                       <span>R$ {totalPrice.toFixed(2)}</span>
@@ -194,13 +194,13 @@ export default function CartPage() {
                     </AlertBox>
                     <button
                       onClick={() => navigation.push(pathNameEnum.CATALOG)}
-                      className="w-full bg-background hover:opacity-[80%] text-foreground font-medium py-3 px-4 rounded-lg transition-colors border border-foreground"
+                      className="w-full bg-background hover:opacity-[80%] text-foreground font-medium py-3 px-4 rounded-lg transition-colors border border-border"
                     >
                       Continuar Comprando
                     </button>
                   </div>
 
-                  <div className="mt-6 pt-6 border-t  border-foreground">
+                  <div className="mt-6 pt-6 border-t  border-border">
                     <div className="text-sm text-gray-400 space-y-2">
                       <div className="flex items-center gap-2">
                         <div className="w-2 h-2 bg-green-500 rounded-full"></div>

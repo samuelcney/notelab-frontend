@@ -12,17 +12,18 @@ export const useLogin = () => {
   const { push } = useRouter();
 
   return useMutation({
-    mutationFn: authService.signIn,
-    onSuccess: (data) => {
-      const { token, user } = data;
-
+    mutationFn: async (credentials: Parameters<typeof authService.signIn>[0]) => {
+      const { token } = await authService.signIn(credentials);
+      // /auth/login não retorna o usuário; buscamos o perfil com o token.
+      const user = await authService.me(token);
+      return { token, user };
+    },
+    onSuccess: ({ token, user }) => {
       queryClient.invalidateQueries({ queryKey: [QueryKeysEnum.SIGN_IN] });
       login(token, user);
       push(pathNameEnum.HOME);
-
-      setTimeout(() => {}, 3000);
     },
-    onError: (error: any) => {
+    onError: (error: unknown) => {
       const errorMessage = getErrorMessage(error);
       notify(errorMessage, "error");
     },

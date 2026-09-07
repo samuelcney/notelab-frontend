@@ -18,13 +18,12 @@ interface LessonItemProps {
 export function LessonItem({
   lesson,
   moduleId,
-  isExpanded,
   onToggleExpand,
 }: LessonItemProps) {
   const { updateLesson, removeLesson } = useCourseStore();
 
   return (
-    <div className="border rounded-md overflow-hidden border-foreground">
+    <div className="border rounded-md overflow-hidden border-border">
       <div
         className="flex items-center justify-between p-3 bg-green-700 cursor-pointer"
         onClick={onToggleExpand}

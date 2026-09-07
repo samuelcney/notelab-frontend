@@ -24,7 +24,11 @@ export const HeaderRoot = ({ children }: HeaderRootProps) => {
           size={32}
           onClick={(event) => {
             event.stopPropagation();
-            !isOpen ? openSidebar() : closeSideBar();
+            if (!isOpen) {
+              openSidebar();
+            } else {
+              closeSideBar();
+            }
           }}
         />
       </button>

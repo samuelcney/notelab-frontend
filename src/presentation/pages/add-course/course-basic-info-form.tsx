@@ -101,7 +101,7 @@ export function CourseBasicInfoForm() {
             preview="edit"
             height={200}
             visibleDragbar={false}
-            className="border border-foreground rounded-md"
+            className="border border-border rounded-md"
             data-color-mode={currentTheme === "dark" ? "dark" : "light"}
           />
         </div>
@@ -115,14 +115,14 @@ export function CourseBasicInfoForm() {
               <PopoverTrigger asChild>
                 <Button
                   variant="outline"
-                  className="w-full justify-between text-foreground border-foreground"
+                  className="w-full justify-between text-foreground border-border"
                 >
                   {course.categories.length > 0
                     ? `${course.categories.length} categoria(s) selecionada(s)`
                     : "Selecionar categorias"}
                 </Button>
               </PopoverTrigger>
-              <PopoverContent className="w-full max-w-sm border border-foreground">
+              <PopoverContent className="w-full max-w-sm border border-border">
                 <div className="grid gap-2">
                   {data?.map((category) => (
                     <label
@@ -198,7 +198,7 @@ export function CourseBasicInfoForm() {
           <Label htmlFor="imagem">Imagem de Capa</Label>
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
-              <div className="flex h-32 items-center justify-center rounded-md border border-dashed border-foreground">
+              <div className="flex h-32 items-center justify-center rounded-md border border-dashed border-border">
                 {course.coverImage ? (
                   <div className="relative h-full w-full">
                     <Image
@@ -237,7 +237,7 @@ export function CourseBasicInfoForm() {
                 />
                 <Button
                   variant="outline"
-                  className="w-full text-foreground border-foreground"
+                  className="w-full text-foreground border-border"
                   onClick={() => document.getElementById("image")?.click()}
                 >
                   <Upload className="mr-2 h-4 w-4" />

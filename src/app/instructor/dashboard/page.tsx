@@ -24,10 +24,12 @@ export default function InstructorDashboard() {
   const user = useCurrentUser();
   const [searchTerm, setSearchTerm] = useState("");
 
-  if (!user) return null;
+  const { data: courses, isPending } = useGetCoursesByInstructorId(
+    user?.id ?? ""
+  );
+  const { data: enrollments, isLoading } = useGetCountEnrollments(user?.id ?? "");
 
-  const { data: courses, isPending } = useGetCoursesByInstructorId(user.id);
-  const { data: enrollments, isLoading } = useGetCountEnrollments(user.id);
+  if (!user) return null;
 
   const searchLower = searchTerm.toLowerCase();
   const filteredCourses = courses?.filter((course) =>
@@ -55,7 +57,7 @@ export default function InstructorDashboard() {
 
             <div className="w-full space-y-4">
               <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-                <Card className="border border-foreground">
+                <Card className="border border-border">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="font-medium">
                       Total de Cursos
@@ -74,7 +76,7 @@ export default function InstructorDashboard() {
                   </CardContent>
                 </Card>
 
-                <Card className="border border-foreground">
+                <Card className="border border-border">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="font-medium">
                       Matrículas Ativas

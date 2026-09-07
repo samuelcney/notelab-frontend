@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import tailwindcssAnimate from "tailwindcss-animate";
 
 export default {
   content: [
@@ -6,15 +7,24 @@ export default {
     "./src/presentation/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
-  darkMode: ["class", "class"],
+  // O next-themes escreve data-theme no <html> (ThemeProvider usa
+  // attribute="data-theme"). Antes aqui estava ["class", "class"], que além de
+  // malformado exigia uma classe .dark que nada no app jamais adicionava — por
+  // isso todo utilitário dark: e todo token escuro do shadcn estavam mortos.
+  darkMode: ["selector", '[data-theme="dark"]'],
   theme: {
     extend: {
       fontFamily: {
-        saira: ["Saira", "sans-serif"],
+        saira: ["var(--font-saira)", "Saira", "sans-serif"],
+      },
+      transitionTimingFunction: {
+        "out-strong": "var(--ease-out)",
+        "in-out-strong": "var(--ease-in-out)",
+        drawer: "var(--ease-drawer)",
       },
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
         greenApp: "#22c55e",
         "light-dark": "#171717",
         "light-gray": "#a8a8a8",
@@ -94,5 +104,5 @@ export default {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [tailwindcssAnimate],
 } satisfies Config;

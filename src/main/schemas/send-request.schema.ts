@@ -23,10 +23,10 @@ export const instructorRequestSchema = z.object({
       "doctorate",
       "self-taught",
     ],
-    { required_error: "Formação musical é obrigatória." }
+    { error: "Formação musical é obrigatória." }
   ),
   yearsExperience: z.enum(["1-2", "3-5", "6-10", "10+"], {
-    required_error: "Tempo de experiência é obrigatório.",
+    error: "Tempo de experiência é obrigatório.",
   }),
   instruments: z
     .string()

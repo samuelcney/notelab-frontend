@@ -16,7 +16,7 @@ export const CourseCatalogCard = ({ ...course }: Partial<CourseProps>) => {
 
   return (
     <div
-      className="w-full min-h-[300px] md:h-[300px] border border-foreground flex flex-col md:flex-row shadow-md rounded-md overflow-hidden gap-4 cursor-pointer hover:shadow-lg transition-all duration-200"
+      className="w-full min-h-[300px] md:h-[300px] border border-border flex flex-col md:flex-row shadow-md rounded-md overflow-hidden gap-4 cursor-pointer hover:shadow-lg transition-shadow duration-200"
       key={course.id}
       onClick={() => navigation.push(`course/${course.id}/presentation`)}
     >

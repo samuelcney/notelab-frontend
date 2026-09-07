@@ -29,7 +29,7 @@ export function ModuleHeader({ module, onModuleRemoved }: ModuleHeaderProps) {
           variant="outline"
           size="sm"
           onClick={() => addLesson(module.id)}
-          className="text-foreground border-foreground border"
+          className="text-foreground border-border border"
         >
           <Plus className="mr-2 h-4 w-4" />
           Adicionar Aula

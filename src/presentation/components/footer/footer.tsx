@@ -1,5 +1,5 @@
 import { Button } from "@/presentation/ui/button";
-import { Facebook, Instagram, Twitter, Youtube } from "lucide-react";
+import { Facebook, Instagram, Twitter, Youtube } from "./social-icons";
 import { Logo } from "../Logo";
 
 export function Footer() {

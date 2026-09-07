@@ -4,8 +4,8 @@ import { createContext, useContext, useState } from "react";
 interface ModalContextProps {
   isModalOpen: boolean;
   modalType: string | null;
-  modalProps: Record<string, any> | null;
-  openModal: (type: string, props?: Record<string, any>) => void;
+  modalProps: Record<string, unknown> | null;
+  openModal: (type: string, props?: Record<string, unknown>) => void;
   closeModal: () => void;
 }
 
@@ -16,11 +16,11 @@ export const ModalProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalType, setModalType] = useState<string | null>(null);
-  const [modalProps, setModalProps] = useState<Record<string, any> | null>(
+  const [modalProps, setModalProps] = useState<Record<string, unknown> | null>(
     null
   );
 
-  const openModal = (type: string, props?: Record<string, any>) => {
+  const openModal = (type: string, props?: Record<string, unknown>) => {
     setModalType(type);
     setModalProps(props || null);
     setIsModalOpen(true);

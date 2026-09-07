@@ -8,10 +8,9 @@ import { Camera, Mail, Pencil, Phone, User2 } from "lucide-react";
 
 export default function ProfilePage() {
   const user = useCurrentUser();
+  const { openModal, isModalOpen, closeModal } = useModal();
 
   if (!user) return null;
-
-  const { openModal, isModalOpen, closeModal } = useModal();
 
   const renderAvatar = () => {
     if (user?.userBio?.avatarUrl === "") {
@@ -39,7 +38,7 @@ export default function ProfilePage() {
 
   return (
     <PageRoot>
-      <div className="flex flex-col w-full min-h-screen bg-background text-foreground">
+      <div className="flex flex-col w-full min-h-full bg-background text-foreground">
         <div className="w-full h-44 bg-gradient-to-r from-green-800 via-green-700 to-green-600 relative">
           <div className="absolute inset-0 opacity-20  bg-cover bg-center" />
 
@@ -51,7 +50,7 @@ export default function ProfilePage() {
 
               <label
                 htmlFor="avatar-upload"
-                className="absolute bottom-0 right-0 bg-green-600 hover:bg-green-700 text-white p-2 rounded-full cursor-pointer shadow-md transition-all duration-200"
+                className="absolute bottom-0 right-0 bg-green-600 hover:bg-green-700 text-white p-2 rounded-full cursor-pointer shadow-md transition-colors duration-200"
                 onClick={() => openModal("profile")}
               >
                 <Camera size={16} />

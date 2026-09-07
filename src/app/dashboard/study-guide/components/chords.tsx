@@ -23,7 +23,15 @@ export const Chords = () => {
   const [selectedKey, setSelectedKey] = useState("C");
   const [selectedChord, setSelectedChord] = useState(CHORDS_TYPES.triads[0]);
 
-  const transposeChord = (chord: any, fromKey: string, toKey: string) => {
+  type Chord = {
+    name: string;
+    symbol: string;
+    formula: string;
+    example: string;
+    notes: string[];
+  };
+
+  const transposeChord = (chord: Chord, fromKey: string, toKey: string) => {
     const fromIndex = ALL_NOTES.indexOf(fromKey);
     const toIndex = ALL_NOTES.indexOf(toKey);
     const interval = (toIndex - fromIndex + 12) % 12;
@@ -56,7 +64,7 @@ export const Chords = () => {
                 className={
                   selectedKey === key
                     ? "bg-green-600 text-white"
-                    : "text-foreground border border-foreground bg-background"
+                    : "text-foreground border border-border bg-background"
                 }
                 onClick={() => setSelectedKey(key)}
                 size="sm"
@@ -82,7 +90,7 @@ export const Chords = () => {
               return (
                 <Card
                   key={index}
-                  className={`cursor-pointer transition-all hover:shadow-md ${
+                  className={`cursor-pointer transition-shadow hover:shadow-md ${
                     selectedChord.name === chord.name
                       ? "ring-2 ring-green-500"
                       : ""
@@ -106,7 +114,7 @@ export const Chords = () => {
                       <div className="text-sm font-medium mb-1 text-foreground">
                         Fórmula:
                       </div>
-                      <Badge variant="outline" className="border-foreground">
+                      <Badge variant="outline" className="border-border">
                         {chord.formula}
                       </Badge>
                     </div>
@@ -139,7 +147,7 @@ export const Chords = () => {
             {CHORDS_TYPES.sevenths.map((chord, index) => {
               const transposedChord = transposeChord(chord, "C", selectedKey);
               return (
-                <Card key={index} className="hover:shadow-md transition-all">
+                <Card key={index} className="hover:shadow-md transition-shadow">
                   <CardHeader className="pb-3">
                     <CardTitle
                       className={`${
@@ -157,7 +165,7 @@ export const Chords = () => {
                       <div className="text-sm font-medium mb-1 text-foreground">
                         Fórmula:
                       </div>
-                      <Badge variant="outline" className="border-foreground">
+                      <Badge variant="outline" className="border-border">
                         {chord.formula}
                       </Badge>
                     </div>
@@ -190,7 +198,7 @@ export const Chords = () => {
             {CHORDS_TYPES.extensions.map((chord, index) => {
               const transposedChord = transposeChord(chord, "C", selectedKey);
               return (
-                <Card key={index} className="hover:shadow-md transition-all">
+                <Card key={index} className="hover:shadow-md transition-shadow">
                   <CardHeader className="pb-3">
                     <CardTitle
                       className={`${
@@ -208,7 +216,7 @@ export const Chords = () => {
                       <div className="text-sm font-medium mb-1 text-foreground">
                         Fórmula:
                       </div>
-                      <Badge variant="outline" className="border-foreground">
+                      <Badge variant="outline" className="border-border">
                         {chord.formula}
                       </Badge>
                     </div>
@@ -252,7 +260,7 @@ export const Chords = () => {
             {CHORDS_PROGRESSION.map((progression, index) => (
               <div
                 key={index}
-                className="p-4 border rounded-lg border-foreground"
+                className="p-4 border rounded-lg border-border"
               >
                 <h4 className="font-semibold mb-2 text-foreground">
                   {progression.name}
@@ -265,7 +273,7 @@ export const Chords = () => {
                     <Badge
                       key={chordIndex}
                       variant="outline"
-                      className="border-foreground"
+                      className="border-border"
                     >
                       {chord
                         .replace("C", selectedKey)

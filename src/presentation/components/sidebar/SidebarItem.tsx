@@ -24,7 +24,7 @@ export const SidebarItem = ({
 
       {title && isOpen && (
         <h1
-          className={`text-base text-white transition-all duration-300 overflow-hidden`}
+          className={`text-base text-white overflow-hidden`}
         >
           {title}
         </h1>

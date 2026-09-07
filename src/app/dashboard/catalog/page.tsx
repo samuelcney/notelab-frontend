@@ -63,7 +63,7 @@ export default function CatalogPage() {
 
   return (
     <PageRoot>
-      <div className="flex flex-col pt-6 w-full px-1 h-screen">
+      <div className="flex flex-col pt-6 w-full px-1 min-h-full">
         <div className="md:ml-24 mt-6 mb-8 md:mb-14 px-4 md:px-0 ">
           <h1 className="text-3xl md:text-4xl font-semibold tracking-wide">
             Catálogo
@@ -82,7 +82,7 @@ export default function CatalogPage() {
           </div>
           <Button
             variant="outline"
-            className="flex items-center gap-2 border border-foreground"
+            className="flex items-center gap-2 border border-border"
             onClick={() => setShowFilters(!showFilters)}
           >
             <Filter className="h-4 w-4" />
@@ -91,14 +91,14 @@ export default function CatalogPage() {
           </Button>
 
           {showFilters && (
-            <div className="border border-foreground rounded-md p-4 mt-2 flex gap-4">
+            <div className="border border-border rounded-md p-4 mt-2 flex gap-4">
               <div className="flex flex-col">
                 <h2 className="font-medium mb-3 text-lg">Dificuldade</h2>
                 <div className="space-y-5">
                   {["BEGINNER", "INTERMEDIATE", "ADVANCED"].map((level) => {
                     const translatedLevel = translateDifficulty(level);
                     return (
-                      <div className="flex items-center space-x-2">
+                      <div key={level} className="flex items-center space-x-2">
                         <Checkbox
                           id={`${level}`}
                           className="ml-2"
@@ -167,7 +167,7 @@ export default function CatalogPage() {
         </div>
 
         <div className="w-full items-start justify-center flex flex-1 gap-5 pb-12 max-sm:flex-col px-4 md:px-0">
-          <div className="hidden md:flex pb-20 w-[20%] border border-foreground rounded-md flex-col gap-4 p-4 sticky top-24">
+          <div className="hidden md:flex pb-20 w-[20%] border border-border rounded-md flex-col gap-4 p-4 sticky top-24">
             <div className="flex justify-between items-center">
               <h2 className="text-xl font-semibold">Filtros</h2>
               {selectedCategories.length > 0 ? (
@@ -189,13 +189,13 @@ export default function CatalogPage() {
               />
             </div>
 
-            <div className="border-t pt-4 border-foreground">
+            <div className="border-t pt-4 border-border">
               <h3 className="font-medium mb-3">Nível de dificuldade</h3>
               <div className="space-y-5 mb-5">
                 {["BEGINNER", "INTERMEDIATE", "ADVANCED"].map((level) => {
                   const translatedLevel = translateDifficulty(level);
                   return (
-                    <div className="flex items-center space-x-2">
+                    <div key={level} className="flex items-center space-x-2">
                       <Checkbox
                         id={`${level}`}
                         className="ml-2"
@@ -280,7 +280,7 @@ export default function CatalogPage() {
                   </p>
                   <Button
                     variant="outline"
-                    className="mt-4 border border-foreground"
+                    className="mt-4 border border-border"
                     onClick={clearFilters}
                   >
                     Limpar filtros

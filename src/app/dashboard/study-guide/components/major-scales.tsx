@@ -130,7 +130,7 @@ export const MajorScales = () => {
                     className={`h-auto p-3 flex flex-col items-start border bg-background ${
                       selectedScale.key === scale.key
                         ? "bg-green-500 text-white"
-                        : "border-foreground"
+                        : "border-border"
                     }`}
                   >
                     <div className="font-semibold text-foreground">

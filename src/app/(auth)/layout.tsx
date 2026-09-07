@@ -15,7 +15,7 @@ export default function AuthLayout({
     <div
       className={`w-full flex max-md:flex-col ${
         isRegisterPath ? "flex-row-reverse" : "flex-row"
-      } h-screen relative`}
+      } h-dvh relative`}
     >
       <div
         className={`flex flex-[0.5] ${

@@ -56,10 +56,13 @@ export function HeroSection() {
         </div>
 
         <div className="mt-8 flex flex-col sm:flex-row gap-4">
+          {/* Texto quase preto sobre o verde da marca: branco sobre #22c55e dá
+              2,28:1 e reprova no WCAG AA. Escurecer o rótulo em vez do verde
+              preserva a cor da identidade e sobe o contraste para 9,21:1.
+              O hover clareia, então o contraste só melhora. */}
           <Button
-            className="bg-green-500 hover:bg-green-600 h-12 px-6 font-semibold"
+            className="bg-green-500 hover:bg-green-400 text-neutral-950 h-12 px-6 font-semibold"
             onClick={() => push("/dashboard/catalog")}
-            color="white"
           >
             Explorar Cursos
           </Button>

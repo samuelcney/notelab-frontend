@@ -7,6 +7,14 @@ export const authService = {
     return data;
   },
 
+  // O /auth/login devolve só { token }. O perfil vem deste endpoint.
+  me: async (token: string) => {
+    const { data } = await http.get("/users/info/me", {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return data;
+  },
+
   signUp: async (userData: CreateUserDTO) => {
     const { data } = await http.post("/auth/register", userData);
     return data;

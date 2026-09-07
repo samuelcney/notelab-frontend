@@ -14,9 +14,10 @@ export const PageRoot = ({
   haveSearchBar = false,
   isOverflowHidden = false,
 }: PageLayoutProps) => {
+  // h-dvh: no mobile a barra de URL faz 100vh estourar a área visível.
   return (
     <div
-      className={`flex h-screen flex-col max-w-[100vw] ${
+      className={`flex h-dvh flex-col max-w-full ${
         isOverflowHidden ? "overflow-hidden" : "overflow-x-hidden"
       }`}
     >

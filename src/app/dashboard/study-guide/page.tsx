@@ -50,7 +50,7 @@ export default function StudyGuidePage() {
   return (
     <PageRoot>
       <div className="flex flex-1 w-full h-full pt-6 px-1 flex-col">
-        <div className="min-h-screen bg-gradient-to-br p-4 md:p-8">
+        <div className="min-h-full bg-gradient-to-br p-4 md:p-8">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-8">
               <div className="flex items-center justify-center gap-2 mb-4">

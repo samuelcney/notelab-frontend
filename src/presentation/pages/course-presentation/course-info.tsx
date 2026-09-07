@@ -30,7 +30,6 @@ export const CourseInfo = ({ isPending, instructor, data }: Props) => {
   const currentTheme = resolvedTheme || "light";
   const { push } = useRouter();
   const currentUser = useCurrentUser();
-  if (!currentUser) return null;
 
   const { data: enrollments } = useGetEnrollmentsByUserId(
     currentUser?.id ?? ""
@@ -44,7 +43,7 @@ export const CourseInfo = ({ isPending, instructor, data }: Props) => {
   const { mutateAsync: addItem, isPending: isLoading } = useAddItemCart();
 
   const { data: courseAlreadyInCart } = useGetItemAlreadyInCart(
-    currentUser.id,
+    currentUser?.id ?? "",
     String(data?.id)
   );
 
@@ -55,6 +54,7 @@ export const CourseInfo = ({ isPending, instructor, data }: Props) => {
     });
   };
 
+  if (!currentUser) return null;
   if (isPending) return <CourseContentSkeleton />;
 
   return (

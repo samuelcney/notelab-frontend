@@ -9,25 +9,24 @@ export const CarouselContainer = () => {
     {
       title: "Mais recentes:",
       transform: (list: CourseProps[]) => list,
-      isFreeCourses: true,
     },
-
     {
       title: "Confira os cursos em alta:",
       transform: (list: CourseProps[]) => [...list].reverse(),
-      isFreeCourses: true,
     },
   ];
 
   return (
-    <div className="flex flex-1 h-full flex-col gap-20 w-[100vw] px-4 mb-10">
+    /* w-full, não w-[100vw]: 100vw inclui a largura da scrollbar e ignora a
+       sidebar, o que empurrava o conteúdo para fora e obrigava o PageRoot a
+       esconder o overflow horizontal. */
+    <div className="flex flex-1 h-full w-full flex-col gap-12 md:gap-20 px-4 mb-10">
       {carouselsConfig.map((carousel, index) => (
         <CarouselRoot
           key={index}
           title={carousel.title}
           coursesList={carousel.transform(courses || [])}
           loading={isPending}
-          isFreeCourses={carousel.isFreeCourses}
         />
       ))}
     </div>

@@ -17,7 +17,7 @@ export const useLogout = () => {
       logout();
       push("/login");
     },
-    onError: (error: any) => {
+    onError: (error: unknown) => {
       const errorMessage = getErrorMessage(error);
       notify(errorMessage, "error");
     },

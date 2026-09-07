@@ -22,7 +22,7 @@ export const useCreateEnrollment = () => {
 
       notify("Matrícula feita com sucesso!", "success");
     },
-    onError: (error: any) => {
+    onError: (error: unknown) => {
       const errorMessage = getErrorMessage(error);
       console.error("Error:", errorMessage);
       notify(errorMessage, "error");

@@ -18,7 +18,7 @@ export const useRegister = () => {
       notify("Usuário criado com sucesso", "success");
       push("/login");
     },
-    onError: (error: any) => {
+    onError: (error: unknown) => {
       const errorMessage = getErrorMessage(error);
       notify(errorMessage, "error");
     },

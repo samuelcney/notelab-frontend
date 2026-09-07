@@ -26,7 +26,7 @@ export const useRemoveItemCart = () => {
 
       notify("Curso removido do carrinho", "success");
     },
-    onError: (error: any) => {
+    onError: (error: unknown) => {
       const errorMessage = getErrorMessage(error);
       notify(errorMessage, "error");
     },

@@ -34,7 +34,7 @@ export const MinorScales = () => {
         {SCALE_TYPES.map((scaleType) => (
           <Card
             key={scaleType.type}
-            className={`cursor-pointer transition-all ${
+            className={`cursor-pointer transition-shadow ${
               selectedType === scaleType.type ? "ring-2 ring-green-500" : ""
             }`}
             onClick={() => setSelectedType(scaleType.type)}
@@ -52,7 +52,7 @@ export const MinorScales = () => {
                   <Badge
                     key={index}
                     variant="outline"
-                    className="text-xs border-foreground"
+                    className="text-xs border-border"
                   >
                     {interval}
                   </Badge>
@@ -100,7 +100,7 @@ export const MinorScales = () => {
               {SCALE_TYPES.map((scaleType) => (
                 <div
                   key={scaleType.type}
-                  className="p-4 border rounded-lg border-foreground"
+                  className="p-4 border rounded-lg border-border"
                 >
                   <h4 className={`font-semibold text-green-500 mb-2`}>
                     {scaleType.name}
@@ -119,7 +119,7 @@ export const MinorScales = () => {
                         <Badge
                           key={index}
                           variant="outline"
-                          className="border-foreground"
+                          className="border-border"
                         >
                           {note}
                         </Badge>
@@ -146,7 +146,7 @@ export const MinorScales = () => {
                     selectedScale.key === scale.key ? "default" : "outline"
                   }
                   onClick={() => setSelectedScale(scale)}
-                  className={`h-auto p-3 text-foreground border-foreground ${
+                  className={`h-auto p-3 text-foreground border-border ${
                     selectedScale.key === scale.key
                       ? "bg-green-500 text-white"
                       : "border"

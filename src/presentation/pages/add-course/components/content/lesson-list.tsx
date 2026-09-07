@@ -23,9 +23,10 @@ export function LessonList({ moduleId, lessons }: LessonListProps) {
 
   if (lessons.length === 0) {
     return (
-      <div className="flex h-20 items-center justify-center rounded-md border border-dashed border-foreground">
+      <div className="flex h-20 items-center justify-center rounded-md border border-dashed border-border">
         <p className="text-sm text-muted-foreground">
-          Nenhuma aula adicionada. Clique em "Adicionar Aula" para começar.
+          Nenhuma aula adicionada. Clique em &quot;Adicionar Aula&quot; para
+          começar.
         </p>
       </div>
     );

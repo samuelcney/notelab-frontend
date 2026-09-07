@@ -28,7 +28,7 @@ export const useUpdateProfile = () => {
       notify("Perfil atualizado com sucesso", "success");
     },
 
-    onError: (error: any) => {
+    onError: (error: unknown) => {
       const message = getErrorMessage(error);
       console.error("Erro ao atualizar perfil:", message);
       notify(message, "error");

@@ -12,10 +12,10 @@ export const useGetItemAlreadyInCart = (
       const cart = await cartService.getUserCart(userId);
 
       const isItemInCart = cart?.cartItems?.some(
-        (item: any) => item.course.id === currentCourseId
+        (item: { course: { id: string } }) => item.course.id === currentCourseId
       );
 
-      return isItemInCart;
+      return isItemInCart ?? false;
     },
     enabled: !!userId,
     staleTime: 1000 * 60 * 5,

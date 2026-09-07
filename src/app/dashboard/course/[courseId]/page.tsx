@@ -354,7 +354,7 @@ export default function CoursePage() {
           )}
         </div>
 
-        <div className="block lg:hidden px-4 mt-6 max-lg:border-t border-foreground max-lg:mb-4">
+        <div className="block lg:hidden px-4 mt-6 max-lg:border-t border-border max-lg:mb-4">
           {isPending ? (
             <ChapterAccordionSkeleton />
           ) : (

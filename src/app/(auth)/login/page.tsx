@@ -7,6 +7,7 @@ import Icon from "@/presentation/components/Icon";
 import { Button } from "@/presentation/components/button";
 import { Input } from "@/presentation/components/input";
 import { notify } from "@/presentation/components/toast/Toast";
+import { getErrorMessage } from "@/utils/Errors";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -17,7 +18,7 @@ type LoginData = z.infer<typeof loginSchema>;
 
 export default function LoginPage() {
   const [hidePassword, setHidePassword] = useState(true);
-  const { mutateAsync, isPending, error } = useLogin();
+  const { mutateAsync, isPending } = useLogin();
   const navigation = useRouter();
 
   const {
@@ -31,8 +32,8 @@ export default function LoginPage() {
   const handleLogin = async (data: LoginData) => {
     try {
       await mutateAsync(data);
-    } catch {
-      notify(error, "error");
+    } catch (err) {
+      notify(getErrorMessage(err), "error");
     }
   };
 

@@ -143,7 +143,7 @@ export const EditProfileModal = ({ user }: Props) => {
         <Button
           type="button"
           variant="outline"
-          className="w-fit border-foreground"
+          className="w-fit border-border"
           onClick={handleCancel}
         >
           Cancelar

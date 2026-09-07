@@ -15,7 +15,7 @@ export const useSendInstructorRequest = () => {
 
       push(pathNameEnum.HOME);
     },
-    onError: (error: any) => {
+    onError: (error: unknown) => {
       const errorMessage = getErrorMessage(error);
       notify(errorMessage, "error");
     },

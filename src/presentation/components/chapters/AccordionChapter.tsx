@@ -34,7 +34,6 @@ export function AccordionChapter({
   courseId,
   onLessonSelect,
   currentLessonId,
-  currentModuleId,
 }: ChapterAccordionProps) {
   const router = useRouter();
 

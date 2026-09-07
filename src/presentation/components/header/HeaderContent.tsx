@@ -19,9 +19,9 @@ export const HeaderContent = ({
 
   const user = useCurrentUser();
 
-  if (!user) return null;
+  const { data: count } = useGetCartItemCount(user?.id ?? "");
 
-  const { data: count } = useGetCartItemCount(user.id);
+  if (!user) return null;
 
   return (
     <div

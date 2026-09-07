@@ -1,7 +1,19 @@
 import { http } from "@/main/http/axios/axios-instance";
 
+type SendRequestData = {
+  fullName: string;
+  cpf: string;
+  email: string;
+  phone: string;
+  musicalEducation: string;
+  yearsExperience: string;
+  instruments: string;
+  biography: string;
+  documents?: File;
+};
+
 export const sendRequestService = {
-  sendRequest: async (requestData: any) => {
+  sendRequest: async (requestData: SendRequestData) => {
     const formData = new FormData();
 
     formData.append("fullName", requestData.fullName);
@@ -12,7 +24,9 @@ export const sendRequestService = {
     formData.append("yearsExperience", requestData.yearsExperience);
     formData.append("instruments", requestData.instruments);
     formData.append("biography", requestData.biography);
-    formData.append("documents", requestData.documents);
+    if (requestData.documents) {
+      formData.append("documents", requestData.documents);
+    }
 
     const { data } = await http.post("/approve-requests", formData, {
       headers: {

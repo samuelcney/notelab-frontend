@@ -236,11 +236,13 @@ export const useCourseStore = create<CourseStore>((set) => ({
       );
       if (moduleIndex === -1) return state;
 
-      const module = state.course.modules[moduleIndex];
+      const targetModule = state.course.modules[moduleIndex];
       const newModules = [...state.course.modules];
       newModules[moduleIndex] = {
-        ...module,
-        lessons: module.lessons.filter((lesson) => lesson.id !== lessonId),
+        ...targetModule,
+        lessons: targetModule.lessons.filter(
+          (lesson) => lesson.id !== lessonId
+        ),
       };
 
       return {
@@ -258,11 +260,11 @@ export const useCourseStore = create<CourseStore>((set) => ({
       );
       if (moduleIndex === -1) return state;
 
-      const module = state.course.modules[moduleIndex];
+      const targetModule = state.course.modules[moduleIndex];
       const newModules = [...state.course.modules];
       newModules[moduleIndex] = {
-        ...module,
-        lessons: module.lessons.map((lesson) =>
+        ...targetModule,
+        lessons: targetModule.lessons.map((lesson) =>
           lesson.id === lessonId ? { ...lesson, [field]: value } : lesson
         ),
       };

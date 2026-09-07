@@ -15,7 +15,6 @@ export const ModalRoot = ({
   onClose,
   isOpen,
   widthPercentage,
-  heightPercentage,
 }: SidebarProps) => {
   const widthPer = widthPercentage ? `w-[${widthPercentage}%]` : "w-[45%]";
 

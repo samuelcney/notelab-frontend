@@ -22,13 +22,11 @@ interface CourseCardProps {
 export const CourseCard = ({
   id,
   courseName,
-  price,
   difficulty,
   instructorName,
   categories,
   coverImage,
   description,
-  isPresentation = false,
 }: CourseCardProps) => {
   const navigation = useRouter();
 

@@ -16,18 +16,14 @@ interface CourseCarouselProps {
   title: string;
   coursesList: CourseProps[];
   loading: boolean;
-  isFreeCourses?: boolean;
 }
 
 export const CarouselRoot = ({
   title,
   coursesList,
   loading,
-  isFreeCourses = false,
 }: CourseCarouselProps) => {
-  const courses = isFreeCourses
-    ? coursesList.filter((course) => course.price === 0)
-    : coursesList.filter((course) => course.price > 0);
+  const courses = coursesList;
 
   return (
     <div className="flex flex-1 flex-col gap-2 px-8 w-full">
